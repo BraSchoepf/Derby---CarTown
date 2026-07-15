@@ -12,32 +12,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30da1255a491cff478e82fe3fe9ee952, type: 3}
   m_Name: Porsche
   m_EditorClassIdentifier: Assembly-CSharp::CarStatsSO
-  maxMotorTorque: 6000
-  maxSpeed: 60
-  accelerationRate: 100
-  decelerationRate: 300
-  brakeForce: 3000
+  category: 2
+  carName: Porsche
+  icon: {fileID: 0}
+  maxMotorTorque: 2000
+  maxSpeed: 45
+  accelerationRate: 8
+  decelerationRate: 25
+  brakeForce: 6000
   brakeDecelStrength: 1
-  maxSteerAngle: 60
-  driftSteerBoost: 10
+  maxSteerAngle: 45
+  driftSteerBoost: 1.3
+  lowSpeedSteerMultiplier: 0.9
+  fullSteerSpeedThreshold: 10
+  highSpeedSteerReduction: 0.5
+  highSpeedThreshold: 30
   centerOfMassOffset: {x: 0, y: -0.5, z: 0}
+  forwardStiffness: 2.2
+  sidewaysStiffnessFront: 1.4
+  sidewaysStiffnessRear: 1.4
   driftableGroundLayer:
     serializedVersion: 2
     m_Bits: 8
-  handbrakeDriftTorque: 3000
-  driftSidewaysStiffness: 0.2
+  enableDrift: 1
+  handbrakeDriftTorque: 2500
+  driftSidewaysStiffness: 0.35
   driftKickForce: 1
   maxDriftAngle: 60
-  driftAngularTorque: 10
-  driftAngularDamping: 2
+  driftAngularTorque: 15
+  driftAngularDamping: 4
   maxDriftAngularVelocity: 70
   driftSustainForce: 1500
   minDriftAngleForSustain: 8
   directionChangeKick: 25
+  brakeResetDamping: 15
+  brakeResetThreshold: 0.1
+  handbrakeResetWindow: 0.15
   enableAutoDrift: 0
   autoDriftSpeedThreshold: 20
   autoDriftSteerThreshold: 0.8
   autoDriftStiffness: 0.5
-  brakeResetDamping: 15
-  brakeResetThreshold: 0.1
-  handbrakeResetWindow: 0.15
+  enableOffroadGrip: 0
+  offroadStiffnessMultiplier: 1.3
