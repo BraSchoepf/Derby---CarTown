@@ -147,7 +147,7 @@ public partial class @Car: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""KeyboardP1"",
                     ""action"": ""Steer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -158,7 +158,40 @@ public partial class @Car: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
+                    ""groups"": ""KeyboardP1"",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""46e04865-6994-46d7-822a-cabfe9c603cf"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
                     ""groups"": """",
+                    ""action"": ""Steer"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""6b73e6d7-39ee-4821-b969-f432b57b05c1"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardP2"",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""92c27a2f-b8dc-4d79-8dbc-495c2a58da49"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardP2"",
                     ""action"": ""Steer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -180,7 +213,7 @@ public partial class @Car: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""KeyboardP1"",
                     ""action"": ""Throttle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -191,7 +224,40 @@ public partial class @Car: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
+                    ""groups"": ""KeyboardP1"",
+                    ""action"": ""Throttle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""aacaa19f-7021-4d9f-aa8b-0bcbaab60d30"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
                     ""groups"": """",
+                    ""action"": ""Throttle"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""89dc4c6e-eb38-4f2f-98fb-83e8cb0b7237"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardP2"",
+                    ""action"": ""Throttle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""b8a0216e-fd12-4d32-b094-2b26778eedd5"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardP2"",
                     ""action"": ""Throttle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -202,7 +268,7 @@ public partial class @Car: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""KeyboardP1"",
                     ""action"": ""Brake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -210,10 +276,21 @@ public partial class @Car: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f5f4089f-2a2c-4735-98b7-c4e82360a07e"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""KeyboardP1"",
+                    ""action"": ""Handbrake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""732dc9c2-b777-4c91-aefd-d1a4f8d9d203"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardP2"",
                     ""action"": ""Handbrake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -221,7 +298,18 @@ public partial class @Car: IInputActionCollection2, IDisposable
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""KeyboardP1"",
+            ""bindingGroup"": ""KeyboardP1"",
+            ""devices"": []
+        },
+        {
+            ""name"": ""KeyboardP2"",
+            ""bindingGroup"": ""KeyboardP2"",
+            ""devices"": []
+        }
+    ]
 }");
         // carMap
         m_carMap = asset.FindActionMap("carMap", throwIfNotFound: true);
@@ -434,6 +522,32 @@ public partial class @Car: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="CarMapActions" /> instance referencing this action map.
     /// </summary>
     public CarMapActions @carMap => new CarMapActions(this);
+    private int m_KeyboardP1SchemeIndex = -1;
+    /// <summary>
+    /// Provides access to the input control scheme.
+    /// </summary>
+    /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
+    public InputControlScheme KeyboardP1Scheme
+    {
+        get
+        {
+            if (m_KeyboardP1SchemeIndex == -1) m_KeyboardP1SchemeIndex = asset.FindControlSchemeIndex("KeyboardP1");
+            return asset.controlSchemes[m_KeyboardP1SchemeIndex];
+        }
+    }
+    private int m_KeyboardP2SchemeIndex = -1;
+    /// <summary>
+    /// Provides access to the input control scheme.
+    /// </summary>
+    /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
+    public InputControlScheme KeyboardP2Scheme
+    {
+        get
+        {
+            if (m_KeyboardP2SchemeIndex == -1) m_KeyboardP2SchemeIndex = asset.FindControlSchemeIndex("KeyboardP2");
+            return asset.controlSchemes[m_KeyboardP2SchemeIndex];
+        }
+    }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "carMap" which allows adding and removing callbacks.
     /// </summary>

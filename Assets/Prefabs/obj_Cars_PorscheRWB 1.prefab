@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 5996716825968827000}
   - component: {fileID: 6988619573074101590}
   - component: {fileID: 7256052147252040463}
+  - component: {fileID: 1254508488530192516}
   m_Layer: 6
   m_Name: obj_Cars_PorscheRWB 1
   m_TagString: Untagged
@@ -133,6 +134,7 @@ Transform:
   - {fileID: 7345144873877274058}
   - {fileID: 5775842612116197875}
   - {fileID: 7457427640941765270}
+  - {fileID: 4197980181216252899}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5996716825968827000
@@ -159,9 +161,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &6988619573074101590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56afc3e244c6c144a04a966659f1560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarController
+  stats: {fileID: 11400000, guid: 45858658d4c1edb4da78caca033874c7, type: 2}
   wheels:
   - collider: {fileID: 4888099549530376706}
     visual: {fileID: 712064566119067704}
@@ -189,32 +192,12 @@ MonoBehaviour:
     visual: {fileID: 5775842612116197875}
     motor: 1
     steering: 0
-    brake: 0
+    brake: 1
   - collider: {fileID: 1938750556248316119}
     visual: {fileID: 7345144873877274058}
     motor: 1
     steering: 0
     brake: 1
-  maxMotorTorque: 2500
-  maxSteerAngle: 40
-  maxBrakeTorque: 3500
-  centerOfMassOffset: {x: 0, y: -0.5, z: 0}
-  driftableGroundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  handbrakeDriftTorque: 2000
-  driftSidewaysStiffness: 1
-  driftKickForce: 0.5
-  maxDriftAngle: 45
-  driftSteerBoost: 1.4
-  driftSustainForce: 500
-  minDriftAngleForSustain: 8
-  driftAngularTorque: 10
-  driftAngularDamping: 3
-  maxDriftAngularVelocity: 90
-  autoDriftSpeedThreshold: 20
-  autoDriftSteerThreshold: 1
-  autoDriftStiffness: 1
 --- !u!114 &7256052147252040463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,11 +223,29 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: KeyboardP1
   m_DefaultActionMap: carMap
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1254508488530192516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711543342545725848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2752560ea297c3e48828694a42d6ff59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarMeshDamage
+  targetMeshFilter: {fileID: 7741234776339382651}
+  damageRadius: 0.5
+  damageMultiplier: 0.08
+  maxVertexDisplacement: 0.2
+  minImpactForce: 30
+  recalculateBoundsEvery: 3
 --- !u!1 &1048758862022746729
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,22 +382,22 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 40000
     damper: 4500
-    targetPosition: 0.5
+    targetPosition: 0.1
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 40
   m_WheelDampingRate: 0.6
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_ExtremumSlip: 2.2
+    m_ExtremumValue: 1.2
+    m_AsymptoteSlip: 0.4
+    m_AsymptoteValue: 1.2
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_ExtremumSlip: 0.6
+    m_ExtremumValue: 1.2
+    m_AsymptoteSlip: 0.9
+    m_AsymptoteValue: 1.2
     m_Stiffness: 1
   m_IncludeLayers:
     serializedVersion: 2
@@ -452,22 +453,22 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 40000
     damper: 4500
-    targetPosition: 0.5
+    targetPosition: 0.1
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 40
   m_WheelDampingRate: 0.6
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_ExtremumSlip: 2.2
+    m_ExtremumValue: 1.2
+    m_AsymptoteSlip: 0.4
+    m_AsymptoteValue: 1.2
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_ExtremumSlip: 0.6
+    m_ExtremumValue: 1.2
+    m_AsymptoteSlip: 0.9
+    m_AsymptoteValue: 1.2
     m_Stiffness: 1
   m_IncludeLayers:
     serializedVersion: 2
@@ -478,6 +479,175 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!1 &2809239414971782660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4197980181216252899}
+  - component: {fileID: 7376154339644468467}
+  - component: {fileID: 3018663961418032785}
+  - component: {fileID: 6897100613795470658}
+  m_Layer: 0
+  m_Name: CinemachineCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4197980181216252899
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809239414971782660}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.1305262, y: 0.00000007524426, z: -0.000000019530983, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: 2.6646857, z: -4.3466663}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 193802155677108906}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7376154339644468467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809239414971782660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 1
+  OutputChannel: 2
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 7457427640941765270}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 68.37148
+    OrthographicSize: 5
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!114 &3018663961418032785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809239414971782660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b5d7c088409d9a40b7b09aa707777f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineOrbitalFollow
+  TargetOffset: {x: 0, y: 0, z: 0}
+  TrackerSettings:
+    BindingMode: 4
+    PositionDamping: {x: 2.5, y: 0.5, z: 1}
+    AngularDampingMode: 0
+    RotationDamping: {x: 1, y: 1, z: 1}
+    QuaternionDamping: 1
+  OrbitStyle: 0
+  Radius: 4.5
+  Orbits:
+    Top:
+      Radius: 2
+      Height: 5
+    Center:
+      Radius: 4
+      Height: 2.25
+    Bottom:
+      Radius: 2.5
+      Height: 0.1
+    SplineCurvature: 0.5
+  RecenteringTarget: 2
+  HorizontalAxis:
+    Value: 0
+    Center: 0
+    Range: {x: -180, y: 180}
+    Wrap: 1
+    Recentering:
+      Enabled: 1
+      Wait: 0.5
+      Time: 1
+    Restrictions: 0
+  VerticalAxis:
+    Value: 15
+    Center: 17.5
+    Range: {x: -10, y: 45}
+    Wrap: 0
+    Recentering:
+      Enabled: 0
+      Wait: 1
+      Time: 2
+    Restrictions: 0
+  RadialAxis:
+    Value: 1
+    Center: 1
+    Range: {x: 1, y: 1}
+    Wrap: 0
+    Recentering:
+      Enabled: 0
+      Wait: 1
+      Time: 2
+    Restrictions: 0
+--- !u!114 &6897100613795470658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809239414971782660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineRotationComposer
+  Composition:
+    ScreenPosition: {x: 0, y: 0}
+    DeadZone:
+      Enabled: 0
+      Size: {x: 0.2, y: 0.2}
+    HardLimits:
+      Enabled: 0
+      Size: {x: 0.8, y: 0.8}
+      Offset: {x: 0, y: 0}
+  CenterOnActivate: 1
+  TargetOffset: {x: 0, y: 0, z: 0}
+  Damping: {x: 2, y: 0.5}
+  Lookahead:
+    Enabled: 0
+    Time: 0
+    Smoothing: 0
+    IgnoreY: 0
 --- !u!1 &3024483598958326567
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,22 +784,22 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 40000
     damper: 4500
-    targetPosition: 0.5
+    targetPosition: 0.1
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 40
   m_WheelDampingRate: 0.6
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_ExtremumSlip: 2.2
+    m_ExtremumValue: 1.2
+    m_AsymptoteSlip: 0.4
+    m_AsymptoteValue: 1.2
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_ExtremumSlip: 0.6
+    m_ExtremumValue: 1.2
+    m_AsymptoteSlip: 0.9
+    m_AsymptoteValue: 1.2
     m_Stiffness: 1
   m_IncludeLayers:
     serializedVersion: 2
@@ -742,7 +912,7 @@ GameObject:
   - component: {fileID: 3901804740871893021}
   - component: {fileID: 7741234776339382651}
   - component: {fileID: 4599814607758988988}
-  - component: {fileID: 5257599377146902907}
+  - component: {fileID: 4665840885238082472}
   m_Layer: 6
   m_Name: obj_car_PorscheRWB
   m_TagString: Untagged
@@ -825,8 +995,8 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5257599377146902907
-BoxCollider:
+--- !u!64 &4665840885238082472
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -843,9 +1013,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.0576859, y: 0.98967403, z: 2.793501}
-  m_Center: {x: 0.021014452, y: 0.8293015, z: 0.056488514}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7544362762670447211, guid: a08387c13c7268d40b74d315bf7490ce, type: 3}
 --- !u!1 &5927770957696405763
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,22 +1062,22 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 40000
     damper: 4500
-    targetPosition: 0.5
+    targetPosition: 0.1
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 40
   m_WheelDampingRate: 0.6
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_ExtremumSlip: 2.2
+    m_ExtremumValue: 1.2
+    m_AsymptoteSlip: 0.4
+    m_AsymptoteValue: 1.2
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_ExtremumSlip: 0.6
+    m_ExtremumValue: 1.2
+    m_AsymptoteSlip: 0.9
+    m_AsymptoteValue: 1.2
     m_Stiffness: 1
   m_IncludeLayers:
     serializedVersion: 2

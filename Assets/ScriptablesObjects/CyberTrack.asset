@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30da1255a491cff478e82fe3fe9ee952, type: 3}
+  m_Name: CyberTrack
+  m_EditorClassIdentifier: Assembly-CSharp::CarStatsSO
+  category: 3
+  carName: 
+  icon: {fileID: 0}
+  maxMotorTorque: 1500
+  maxSpeed: 40
+  accelerationRate: 6
+  decelerationRate: 10
+  brakeForce: 3000
+  brakeDecelStrength: 1.5
+  maxSteerAngle: 35
+  driftSteerBoost: 30
+  lowSpeedSteerMultiplier: 0.7
+  fullSteerSpeedThreshold: 10
+  highSpeedSteerReduction: 0.75
+  highSpeedThreshold: 30
+  centerOfMassOffset: {x: 0, y: -0.5, z: 0}
+  forwardStiffness: 2.2
+  sidewaysStiffnessFront: 1.7
+  sidewaysStiffnessRear: 1.4
+  driftableGroundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  enableDrift: 0
+  handbrakeDriftTorque: 2000
+  driftSidewaysStiffness: 0.2
+  driftKickForce: 8
+  maxDriftAngle: 85
+  driftAngularTorque: 15
+  driftAngularDamping: 3
+  maxDriftAngularVelocity: 120
+  driftSustainForce: 1500
+  minDriftAngleForSustain: 8
+  directionChangeKick: 25
+  brakeResetDamping: 12
+  brakeResetThreshold: 0.15
+  handbrakeResetWindow: 0.15
+  enableAutoDrift: 0
+  autoDriftSpeedThreshold: 12
+  autoDriftSteerThreshold: 0.6
+  autoDriftStiffness: 0.5
+  enableOffroadGrip: 0
+  offroadStiffnessMultiplier: 1.3

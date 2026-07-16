@@ -55,11 +55,18 @@ public class CarController : MonoBehaviour
         }
     }
 
+    public void OnThrottle(InputValue value)
+    {
+        throttleInput = value.Get<float>();
+        Debug.Log($"{gameObject.name} OnThrottle called! value={throttleInput}");
+    }
+
     public void OnSteer(InputValue value) => steerInput = value.Get<float>();
-    public void OnThrottle(InputValue value) => throttleInput = value.Get<float>();
 
     void FixedUpdate()
     {
+        Debug.Log($"{gameObject.name} | throttle={throttleInput} steer={steerInput}");
+
         ReadHandbrakeInput();
         UpdateHandbrakeResetTimer();
 
