@@ -16,10 +16,10 @@ MonoBehaviour:
   carName: Delorean
   previewImage: {fileID: 21300000, guid: caaf8c8e34ebdc143bfce8327a68d438, type: 3}
   previewPrefab: {fileID: 3316808279603120959, guid: c6eecd7eda91b094d8528e51837f65c2, type: 3}
-  displaySpeedStat: 0.5
-  displayWeightStat: 0.5
-  displayResistanceStat: 0.5
-  maxMotorTorque: 1500
+  displaySpeedStat: 0.6
+  displayWeightStat: 0.7
+  displayResistanceStat: 0.8
+  maxMotorTorque: 1800
   maxSpeed: 40
   accelerationRate: 6
   decelerationRate: 10

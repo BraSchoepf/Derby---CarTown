@@ -16,9 +16,9 @@ MonoBehaviour:
   carName: 'Porsche 911 '
   previewImage: {fileID: 21300000, guid: 0a1e4aa6e058e964bac54494bdfad7f9, type: 3}
   previewPrefab: {fileID: 711543342545725848, guid: b29986343ae2c2743868dda8980da829, type: 3}
-  displaySpeedStat: 0.5
-  displayWeightStat: 0.5
-  displayResistanceStat: 0.5
+  displaySpeedStat: 0.8
+  displayWeightStat: 0.7
+  displayResistanceStat: 0.8
   maxMotorTorque: 2000
   maxSpeed: 45
   accelerationRate: 8

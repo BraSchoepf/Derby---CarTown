@@ -16,9 +16,9 @@ MonoBehaviour:
   carName: Ford GT 40
   previewImage: {fileID: 21300000, guid: 1682d8b939b59ac48b8ea19e5047f35c, type: 3}
   previewPrefab: {fileID: 1827370793001695660, guid: 0e6606b71f7794a4fbf8beb660bb57b4, type: 3}
-  displaySpeedStat: 0.5
-  displayWeightStat: 0.5
-  displayResistanceStat: 0.5
+  displaySpeedStat: 1
+  displayWeightStat: 0.7
+  displayResistanceStat: 0.6
   maxMotorTorque: 2200
   maxSpeed: 50
   accelerationRate: 9

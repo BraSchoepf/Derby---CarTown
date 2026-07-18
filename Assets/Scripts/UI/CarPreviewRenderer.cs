@@ -17,8 +17,24 @@ public class CarPreviewRenderer : MonoBehaviour
         if (instance != null) Destroy(instance);
         if (car == null || car.previewPrefab == null) return;
 
-        instance = Instantiate(car.previewPrefab, spawnPoint.position, spawnPoint.rotation);
+        // Solo tomamos la posición del spawnPoint; la rotación viene del prefab tal cual está,
+        // así el auto no hereda el tilt que le pongas a la cámara.
+        instance = Instantiate(car.previewPrefab, spawnPoint.position, car.previewPrefab.transform.rotation);
         SetLayerRecursively(instance, previewLayer);
+        FreezePhysicsForPreview(instance);
+    }
+
+    void FreezePhysicsForPreview(GameObject obj)
+    {
+        // El auto real usa Rigidbody para andar en el juego;
+        // acá solo lo mostramos girando, no queremos que la física lo mueva.
+        foreach (var rb in obj.GetComponentsInChildren<Rigidbody>())
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;   // deja de reaccionar a gravedad/colisiones
+            rb.useGravity = false;
+        }
     }
 
     void Update()
