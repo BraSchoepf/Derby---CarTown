@@ -9,7 +9,13 @@ public class VehicleHitZone : MonoBehaviour
     // Cacheado una vez, no hay diccionario que mantener sincronizado
     void Reset()
     {
-        if (GetComponent<Collider>() == null)
+        Collider col = GetComponent<Collider>();
+        if (col == null)
+        {
             Debug.LogWarning($"{name}: VehicleHitZone sin Collider en el mismo GameObject");
+            return;
+        }
+        if (!col.isTrigger)
+            Debug.LogWarning($"{name}: VehicleHitZone debería tener 'Is Trigger' activado para no interferir con la física");
     }
 }

@@ -46,9 +46,9 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -376,12 +376,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b27901bb2e3cc5c40bcd9b02470aa09d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VehicleHealth
-  maxHealth: 500
-  frontRearMultiplier: 1.2
-  sideMultiplier: 2.5
+  maxHealth: 250
   minForceForDamage: 2
   forceToDamageRatio: 4
   attackerWeightFactor: 0.1
+  fallbackMultiplier: 1
   carLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -396,7 +395,7 @@ GameObject:
   - component: {fileID: 5208083868562567105}
   - component: {fileID: 1187414602584796402}
   - component: {fileID: 5382053845136877764}
-  - component: {fileID: 3185494103381596082}
+  - component: {fileID: 8328951790611804943}
   m_Layer: 6
   m_Name: obj_Car_fordGT40
   m_TagString: Untagged
@@ -482,8 +481,8 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3185494103381596082
-BoxCollider:
+--- !u!136 &8328951790611804943
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -495,14 +494,16 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.842246, y: 0.8569716, z: 2.6749153}
-  m_Center: {x: 0.000000059604645, y: 0.66246146, z: 0.04438591}
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.91
+  m_Direction: 2
+  m_Center: {x: 0.000000059604645, y: 0.63, z: 0.04892081}
 --- !u!1 &2135128684140363325
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,9 +798,9 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1120,9 +1121,9 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1351,9 +1352,9 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

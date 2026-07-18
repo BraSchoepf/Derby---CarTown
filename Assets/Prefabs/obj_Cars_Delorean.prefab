@@ -152,7 +152,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -276,6 +276,7 @@ GameObject:
   - component: {fileID: 482496200167937993}
   - component: {fileID: 8963758484318626392}
   - component: {fileID: 7047158052766898438}
+  - component: {fileID: 6494414295214446208}
   m_Layer: 6
   m_Name: obj_car_Delorean
   m_TagString: Untagged
@@ -360,6 +361,29 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &6494414295214446208
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2262912873069663313}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.7
+  m_Height: 2.87
+  m_Direction: 2
+  m_Center: {x: 0.021014392, y: 0.76, z: 0.056488514}
 --- !u!1 &2504861365109943849
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,12 +719,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b27901bb2e3cc5c40bcd9b02470aa09d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VehicleHealth
-  maxHealth: 500
-  frontRearMultiplier: 1.2
-  sideMultiplier: 2.5
+  maxHealth: 250
   minForceForDamage: 2
   forceToDamageRatio: 4
   attackerWeightFactor: 0.1
+  fallbackMultiplier: 1
   carLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -911,7 +934,7 @@ Transform:
   m_GameObject: {fileID: 4748991497154100881}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.29999995, z: -0.83}
+  m_LocalPosition: {x: 0, y: 0.29999995, z: -0.872}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -930,7 +953,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -998,7 +1021,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1118,7 +1141,7 @@ Transform:
   m_GameObject: {fileID: 5176837290296061625}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 1.042}
+  m_LocalPosition: {x: 0, y: 0.3, z: 1.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1137,7 +1160,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

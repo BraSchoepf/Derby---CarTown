@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody))]
 public class VehicleHealth : MonoBehaviour
@@ -9,15 +8,13 @@ public class VehicleHealth : MonoBehaviour
     public float maxHealth = 100f;
     float currentHealth;
 
-    [Header("Multiplicadores por zona")]
-    public float frontRearMultiplier = 1f;
-    public float sideMultiplier = 2.2f;
-
     [Header("Config de daño")]
     public float minForceForDamage = 3f;
     public float forceToDamageRatio = 1.5f;
     [Tooltip("Cuánto pesa 'quién te embistió' vs tu propia velocidad al calcular tu daño recibido")]
     [Range(0f, 1f)] public float attackerWeightFactor = 0.8f;
+    [Tooltip("Multiplicador si no se encuentra ninguna zona (fallback de seguridad)")]
+    public float fallbackMultiplier = 1f;
 
     [Header("Layer de otros autos")]
     public LayerMask carLayer;
@@ -27,23 +24,13 @@ public class VehicleHealth : MonoBehaviour
 
     bool isDestroyed = false;
     Rigidbody rb;
-    Dictionary<Collider, VehicleHitZone.Zone> zoneLookup;
+    VehicleHitZone[] hitZones;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         currentHealth = maxHealth;
-        BuildZoneLookup();
-    }
-
-    void BuildZoneLookup()
-    {
-        zoneLookup = new Dictionary<Collider, VehicleHitZone.Zone>();
-        foreach (var hitZone in GetComponentsInChildren<VehicleHitZone>())
-        {
-            Collider col = hitZone.GetComponent<Collider>();
-            if (col != null) zoneLookup[col] = hitZone.zone;
-        }
+        hitZones = GetComponentsInChildren<VehicleHitZone>();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -56,42 +43,49 @@ public class VehicleHealth : MonoBehaviour
 
         ContactPoint contact = collision.contacts[0];
 
-        VehicleHitZone hitZone = contact.thisCollider.GetComponent<VehicleHitZone>();
-        float zoneMultiplier = hitZone != null ? hitZone.damageMultiplier : frontRearMultiplier;
-
         float closingSpeed = CalculateClosingSpeed(otherRb, contact);
         if (closingSpeed < minForceForDamage) return;
 
-        float force = CalculateAsymmetricForce(collision, otherRb, contact);
-        ApplyDamage(force * forceToDamageRatio * zoneMultiplier);
+        // La cápsula física es la que recibe el contacto real; buscamos
+        // qué zona lógica (trigger) está geométricamente más cerca de ese punto
+        VehicleHitZone zone = GetClosestZone(contact.point);
+        float zoneMultiplier = zone != null ? zone.damageMultiplier : fallbackMultiplier;
+
+        ApplyDamage(closingSpeed * forceToDamageRatio * zoneMultiplier);
     }
 
-    // La clave de la asimetría: no usamos relativeVelocity (simétrica),
-    // usamos cuánto se movía el OTRO auto hacia mí en el momento del choque.
-    float CalculateAsymmetricForce(Collision collision, Rigidbody otherRb, ContactPoint contact)
+    VehicleHitZone GetClosestZone(Vector3 worldContactPoint)
     {
-        // contact.normal apunta alejándose de la superficie de ESTE collider,
-        // así que "-contact.normal" es la dirección hacia mí desde afuera
+        VehicleHitZone closest = null;
+        float minDist = float.MaxValue;
+
+        foreach (var hz in hitZones)
+        {
+            Collider col = hz.GetComponent<Collider>();
+            if (col == null) continue;
+
+            Vector3 closestPoint = col.ClosestPoint(worldContactPoint);
+            float dist = Vector3.Distance(closestPoint, worldContactPoint);
+
+            if (dist < minDist)
+            {
+                minDist = dist;
+                closest = hz;
+            }
+        }
+        return closest;
+    }
+
+    // Fuerza asimétrica: cuánto se movía el OTRO hacia mí + cuánto me movía YO hacia el impacto,
+    // ponderado por attackerWeightFactor. Esto reemplaza el par duplicado que tenías antes
+    // (CalculateClosingSpeed / CalculateAsymmetricForce hacían lo mismo con distinto peso).
+    float CalculateClosingSpeed(Rigidbody otherRb, ContactPoint contact)
+    {
         float otherSpeedTowardMe = Mathf.Max(0f, Vector3.Dot(otherRb.linearVelocity, -contact.normal));
         float mySpeedTowardImpact = Mathf.Max(0f, Vector3.Dot(rb.linearVelocity, contact.normal));
 
-        // Mezcla ponderada: si el otro venía fuerte hacia mí, yo soy la "víctima" → más daño.
-        // Si yo era el que se metía contra algo quieto, tomo menos (fue más "mi culpa" que del otro).
-        float weightedForce = (otherSpeedTowardMe * attackerWeightFactor)
-                             + (mySpeedTowardImpact * (1f - attackerWeightFactor));
-
-        return weightedForce;
-    }
-
-    float GetZoneMultiplier(Collider hitCollider)
-    {
-        if (hitCollider != null && zoneLookup.TryGetValue(hitCollider, out var zone))
-        {
-            return (zone == VehicleHitZone.Zone.Left || zone == VehicleHitZone.Zone.Right)
-                ? sideMultiplier
-                : frontRearMultiplier;
-        }
-        return frontRearMultiplier; // fallback si no se encontró el collider en el lookup
+        return (otherSpeedTowardMe * attackerWeightFactor)
+             + (mySpeedTowardImpact * (1f - attackerWeightFactor));
     }
 
     public void ApplyDamage(float amount)
@@ -108,13 +102,6 @@ public class VehicleHealth : MonoBehaviour
         OnVehicleDestroyed?.Invoke();
         var controller = GetComponent<CarController>();
         if (controller != null) controller.enabled = false;
-    }
-
-    float CalculateClosingSpeed(Rigidbody otherRb, ContactPoint contact)
-    {
-        float otherSpeedTowardMe = Mathf.Max(0f, Vector3.Dot(otherRb.linearVelocity, -contact.normal));
-        float mySpeedTowardImpact = Mathf.Max(0f, Vector3.Dot(rb.linearVelocity, contact.normal));
-        return otherSpeedTowardMe + mySpeedTowardImpact;
     }
 
     public float CurrentHealth => currentHealth;
