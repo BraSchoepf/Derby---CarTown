@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: FordGT40
   m_EditorClassIdentifier: Assembly-CSharp::CarStatsSO
   category: 0
-  carName: 
-  icon: {fileID: 0}
-  maxMotorTorque: 1500
-  maxSpeed: 40
-  accelerationRate: 6
-  decelerationRate: 10
-  brakeForce: 3000
-  brakeDecelStrength: 1.5
-  maxSteerAngle: 32
+  carName: Ford GT 40
+  previewImage: {fileID: 21300000, guid: 2ade7d78b7c36e844a65e5ac2908bb29, type: 3}
+  maxMotorTorque: 2200
+  maxSpeed: 50
+  accelerationRate: 9
+  decelerationRate: 20
+  brakeForce: 5000
+  brakeDecelStrength: 0.8
+  maxSteerAngle: 45
   driftSteerBoost: 1.3
   lowSpeedSteerMultiplier: 0.7
   fullSteerSpeedThreshold: 10
@@ -29,15 +29,15 @@ MonoBehaviour:
   highSpeedThreshold: 30
   centerOfMassOffset: {x: 0, y: -0.5, z: 0}
   forwardStiffness: 2.2
-  sidewaysStiffnessFront: 1.7
-  sidewaysStiffnessRear: 1.4
+  sidewaysStiffnessFront: 1.2
+  sidewaysStiffnessRear: 1
   driftableGroundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   enableDrift: 1
-  handbrakeDriftTorque: 2000
-  driftSidewaysStiffness: 0.2
-  driftKickForce: 8
+  handbrakeDriftTorque: 1800
+  driftSidewaysStiffness: 0.35
+  driftKickForce: 1
   maxDriftAngle: 85
   driftAngularTorque: 15
   driftAngularDamping: 3
@@ -49,7 +49,7 @@ MonoBehaviour:
   brakeResetThreshold: 0.15
   handbrakeResetWindow: 0.15
   enableAutoDrift: 0
-  autoDriftSpeedThreshold: 12
+  autoDriftSpeedThreshold: 20
   autoDriftSteerThreshold: 0.6
   autoDriftStiffness: 0.5
   enableOffroadGrip: 0

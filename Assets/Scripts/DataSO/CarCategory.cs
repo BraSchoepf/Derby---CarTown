@@ -8,7 +8,7 @@ public class CarStatsSO : ScriptableObject
     [Header("Identidad")]
     public CarCategory category;
     public string carName;
-    public Sprite icon; // para UI de selección de auto
+    public Sprite previewImage; // para UI de selección de auto
 
     [Header("Motor")]
     public float maxMotorTorque = 1500f;

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Porsche
   m_EditorClassIdentifier: Assembly-CSharp::CarStatsSO
   category: 2
-  carName: Porsche
-  icon: {fileID: 0}
+  carName: 'Porsche 911 '
+  previewImage: {fileID: 21300000, guid: 66497113f9b7216458ac8198be55ded9, type: 3}
   maxMotorTorque: 2000
   maxSpeed: 45
   accelerationRate: 8

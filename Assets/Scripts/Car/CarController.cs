@@ -20,6 +20,10 @@ public class CarController : MonoBehaviour
     [Header("Wheels")]
     public Wheel[] wheels;
 
+    [Header("Handbrake - Tecla específica del jugador")]
+    public Key handbrakeKey = Key.LeftShift; // se configura distinto por cada prefab/instancia
+    public Key handbrakeKeyAlt = Key.None;
+
     Rigidbody rb;
     float steerInput;
     float throttleInput;
@@ -58,7 +62,11 @@ public class CarController : MonoBehaviour
     public void OnThrottle(InputValue value)
     {
         throttleInput = value.Get<float>();
-        Debug.Log($"{gameObject.name} OnThrottle called! value={throttleInput}");
+    }
+
+    public void OnHandbrake(InputValue value)
+    {
+        Debug.Log($"{gameObject.name} OnHandbrake event fired! isPressed={value.isPressed}");
     }
 
     public void OnSteer(InputValue value) => steerInput = value.Get<float>();
@@ -134,8 +142,15 @@ public class CarController : MonoBehaviour
     void ReadHandbrakeInput()
     {
         handbrakeInput = false;
+
         if (Keyboard.current != null)
-            handbrakeInput = Keyboard.current.leftShiftKey.isPressed || Keyboard.current.spaceKey.isPressed;
+        {
+            if (handbrakeKey != Key.None && Keyboard.current[handbrakeKey].isPressed)
+                handbrakeInput = true;
+            if (handbrakeKeyAlt != Key.None && Keyboard.current[handbrakeKeyAlt].isPressed)
+                handbrakeInput = true;
+        }
+
         if (Gamepad.current != null)
             handbrakeInput |= Gamepad.current.rightTrigger.isPressed;
     }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CyberTrack
   m_EditorClassIdentifier: Assembly-CSharp::CarStatsSO
   category: 3
-  carName: 
-  icon: {fileID: 0}
+  carName: Cybertrack
+  previewImage: {fileID: 21300000, guid: 892528e68569ac3419726170e1f72dfa, type: 3}
   maxMotorTorque: 1500
   maxSpeed: 40
   accelerationRate: 6

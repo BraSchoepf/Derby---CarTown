@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Delorean
   m_EditorClassIdentifier: Assembly-CSharp::CarSystem.CarConfig
   category: 0
-  carName: 
-  icon: {fileID: 0}
+  carName: Delorean
+  previewImage: {fileID: 21300000, guid: 7e4a761c9137d574b9becbe2ea7acd94, type: 3}
   maxMotorTorque: 1500
   maxSpeed: 40
   accelerationRate: 6

@@ -179,6 +179,8 @@ MonoBehaviour:
     motor: 1
     steering: 0
     brake: 1
+  handbrakeKey: 51
+  handbrakeKeyAlt: 0
 --- !u!114 &4123998744035088316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -774,7 +776,7 @@ MonoBehaviour:
   Priority:
     Enabled: 1
     m_Value: 1
-  OutputChannel: 4
+  OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
