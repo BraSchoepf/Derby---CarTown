@@ -49,7 +49,7 @@ WheelCollider:
   m_SuspensionDistance: 0.2
   m_ForceAppPointDistance: 0
   m_Mass: 60
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 0.6
   m_ForwardFriction:
     m_ExtremumSlip: 0.8
     m_ExtremumValue: 1.2
@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 3620820567512020494}
   - component: {fileID: 5835109906681694943}
   - component: {fileID: 8006806956780266382}
+  - component: {fileID: 6066436616699156613}
   m_Layer: 6
   m_Name: obj_Cars_Cybertrack
   m_TagString: Untagged
@@ -275,6 +276,22 @@ MonoBehaviour:
   carLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &6066436616699156613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078272866267778280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be23ae3abe51c304b9e5cb2c13a37147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MinimapIcon
+  iconPrefab: {fileID: 8378919720397427414, guid: 3110d50bc210b5244a71ea4755232e86, type: 3}
+  fixedHeight: 50
+  rotateWithCar: 1
+  yawOffset: -90
 --- !u!1 &2729807838791809342
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,7 +755,7 @@ WheelCollider:
   m_SuspensionDistance: 0.2
   m_ForceAppPointDistance: 0
   m_Mass: 60
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 0.6
   m_ForwardFriction:
     m_ExtremumSlip: 0.8
     m_ExtremumValue: 1.2
@@ -931,7 +948,7 @@ WheelCollider:
   m_SuspensionDistance: 0.2
   m_ForceAppPointDistance: 0
   m_Mass: 60
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 0.6
   m_ForwardFriction:
     m_ExtremumSlip: 0.8
     m_ExtremumValue: 1.2
@@ -1285,7 +1302,7 @@ WheelCollider:
   m_SuspensionDistance: 0.2
   m_ForceAppPointDistance: 0
   m_Mass: 60
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 0.6
   m_ForwardFriction:
     m_ExtremumSlip: 0.8
     m_ExtremumValue: 1.2

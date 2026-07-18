@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 7256052147252040463}
   - component: {fileID: 1254508488530192516}
   - component: {fileID: -929792119589169178}
+  - component: {fileID: -2239325961789334810}
   m_Layer: 6
   m_Name: obj_Cars_PorscheRWB 1
   m_TagString: Untagged
@@ -270,6 +271,22 @@ MonoBehaviour:
   carLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &-2239325961789334810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711543342545725848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be23ae3abe51c304b9e5cb2c13a37147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MinimapIcon
+  iconPrefab: {fileID: 8378919720397427414, guid: 3110d50bc210b5244a71ea4755232e86, type: 3}
+  fixedHeight: 50
+  rotateWithCar: 1
+  yawOffset: -90
 --- !u!1 &1048758862022746729
 GameObject:
   m_ObjectHideFlags: 0

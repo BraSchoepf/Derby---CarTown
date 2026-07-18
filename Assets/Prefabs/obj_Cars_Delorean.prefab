@@ -580,6 +580,7 @@ GameObject:
   - component: {fileID: 3061619388327265375}
   - component: {fileID: -5034840903159613152}
   - component: {fileID: 8549354783792719471}
+  - component: {fileID: 823476088256454969}
   m_Layer: 6
   m_Name: obj_Cars_Delorean
   m_TagString: Untagged
@@ -745,6 +746,22 @@ MonoBehaviour:
   maxVertexDisplacement: 0.35
   minImpactForce: 3
   recalculateBoundsEvery: 3
+--- !u!114 &823476088256454969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3316808279603120959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be23ae3abe51c304b9e5cb2c13a37147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MinimapIcon
+  iconPrefab: {fileID: 8378919720397427414, guid: 3110d50bc210b5244a71ea4755232e86, type: 3}
+  fixedHeight: 50
+  rotateWithCar: 1
+  yawOffset: -90
 --- !u!1 &4656262414772341800
 GameObject:
   m_ObjectHideFlags: 0
