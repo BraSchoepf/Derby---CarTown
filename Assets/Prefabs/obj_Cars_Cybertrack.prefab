@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6442419049373052132}
   - component: {fileID: 5023722916817255345}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CollisionWheel_FL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 4123998744035088316}
   - component: {fileID: 3620820567512020494}
   - component: {fileID: 5835109906681694943}
+  - component: {fileID: 8006806956780266382}
   m_Layer: 6
   m_Name: obj_Cars_Cybertrack
   m_TagString: Untagged
@@ -116,6 +117,7 @@ Transform:
   - {fileID: 8641387159630653689}
   - {fileID: 7580599398433267298}
   - {fileID: 1633205818298412320}
+  - {fileID: 6182631843858883428}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5891688778600796006
@@ -253,6 +255,27 @@ MonoBehaviour:
   extraTorqueMultiplier: 0.3
   knockbackMultiplier: 2
   maxKnockbackForce: 8
+--- !u!114 &8006806956780266382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078272866267778280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b27901bb2e3cc5c40bcd9b02470aa09d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleHealth
+  maxHealth: 500
+  frontRearMultiplier: 1.2
+  sideMultiplier: 2.5
+  minForceForDamage: 2
+  forceToDamageRatio: 4
+  attackerWeightFactor: 0.1
+  carLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &2729807838791809342
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +287,6 @@ GameObject:
   - component: {fileID: 5332943964046831884}
   - component: {fileID: 903837948203520437}
   - component: {fileID: 7208400431892112604}
-  - component: {fileID: 1293151236273501248}
   m_Layer: 6
   m_Name: obj_Car_Cybertrack
   m_TagString: Untagged
@@ -349,27 +371,210 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1293151236273501248
+--- !u!1 &3115580707912803028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8727832536126746553}
+  - component: {fileID: 6610893571221418060}
+  - component: {fileID: 5937692403892802970}
+  m_Layer: 6
+  m_Name: Hitbox_Rigth
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8727832536126746553
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3115580707912803028}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6, y: 0.30999994, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6182631843858883428}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6610893571221418060
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2729807838791809342}
+  m_GameObject: {fileID: 3115580707912803028}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.8948523, y: 1.5118729, z: 4.117689}
-  m_Center: {x: 0.015004337, y: 0.95113295, z: 0.027654171}
+  m_Size: {x: 0.8413701, y: 1.36, z: 3.53}
+  m_Center: {x: -0.017909765, y: 0.32267213, z: -0.043495238}
+--- !u!114 &5937692403892802970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3115580707912803028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bc24f91c0748d45a971d3472ff7e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleHitZone
+  zone: 3
+  damageMultiplier: 2
+--- !u!1 &3216670755800366537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5488133373879384745}
+  - component: {fileID: 6184555627024264085}
+  - component: {fileID: 6369960064551339002}
+  m_Layer: 6
+  m_Name: Hitbox_Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5488133373879384745
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3216670755800366537}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.55, y: 0.30999994, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6182631843858883428}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6184555627024264085
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3216670755800366537}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8413701, y: 1.36, z: 3.53}
+  m_Center: {x: -0.017909765, y: 0.32267213, z: -0.043495238}
+--- !u!114 &6369960064551339002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3216670755800366537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bc24f91c0748d45a971d3472ff7e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleHitZone
+  zone: 2
+  damageMultiplier: 2
+--- !u!1 &3618466551164118244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 345522080936822638}
+  - component: {fileID: 681171022134310561}
+  - component: {fileID: 6727800702866157482}
+  m_Layer: 6
+  m_Name: Hitbox_Back
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &345522080936822638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3618466551164118244}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.2, z: -1.27}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6182631843858883428}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &681171022134310561
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3618466551164118244}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.28, y: 1.02, z: 1.56}
+  m_Center: {x: -0.017909765, y: 0.32267213, z: -0.043495238}
+--- !u!114 &6727800702866157482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3618466551164118244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bc24f91c0748d45a971d3472ff7e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleHitZone
+  zone: 1
+  damageMultiplier: 1
 --- !u!1 &4005193728830717194
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +676,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6102644141125392943}
   - component: {fileID: 5253379306314065974}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CollisionWheel_RL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -664,7 +869,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7864829896945991481}
   - component: {fileID: 324380667141014983}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CollisionWheel_FR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -725,6 +930,41 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!1 &7004946014397497614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6182631843858883428}
+  m_Layer: 6
+  m_Name: Hitboxes (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6182631843858883428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004946014397497614}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.38, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1187085293399273376}
+  - {fileID: 345522080936822638}
+  - {fileID: 5488133373879384745}
+  - {fileID: 8727832536126746553}
+  m_Father: {fileID: 5845432832873638038}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7105200666888421885
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,7 +1223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7681790077663316829}
   - component: {fileID: 526123200383429196}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CollisionWheel_RR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1135,6 +1375,74 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8886537971151296166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1187085293399273376}
+  - component: {fileID: 1012311268911538109}
+  - component: {fileID: 812140356212324862}
+  m_Layer: 6
+  m_Name: Hitbox_Front
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1187085293399273376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8886537971151296166}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.2, z: 1.53}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6182631843858883428}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1012311268911538109
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8886537971151296166}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.28, y: 0.97, z: 1.27}
+  m_Center: {x: -0.017909765, y: 0.32267213, z: -0.043495238}
+--- !u!114 &812140356212324862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8886537971151296166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bc24f91c0748d45a971d3472ff7e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleHitZone
+  zone: 0
+  damageMultiplier: 1
 --- !u!1 &9053211382542333041
 GameObject:
   m_ObjectHideFlags: 0

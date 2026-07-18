@@ -48,7 +48,7 @@ MonoBehaviour:
   brakeResetDamping: 12
   brakeResetThreshold: 0.15
   handbrakeResetWindow: 0.15
-  enableAutoDrift: 1
+  enableAutoDrift: 0
   autoDriftSpeedThreshold: 12
   autoDriftSteerThreshold: 0.6
   autoDriftStiffness: 0.5

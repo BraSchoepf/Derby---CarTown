@@ -3,6 +3,13 @@ using UnityEngine.InputSystem;
 
 public class GameSetup : MonoBehaviour
 {
+    [Header("Derby")]
+    public DerbyGameManager derbyManager;
+
+    [Header("UI de vida")]
+    public HealthBarUI healthBarP1;
+    public HealthBarUI healthBarP2;
+
     [System.Serializable]
     public class PlayerSlotConfig
     {
@@ -62,6 +69,14 @@ public class GameSetup : MonoBehaviour
 
         // Asignar el Output Channel dinámicamente según el slot, no el prefab
         AssignCameraChannel(carInstance, slotIndex);
+
+        VehicleHealth health = carInstance.GetComponent<VehicleHealth>();
+        if (health != null && derbyManager != null)
+            derbyManager.RegisterPlayer($"Player {slotIndex + 1}", health);
+
+        HealthBarUI bar = slotIndex == 0 ? healthBarP1 : healthBarP2;
+        if (bar != null && health != null)
+            bar.SetTarget(health);
     }
 
     void AssignCameraChannel(GameObject carInstance, int slotIndex)
