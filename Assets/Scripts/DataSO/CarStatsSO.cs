@@ -8,7 +8,14 @@ public class CarStatsSO : ScriptableObject
     [Header("Identidad")]
     public CarCategory category;
     public string carName;
-    public Sprite previewImage; // para UI de selección de auto
+    public Sprite previewImage; // ícono para el slot del grid
+
+    [Header("UI de Selección")]
+    [Tooltip("Prefab del auto en 3D, usado por el CarPreviewRenderer (turntable)")]
+    public GameObject previewPrefab;
+    [Range(0f, 1f)] public float displaySpeedStat = 0.5f;
+    [Range(0f, 1f)] public float displayWeightStat = 0.5f;
+    [Range(0f, 1f)] public float displayResistanceStat = 0.5f;
 
     [Header("Motor")]
     public float maxMotorTorque = 1500f;
@@ -21,9 +28,9 @@ public class CarStatsSO : ScriptableObject
     [Header("Steering")]
     public float maxSteerAngle = 32f;
     public float driftSteerBoost = 1.3f;
-    public float lowSpeedSteerMultiplier = 0.7f;  // ángulo a velocidad 0
-    public float fullSteerSpeedThreshold = 10f;    // desde qué velocidad tenés el 100% del ángulo
-    public float highSpeedSteerReduction = 0.75f;  // ángulo mínimo a muy alta velocidad
+    public float lowSpeedSteerMultiplier = 0.7f;
+    public float fullSteerSpeedThreshold = 10f;
+    public float highSpeedSteerReduction = 0.75f;
     public float highSpeedThreshold = 30f;
 
     [Header("Centro de masa")]
@@ -38,7 +45,7 @@ public class CarStatsSO : ScriptableObject
     public LayerMask driftableGroundLayer;
 
     [Header("Drift - Toggle general")]
-    public bool enableDrift = true; // ← un todoterreno pesado podría tener esto en false
+    public bool enableDrift = true;
 
     [Header("Drift - Config")]
     public float handbrakeDriftTorque = 2000f;
@@ -62,6 +69,6 @@ public class CarStatsSO : ScriptableObject
     public float autoDriftStiffness = 0.5f;
 
     [Header("Offroad (opcional)")]
-    public bool enableOffroadGrip = false; // más agarre en terrenos no-pista
+    public bool enableOffroadGrip = false;
     public float offroadStiffnessMultiplier = 1.3f;
 }

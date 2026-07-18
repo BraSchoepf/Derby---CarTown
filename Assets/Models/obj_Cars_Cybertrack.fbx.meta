@@ -3,7 +3,47 @@ guid: 211131e6e982ebd46bd76383602b965a
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_CT_goma
+    second: {fileID: 2100000, guid: dbccc1b39bea0874280f7543468620c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_CT_llanta
+    second: {fileID: 2100000, guid: 63d1907b22f0ad64893954fe687fccf6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_carroceria
+    second: {fileID: 2100000, guid: d2466c15f1e4e034384df41dd52f5cef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_cristal
+    second: {fileID: 2100000, guid: 8a274f5d188559347bbd2c5ef493c3ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_cristalBordes
+    second: {fileID: 2100000, guid: 964b2dcc169342144be25117d3836f46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_farolDelantero
+    second: {fileID: 2100000, guid: 9ac1388aa1ab8634ab21a2de14226da3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_farolTrasero
+    second: {fileID: 2100000, guid: 95e256e70d37b9241b6ec06b09530f56, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_guardabarros
+    second: {fileID: 2100000, guid: 9d32ff616a5491849ae70d99d7648a57, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

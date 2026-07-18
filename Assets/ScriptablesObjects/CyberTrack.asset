@@ -15,6 +15,10 @@ MonoBehaviour:
   category: 3
   carName: Cybertrack
   previewImage: {fileID: 21300000, guid: 892528e68569ac3419726170e1f72dfa, type: 3}
+  previewPrefab: {fileID: 1078272866267778280, guid: eab1b160024cd0049a5a56d97c4a2b43, type: 3}
+  displaySpeedStat: 0.5
+  displayWeightStat: 0.5
+  displayResistanceStat: 0.5
   maxMotorTorque: 1500
   maxSpeed: 40
   accelerationRate: 6

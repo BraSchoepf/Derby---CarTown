@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
@@ -8,24 +9,31 @@ public class MainMenuUI : MonoBehaviour
     public GameObject carSelectionPanel;
 
     [Header("Car Selection UI")]
-    public CarSelectionSlotUI player1SelectionUI;
-    public CarSelectionSlotUI player2SelectionUI; // se activa solo en multiplayer
+    public CarSelectionGridUI grid;
+    public PlayerCarCursor player1Cursor;
+    public PlayerCarCursor player2Cursor;
+
+    [Header("UI extra")]
+    public GameObject startPromptUI;
+    public Button startButton;
 
     [Header("Escenas")]
     public string gameSceneName = "GameScene";
 
     GameMode chosenMode;
+    bool multiplayer;
 
-    // --- Llamado por los botones "Single Player" / "Multiplayer" ---
     public void OnSelectSinglePlayer()
     {
         chosenMode = GameMode.SinglePlayer;
+        multiplayer = false;
         ShowCarSelection();
     }
 
     public void OnSelectMultiplayer()
     {
         chosenMode = GameMode.MultiplayerSplitScreen;
+        multiplayer = true;
         ShowCarSelection();
     }
 
@@ -33,23 +41,30 @@ public class MainMenuUI : MonoBehaviour
     {
         modeSelectionPanel.SetActive(false);
         carSelectionPanel.SetActive(true);
-
-        player1SelectionUI.gameObject.SetActive(true);
-        player2SelectionUI.gameObject.SetActive(chosenMode == GameMode.MultiplayerSplitScreen);
+        player1Cursor.gameObject.SetActive(true);
+        player2Cursor.gameObject.SetActive(multiplayer);
     }
 
-    // --- Llamado por el botón "Confirmar" / "Empezar" ---
+    void Update()
+    {
+        if (!carSelectionPanel.activeSelf) return;
+
+        bool readyToStart = player1Cursor.IsLocked && (!multiplayer || player2Cursor.IsLocked);
+
+        if (startPromptUI != null)
+            startPromptUI.SetActive(readyToStart);
+
+        if (startButton != null)
+            startButton.interactable = readyToStart;
+    }
+
+    // Enganchar al OnClick() del botón en el Inspector
     public void OnConfirmSelection()
     {
-        GameObject sessionObj = new GameObject("GameSession");
-        GameSession session = sessionObj.AddComponent<GameSession>();
-
+        var session = new GameObject("GameSession").AddComponent<GameSession>();
         session.selectedMode = chosenMode;
-        session.player1Car = player1SelectionUI.SelectedCar;
-        session.player2Car = chosenMode == GameMode.MultiplayerSplitScreen
-            ? player2SelectionUI.SelectedCar
-            : null;
-
+        session.player1Car = player1Cursor.SelectedCar;
+        session.player2Car = multiplayer ? player2Cursor.SelectedCar : null;
         SceneManager.LoadScene(gameSceneName);
     }
 }
