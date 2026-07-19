@@ -77,6 +77,12 @@ public class GameSetup : MonoBehaviour
         HealthBarUI bar = slotIndex == 0 ? healthBarP1 : healthBarP2;
         if (bar != null && health != null)
             bar.SetTarget(health);
+
+        MinimapIcon minimapIcon = carInstance.GetComponent<MinimapIcon>();
+        if (minimapIcon != null)
+            minimapIcon.SetOwner(slotIndex == 0 ? MinimapOwnerType.Player1 : MinimapOwnerType.Player2);
+        else
+            Debug.LogWarning($"[GameSetup] {carInstance.name} no tiene MinimapIcon — no va a aparecer en el minimapa.", this);
     }
 
     void AssignCameraChannel(GameObject carInstance, int slotIndex)

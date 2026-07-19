@@ -332,7 +332,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4002703166313647725, guid: 115b9fb3b1b3b784197095216c123dcc, type: 3}
+  - {fileID: -7013041929607667890, guid: 7ae169b006ff23845970ca227dc1a7d4, type: 3}
   - {fileID: -7470476984854483569, guid: 115b9fb3b1b3b784197095216c123dcc, type: 3}
   - {fileID: 8572726162421888665, guid: 115b9fb3b1b3b784197095216c123dcc, type: 3}
   - {fileID: 6175515917529801181, guid: 115b9fb3b1b3b784197095216c123dcc, type: 3}
@@ -577,12 +577,12 @@ GameObject:
   - component: {fileID: 268286932639485256}
   - component: {fileID: 2779718941021991992}
   - component: {fileID: 9031294154684594560}
-  - component: {fileID: 3061619388327265375}
   - component: {fileID: -5034840903159613152}
   - component: {fileID: 8549354783792719471}
   - component: {fileID: 823476088256454969}
+  - component: {fileID: 292551814050491859}
   m_Layer: 6
-  m_Name: obj_Cars_Delorean
+  m_Name: Bot_Delorean
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -679,36 +679,6 @@ MonoBehaviour:
   handbrakeKey: 51
   handbrakeKeyAlt: 0
   isAIControlled: 0
---- !u!114 &3061619388327265375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3316808279603120959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 3b37e750abab9e045889e2f76dd315b0, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: carMap
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &-5034840903159613152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -763,10 +733,30 @@ MonoBehaviour:
   p2IconPrefab: {fileID: 8378919720397427414, guid: 3a2d7158861e67a48b86cadfdc4c1ded, type: 3}
   botIconPrefab: {fileID: 8378919720397427414, guid: 51165e305ecdd7e428fd7dc9896efbac, type: 3}
   deadIconPrefab: {fileID: 8378919720397427414, guid: 59f8f96ee84d7e047b842ab678af48c8, type: 3}
-  ownerType: 0
+  ownerType: 2
   fixedHeight: 50
   rotateWithCar: 1
   yawOffset: -90
+--- !u!114 &292551814050491859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3316808279603120959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b889adda645f4842abdd1eec1d57217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarAIController
+  targetReacquireInterval: 1.5
+  directRammingRange: 15
+  pathRecalculateInterval: 0.75
+  cornerReachedDistance: 3
+  stuckSpeedThreshold: 1.5
+  stuckTimeToTrigger: 1.2
+  reverseDuration: 1
+  reverseStuckThrottle: -1
 --- !u!1 &4656262414772341800
 GameObject:
   m_ObjectHideFlags: 0

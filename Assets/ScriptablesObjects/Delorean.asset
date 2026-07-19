@@ -24,7 +24,7 @@ MonoBehaviour:
   accelerationRate: 6
   decelerationRate: 10
   brakeForce: 3000
-  brakeDecelStrength: 15
+  brakeDecelStrength: 1
   maxSteerAngle: 32
   driftSteerBoost: 1.3
   lowSpeedSteerMultiplier: 0.7
@@ -39,7 +39,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   enableDrift: 1
-  handbrakeDriftTorque: 2000
+  handbrakeDriftTorque: 1500
   driftSidewaysStiffness: 0.2
   driftKickForce: 1
   maxDriftAngle: 85

@@ -24,6 +24,10 @@ public class CarController : MonoBehaviour
     public Key handbrakeKey = Key.LeftShift; // se configura distinto por cada prefab/instancia
     public Key handbrakeKeyAlt = Key.None;
 
+    [Header("IA")]
+    public bool isAIControlled = false;
+    bool isDead = false;
+
     Rigidbody rb;
     float steerInput;
     float throttleInput;
@@ -137,12 +141,24 @@ public class CarController : MonoBehaviour
 
         if (isDrifting && Mathf.Abs(forwardSpeed) > 3f)
             ApplyDriftPhysics(forwardSpeed, wantsHandbrakeDrift);
+
+        if (isDead)
+        {
+            foreach (var w in wheels)
+            {
+                w.collider.motorTorque = 0f;
+                w.collider.brakeTorque = stats.brakeForce; // frena de verdad, no solo deja de acelerar
+                UpdateWheelVisual(w);
+            }
+            return; // no procesa steering, drift, ni nada más
+        }
     }
 
     void ReadHandbrakeInput()
     {
-        handbrakeInput = false;
+        if (isAIControlled) return; // el handbrake de IA ya viene seteado por SetAIInput()
 
+        handbrakeInput = false;
         if (Keyboard.current != null)
         {
             if (handbrakeKey != Key.None && Keyboard.current[handbrakeKey].isPressed)
@@ -150,7 +166,6 @@ public class CarController : MonoBehaviour
             if (handbrakeKeyAlt != Key.None && Keyboard.current[handbrakeKeyAlt].isPressed)
                 handbrakeInput = true;
         }
-
         if (Gamepad.current != null)
             handbrakeInput |= Gamepad.current.rightTrigger.isPressed;
     }
@@ -319,4 +334,22 @@ public class CarController : MonoBehaviour
         w.visual.position = pos;
         w.visual.rotation = rot;
     }
+
+    // Llamado por CarAIController en vez de los callbacks de Input System
+    public void SetAIInput(float throttle, float steer, bool handbrake)
+    {
+        if (isDead) return;
+        throttleInput = throttle;
+        steerInput = steer;
+        handbrakeInput = handbrake;
+    }
+
+    public void StopAllInputs()
+    {
+        isDead = true;
+        throttleInput = 0f;
+        steerInput = 0f;
+        handbrakeInput = false;
+    }
+
 }

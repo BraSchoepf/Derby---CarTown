@@ -82,12 +82,12 @@ GameObject:
   - component: {fileID: 5845432832873638038}
   - component: {fileID: 5891688778600796006}
   - component: {fileID: 3432120069808703614}
-  - component: {fileID: 4123998744035088316}
   - component: {fileID: 3620820567512020494}
   - component: {fileID: 8006806956780266382}
   - component: {fileID: 6066436616699156613}
+  - component: {fileID: -5994239835006648205}
   m_Layer: 6
-  m_Name: obj_Cars_Cybertrack
+  m_Name: Bot_Cybertrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,36 +184,6 @@ MonoBehaviour:
   handbrakeKey: 51
   handbrakeKeyAlt: 0
   isAIControlled: 0
---- !u!114 &4123998744035088316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078272866267778280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 3b37e750abab9e045889e2f76dd315b0, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: KeyboardP2
-  m_DefaultActionMap: carMap
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &3620820567512020494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,10 +238,30 @@ MonoBehaviour:
   p2IconPrefab: {fileID: 8378919720397427414, guid: 3a2d7158861e67a48b86cadfdc4c1ded, type: 3}
   botIconPrefab: {fileID: 8378919720397427414, guid: 51165e305ecdd7e428fd7dc9896efbac, type: 3}
   deadIconPrefab: {fileID: 8378919720397427414, guid: 59f8f96ee84d7e047b842ab678af48c8, type: 3}
-  ownerType: 0
+  ownerType: 2
   fixedHeight: 50
   rotateWithCar: 1
   yawOffset: -90
+--- !u!114 &-5994239835006648205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078272866267778280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b889adda645f4842abdd1eec1d57217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarAIController
+  targetReacquireInterval: 1.5
+  directRammingRange: 15
+  pathRecalculateInterval: 0.75
+  cornerReachedDistance: 3
+  stuckSpeedThreshold: 1.5
+  stuckTimeToTrigger: 1.2
+  reverseDuration: 1
+  reverseStuckThrottle: -1
 --- !u!1 &2729807838791809342
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,7 +330,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 9d32ff616a5491849ae70d99d7648a57, type: 2}
-  - {fileID: 2100000, guid: d2466c15f1e4e034384df41dd52f5cef, type: 2}
+  - {fileID: 624120969538752912, guid: 3bf26f97bcb14664db8989cca6b84c35, type: 3}
   - {fileID: 2100000, guid: 8a274f5d188559347bbd2c5ef493c3ff, type: 2}
   - {fileID: 2100000, guid: 9ac1388aa1ab8634ab21a2de14226da3, type: 2}
   - {fileID: 2100000, guid: 95e256e70d37b9241b6ec06b09530f56, type: 2}

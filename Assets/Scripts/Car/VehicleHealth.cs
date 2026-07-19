@@ -101,7 +101,7 @@ public class VehicleHealth : MonoBehaviour
         isDestroyed = true;
         OnVehicleDestroyed?.Invoke();
         var controller = GetComponent<CarController>();
-        if (controller != null) controller.enabled = false;
+        if (controller != null) controller.StopAllInputs();
     }
 
     public float CurrentHealth => currentHealth;

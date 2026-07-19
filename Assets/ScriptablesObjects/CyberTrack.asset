@@ -34,15 +34,15 @@ MonoBehaviour:
   centerOfMassOffset: {x: 0, y: -0.5, z: 0}
   forwardStiffness: 2.2
   sidewaysStiffnessFront: 1.7
-  sidewaysStiffnessRear: 1.4
+  sidewaysStiffnessRear: 1
   driftableGroundLayer:
     serializedVersion: 2
     m_Bits: 0
-  enableDrift: 0
-  handbrakeDriftTorque: 2000
+  enableDrift: 1
+  handbrakeDriftTorque: 1000
   driftSidewaysStiffness: 0.2
-  driftKickForce: 8
-  maxDriftAngle: 85
+  driftKickForce: 1
+  maxDriftAngle: 45
   driftAngularTorque: 15
   driftAngularDamping: 3
   maxDriftAngularVelocity: 120
@@ -56,5 +56,5 @@ MonoBehaviour:
   autoDriftSpeedThreshold: 12
   autoDriftSteerThreshold: 0.6
   autoDriftStiffness: 0.5
-  enableOffroadGrip: 0
+  enableOffroadGrip: 1
   offroadStiffnessMultiplier: 1.3

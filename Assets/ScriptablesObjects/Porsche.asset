@@ -34,7 +34,7 @@ MonoBehaviour:
   centerOfMassOffset: {x: 0, y: -0.5, z: 0}
   forwardStiffness: 2
   sidewaysStiffnessFront: 1.4
-  sidewaysStiffnessRear: 1.4
+  sidewaysStiffnessRear: 1
   driftableGroundLayer:
     serializedVersion: 2
     m_Bits: 8
