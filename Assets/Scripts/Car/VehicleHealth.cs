@@ -21,6 +21,9 @@ public class VehicleHealth : MonoBehaviour
 
     public event Action<float, float> OnHealthChanged;
     public event Action OnVehicleDestroyed;
+    public event Action<VehicleHealth> OnVehicleDestroyedByAttacker;
+
+    VehicleHealth lastAttacker;
 
     bool isDestroyed = false;
     Rigidbody rb;
@@ -40,6 +43,9 @@ public class VehicleHealth : MonoBehaviour
 
         Rigidbody otherRb = collision.rigidbody;
         if (otherRb == null) return;
+
+        VehicleHealth otherHealth = otherRb.GetComponent<VehicleHealth>();
+        if (otherHealth != null) lastAttacker = otherHealth;
 
         ContactPoint contact = collision.contacts[0];
 
@@ -100,6 +106,7 @@ public class VehicleHealth : MonoBehaviour
     {
         isDestroyed = true;
         OnVehicleDestroyed?.Invoke();
+        OnVehicleDestroyedByAttacker?.Invoke(lastAttacker);
         var controller = GetComponent<CarController>();
         if (controller != null) controller.StopAllInputs();
     }

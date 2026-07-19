@@ -61,10 +61,14 @@ public class MainMenuUI : MonoBehaviour
     // Enganchar al OnClick() del botón en el Inspector
     public void OnConfirmSelection()
     {
-        var session = new GameObject("GameSession").AddComponent<GameSession>();
+        GameSession session = GameSession.Instance;
+        if (session == null)
+            session = new GameObject("GameSession").AddComponent<GameSession>();
+
         session.selectedMode = chosenMode;
         session.player1Car = player1Cursor.SelectedCar;
         session.player2Car = multiplayer ? player2Cursor.SelectedCar : null;
+
         SceneManager.LoadScene(gameSceneName);
     }
 }

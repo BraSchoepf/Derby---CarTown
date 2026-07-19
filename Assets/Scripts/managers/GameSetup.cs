@@ -72,7 +72,7 @@ public class GameSetup : MonoBehaviour
 
         VehicleHealth health = carInstance.GetComponent<VehicleHealth>();
         if (health != null && derbyManager != null)
-            derbyManager.RegisterPlayer($"Player {slotIndex + 1}", health);
+            derbyManager.RegisterPlayer($"Player {slotIndex + 1}", health, slotIndex); // ← agregado slotIndex
 
         HealthBarUI bar = slotIndex == 0 ? healthBarP1 : healthBarP2;
         if (bar != null && health != null)
@@ -97,5 +97,14 @@ public class GameSetup : MonoBehaviour
         // slotIndex + 1 para saltar el bit de "Default" y empezar en Channel01
         vcam.OutputChannel = (Unity.Cinemachine.OutputChannels)(1 << (slotIndex + 1));
         Debug.Log($"{carInstance.name} (slot {slotIndex}) → vcam '{vcam.name}' canal asignado: {vcam.OutputChannel}");
+    }
+    public void ExpandToFullscreen(int survivingSlotIndex)
+    {
+        int eliminatedSlotIndex = survivingSlotIndex == 0 ? 1 : 0;
+
+        Camera survivingCam = playerSlotConfigs[survivingSlotIndex].splitScreenCamera;
+        survivingCam.rect = new Rect(0f, 0f, 1f, 1f);
+
+        playerSlotConfigs[eliminatedSlotIndex].splitScreenCamera.gameObject.SetActive(false);
     }
 }
