@@ -62,5 +62,9 @@ public class CarSelectionGridUI : MonoBehaviour
         else if (player2Cursor.gameObject.activeSelf && !player2Cursor.IsLocked) player2Cursor.OnSlotClicked(slot);
     }
 
-    public CarSlotUI FirstSlot() => grid[0, 0];
+    public CarSlotUI FirstSlot()
+    {
+        if (grid == null || grid.Length == 0) return null;
+        return grid[0, 0];
+    }
 }

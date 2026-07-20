@@ -39,6 +39,10 @@ public class AISpawner : MonoBehaviour
 
             GameObject instance = Instantiate(prefabToSpawn, aiSpawnPoints[i].position, aiSpawnPoints[i].rotation);
 
+            CarColorApplier colorApplier = instance.GetComponentInChildren<CarColorApplier>();
+            if (colorApplier != null)
+                colorApplier.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.6f, 1f)); // evita colores muy oscuros o desaturados/feos
+
             VehicleHealth health = instance.GetComponent<VehicleHealth>();
             if (health != null) derbyManager.RegisterPlayer($"Bot {i + 1}", health);
 

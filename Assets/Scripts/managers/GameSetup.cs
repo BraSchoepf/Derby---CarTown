@@ -27,6 +27,7 @@ public class GameSetup : MonoBehaviour
         bool isMultiplayer = session != null && session.selectedMode == GameMode.MultiplayerSplitScreen;
 
         ConfigureCameraLayout(isMultiplayer);
+        ConfigureHealthBars(isMultiplayer);
 
         SpawnPlayer(playerSlotConfigs[0], session != null ? session.player1Car : null, 0);
 
@@ -52,6 +53,11 @@ public class GameSetup : MonoBehaviour
             cam1.rect = new Rect(0, 0, 1, 1);
             cam2.gameObject.SetActive(false);
         }
+    }
+    void ConfigureHealthBars(bool isMultiplayer)
+    {
+        if (healthBarP2 != null)
+            healthBarP2.gameObject.SetActive(isMultiplayer);
     }
 
     void SpawnPlayer(PlayerSlotConfig config, CarStatsSO carStats, int slotIndex)
@@ -83,6 +89,13 @@ public class GameSetup : MonoBehaviour
             minimapIcon.SetOwner(slotIndex == 0 ? MinimapOwnerType.Player1 : MinimapOwnerType.Player2);
         else
             Debug.LogWarning($"[GameSetup] {carInstance.name} no tiene MinimapIcon — no va a aparecer en el minimapa.", this);
+
+        CarColorApplier colorApplier = carInstance.GetComponentInChildren<CarColorApplier>();
+        if (colorApplier != null)
+        {
+            Color chosenColor = slotIndex == 0 ? GameSession.Instance.player1Color : GameSession.Instance.player2Color;
+            colorApplier.SetColor(chosenColor);
+        }
     }
 
     void AssignCameraChannel(GameObject carInstance, int slotIndex)

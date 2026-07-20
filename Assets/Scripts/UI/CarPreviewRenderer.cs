@@ -49,4 +49,10 @@ public class CarPreviewRenderer : MonoBehaviour
         foreach (Transform child in obj.transform)
             SetLayerRecursively(child.gameObject, layer);
     }
+    public void SetColor(Color color)
+    {
+        if (instance == null) return;
+        var applier = instance.GetComponentInChildren<CarColorApplier>();
+        if (applier != null) applier.SetColor(color);
+    }
 }

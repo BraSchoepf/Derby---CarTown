@@ -10,6 +10,9 @@ public class GameSession : MonoBehaviour
     public CarStatsSO player1Car;
     public CarStatsSO player2Car; // null si es single player
 
+    public Color player1Color = Color.white;
+    public Color player2Color = Color.white;
+
     void Awake()
     {
         if (Instance != null && Instance != this)

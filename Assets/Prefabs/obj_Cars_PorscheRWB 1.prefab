@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 1254508488530192516}
   - component: {fileID: -929792119589169178}
   - component: {fileID: -2239325961789334810}
+  - component: {fileID: -1412604066301055773}
   m_Layer: 6
   m_Name: obj_Cars_PorscheRWB 1
   m_TagString: Untagged
@@ -317,6 +318,22 @@ MonoBehaviour:
   fixedHeight: 50
   rotateWithCar: 1
   yawOffset: -90
+--- !u!114 &-1412604066301055773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711543342545725848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773f3ef6e4f1b96499279214a05914db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarColorApplier
+  paintableRenderers:
+  - renderer: {fileID: 4599814607758988988}
+    materialIndex: 0
+  colorPropertyName: _BaseColor
 --- !u!1 &1048758862022746729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,6 +1251,8 @@ GameObject:
   - component: {fileID: 7741234776339382651}
   - component: {fileID: 4599814607758988988}
   - component: {fileID: 8404569537542082837}
+  - component: {fileID: 8076314374632912526}
+  - component: {fileID: 7294528774006218535}
   m_Layer: 6
   m_Name: obj_car_PorscheRWB
   m_TagString: Untagged
@@ -1289,7 +1308,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2222949936760928058, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
+  - {fileID: 2100000, guid: 602992d6b6dfed3498cc7758a102d37c, type: 2}
   - {fileID: 4903059823493961414, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
   - {fileID: 6175515917529801181, guid: 115b9fb3b1b3b784197095216c123dcc, type: 3}
   - {fileID: 7683578321718416531, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
@@ -1335,10 +1354,56 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6
-  m_Height: 2.96
-  m_Direction: 2
-  m_Center: {x: -0.028707594, y: 0.5838313, z: -0.058817387}
+  m_Radius: 0.46
+  m_Height: 1.66
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.57, z: -1.11}
+--- !u!136 &8076314374632912526
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5787176903056119762}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.46
+  m_Height: 1.66
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.46, z: 0.96}
+--- !u!136 &7294528774006218535
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5787176903056119762}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.61
+  m_Height: 1.66
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.63, z: -0.07}
 --- !u!1 &5927770957696405763
 GameObject:
   m_ObjectHideFlags: 0

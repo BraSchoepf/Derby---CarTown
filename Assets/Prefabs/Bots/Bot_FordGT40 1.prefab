@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 25238358806839765}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.52, y: 0.23, z: 0.13}
+  m_LocalPosition: {x: -0.56, y: 0.23, z: 0.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -220,6 +220,7 @@ GameObject:
   - component: {fileID: 6729910169704709154}
   - component: {fileID: 3064553445696009987}
   - component: {fileID: -2035356866215809391}
+  - component: {fileID: -9060708705282129269}
   m_Layer: 6
   m_Name: Bot_FordGT40 1
   m_TagString: Untagged
@@ -331,6 +332,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarMeshDamage
   targetMeshFilter: {fileID: 1187414602584796402}
+  vehicleHealth: {fileID: 0}
+  damageScaleByHealthLost:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.35
+      inSlope: 0
+      outSlope: 1.15
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1.5
+      inSlope: 1.15
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   damageRadius: 0.5
   damageMultiplier: 0.02
   maxVertexDisplacement: 0.2
@@ -392,10 +418,26 @@ MonoBehaviour:
   directRammingRange: 15
   pathRecalculateInterval: 0.75
   cornerReachedDistance: 3
-  stuckSpeedThreshold: 1.5
-  stuckTimeToTrigger: 1.2
-  reverseDuration: 1
+  stuckSpeedThreshold: 2
+  stuckTimeToTrigger: 0.8
+  reverseDuration: 2
   reverseStuckThrottle: -1
+--- !u!114 &-9060708705282129269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827370793001695660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773f3ef6e4f1b96499279214a05914db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarColorApplier
+  paintableRenderers:
+  - renderer: {fileID: 5382053845136877764}
+    materialIndex: 1
+  colorPropertyName: _BaseColor
 --- !u!1 &1890126199645032049
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +450,8 @@ GameObject:
   - component: {fileID: 1187414602584796402}
   - component: {fileID: 5382053845136877764}
   - component: {fileID: 8328951790611804943}
+  - component: {fileID: 2818512155839663645}
+  - component: {fileID: 606934249725295243}
   m_Layer: 6
   m_Name: obj_Car_fordGT40
   m_TagString: Untagged
@@ -464,7 +508,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2136820761094999734, guid: 4ad34f0e2d1ffed47999dac650a229e3, type: 3}
-  - {fileID: -6087771358165109452, guid: 4ad34f0e2d1ffed47999dac650a229e3, type: 3}
+  - {fileID: 2100000, guid: e78cab453d1870f40b0bbda76f6b67c8, type: 2}
   - {fileID: 4280045219670781001, guid: 4ad34f0e2d1ffed47999dac650a229e3, type: 3}
   - {fileID: -1973801367861818950, guid: 4ad34f0e2d1ffed47999dac650a229e3, type: 3}
   - {fileID: 3372217824614629059, guid: 4ad34f0e2d1ffed47999dac650a229e3, type: 3}
@@ -512,10 +556,56 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2.91
-  m_Direction: 2
-  m_Center: {x: 0.000000059604645, y: 0.63, z: 0.04892081}
+  m_Radius: 0.46
+  m_Height: 1.9
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.63, z: -0.97}
+--- !u!136 &2818512155839663645
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890126199645032049}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.46
+  m_Height: 1.84
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.63, z: 0}
+--- !u!136 &606934249725295243
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890126199645032049}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.46
+  m_Height: 1.77
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.63, z: 0.96}
 --- !u!1 &2135128684140363325
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,7 +881,7 @@ Transform:
   m_GameObject: {fileID: 2336606120198443363}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.52, y: 0.23000002, z: 0.13000011}
+  m_LocalPosition: {x: 0.54, y: 0.23000002, z: 0.13000011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1114,7 +1204,7 @@ Transform:
   m_GameObject: {fileID: 5762719843647287143}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2, z: -0.95}
+  m_LocalPosition: {x: 0, y: 0.2, z: -0.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

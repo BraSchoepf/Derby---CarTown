@@ -8,9 +8,23 @@ public class PlayerCarCursor : MonoBehaviour
     public CarPreviewRenderer preview;
     public CarStatsPanelUI statsPanel;
 
+    [Header("Color panel - repetición al mantener")]
+    public float holdRepeatDelay = 0.4f;   // pausa inicial antes de empezar a repetir
+    public float holdRepeatInterval = 0.12f;
+
+    Vector2Int heldDirection;
+    float holdTimer;
+    bool isFirstRepeat;
+
+
+    public ColorSelectionPanelUI colorPanel;
+
+    bool loggedGridWarning = false;
+
     CarSlotUI current, locked;
     CarStatsSO lastRandomPick;
 
+    public Color SelectedColor => colorPanel != null ? colorPanel.CurrentColor : Color.white;
     public bool IsLocked => locked != null;
     public CarStatsSO SelectedCar =>
         locked == null ? null :
@@ -29,32 +43,38 @@ public class PlayerCarCursor : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current == null) return; // no hay teclado conectado, no hay nada que leer
+        if (Keyboard.current == null) return;
 
         if (current == null)
         {
             CarSlotUI first = grid.FirstSlot();
             if (first == null)
             {
-                Debug.LogWarning($"[PlayerCarCursor P{playerIndex}] grid.FirstSlot() sigue devolviendo null — el grid no tiene slots construidos todavía.", this);
+                if (!loggedGridWarning)
+                {
+                    Debug.LogWarning($"[PlayerCarCursor P{playerIndex}] grid.FirstSlot() sigue devolviendo null.", this);
+                    loggedGridWarning = true;
+                }
                 return;
             }
             MoveTo(first);
-            return; // este frame solo reanclamos, no leemos movimiento todavía
+            return;
         }
 
         if (IsLocked)
         {
-            if (GetCancel()) Unlock();
+            if (GetConfirm()) { ForceUnlock(); return; } // misma tecla, ahora deselecciona
+            HandleColorNavigation();
             return;
         }
 
-        Vector2Int dir = ReadDirection();
-        if (dir != Vector2Int.zero)
-            MoveTo(grid.GetNextSlot(current.GridRow, current.GridCol, dir.y, dir.x));
+        Vector2Int moveDir = ReadDirection();
+        if (moveDir != Vector2Int.zero)
+            MoveTo(grid.GetNextSlot(current.GridRow, current.GridCol, moveDir.y, moveDir.x));
 
         if (GetConfirm()) Lock();
     }
+
 
     Vector2Int ReadDirection()
     {
@@ -77,12 +97,9 @@ public class PlayerCarCursor : MonoBehaviour
     }
 
     bool GetConfirm() => playerIndex == 1
-        ? Keyboard.current.spaceKey.wasPressedThisFrame
-        : Keyboard.current.enterKey.wasPressedThisFrame;
+    ? Keyboard.current.spaceKey.wasPressedThisFrame
+    : (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame);
 
-    bool GetCancel() => playerIndex == 1
-        ? Keyboard.current.escapeKey.wasPressedThisFrame
-        : Keyboard.current.backspaceKey.wasPressedThisFrame;
 
     void MoveTo(CarSlotUI slot)
     {
@@ -94,6 +111,65 @@ public class PlayerCarCursor : MonoBehaviour
         CarStatsSO carToShow = current.slotType == CarSlotType.Random ? null : current.carStats;
         if (preview != null) preview.ShowCar(carToShow);
         if (statsPanel != null) statsPanel.ShowStats(carToShow);
+    }
+
+    void HandleColorNavigation()
+    {
+        if (colorPanel == null) return;
+
+        Vector2Int dir = ReadDirectionRaw(); // devuelve la dirección sostenida, no solo el frame en que se apretó
+
+        if (dir == Vector2Int.zero)
+        {
+            heldDirection = Vector2Int.zero;
+            holdTimer = 0f;
+            return;
+        }
+
+        if (dir != heldDirection)
+        {
+            // Cambió de dirección o recién empieza a mantener: un paso inmediato, resetea el timer
+            heldDirection = dir;
+            holdTimer = holdRepeatDelay;
+            isFirstRepeat = true;
+            ApplyColorMove(dir);
+            return;
+        }
+
+        // Misma dirección sostenida: cuenta regresiva para repetir
+        holdTimer -= Time.deltaTime;
+        if (holdTimer <= 0f)
+        {
+            ApplyColorMove(dir);
+            holdTimer = isFirstRepeat ? holdRepeatInterval : holdRepeatInterval;
+            isFirstRepeat = false;
+        }
+    }
+
+    void ApplyColorMove(Vector2Int dir)
+    {
+        Color color = colorPanel.Move(dir.x, dir.y); // -dir.y porque tu ReadDirection usa y=-1 para "arriba"
+        preview.SetColor(color);
+    }
+
+    Vector2Int ReadDirectionRaw()
+    {
+        var kb = Keyboard.current;
+        if (playerIndex == 1)
+        {
+            if (kb.aKey.isPressed) return new Vector2Int(-1, 0);
+            if (kb.dKey.isPressed) return new Vector2Int(1, 0);
+            if (kb.wKey.isPressed) return new Vector2Int(0, -1);
+            if (kb.sKey.isPressed) return new Vector2Int(0, 1);
+        }
+        else
+        {
+            if (kb.leftArrowKey.isPressed) return new Vector2Int(-1, 0);
+            if (kb.rightArrowKey.isPressed) return new Vector2Int(1, 0);
+            if (kb.upArrowKey.isPressed) return new Vector2Int(0, -1);
+            if (kb.downArrowKey.isPressed) return new Vector2Int(0, 1);
+        }
+        return Vector2Int.zero;
     }
 
     public void OnSlotClicked(CarSlotUI slot)
@@ -114,7 +190,33 @@ public class PlayerCarCursor : MonoBehaviour
         CarStatsSO carToShow = SelectedCar;
         if (preview != null) preview.ShowCar(carToShow);
         if (statsPanel != null) statsPanel.ShowStats(carToShow);
+
+        if (colorPanel != null)
+        {
+            colorPanel.gameObject.SetActive(true);
+            preview.SetColor(colorPanel.CurrentColor); // aplica el color default apenas se ve el auto
+        }
     }
 
-    void Unlock() { locked.SetLocked(0); locked = null; }
+    void Unlock()
+    {
+        ForceUnlock();
+    }
+
+    public void ForceUnlock()
+    {
+        if (locked != null)
+        {
+            locked.SetLocked(0);
+            locked = null;
+        }
+
+        if (current != null)
+        {
+            current.SetHover(playerIndex, false);
+            current = null; // fuerza que el próximo Update() vuelva a MoveTo(grid.FirstSlot())
+        }
+
+        if (colorPanel != null) colorPanel.gameObject.SetActive(false);
+    }
 }

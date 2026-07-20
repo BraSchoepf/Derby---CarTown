@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 3620820567512020494}
   - component: {fileID: 8006806956780266382}
   - component: {fileID: 6066436616699156613}
+  - component: {fileID: 5286448318590428997}
   m_Layer: 6
   m_Name: obj_Cars_Cybertrack
   m_TagString: Untagged
@@ -297,6 +298,22 @@ MonoBehaviour:
   fixedHeight: 50
   rotateWithCar: 1
   yawOffset: -90
+--- !u!114 &5286448318590428997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078272866267778280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773f3ef6e4f1b96499279214a05914db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarColorApplier
+  paintableRenderers:
+  - renderer: {fileID: 7208400431892112604}
+    materialIndex: 1
+  colorPropertyName: _BaseColor
 --- !u!1 &2729807838791809342
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,6 +326,8 @@ GameObject:
   - component: {fileID: 903837948203520437}
   - component: {fileID: 7208400431892112604}
   - component: {fileID: 3781668627337706031}
+  - component: {fileID: 2964910829076913926}
+  - component: {fileID: 7594175528747666813}
   m_Layer: 6
   m_Name: obj_Car_Cybertrack
   m_TagString: Untagged
@@ -365,7 +384,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 9d32ff616a5491849ae70d99d7648a57, type: 2}
-  - {fileID: 2100000, guid: d2466c15f1e4e034384df41dd52f5cef, type: 2}
+  - {fileID: 2100000, guid: dce58b5f8b3172643acc2f917eb04d49, type: 2}
   - {fileID: 2100000, guid: 8a274f5d188559347bbd2c5ef493c3ff, type: 2}
   - {fileID: 2100000, guid: 9ac1388aa1ab8634ab21a2de14226da3, type: 2}
   - {fileID: 2100000, guid: 95e256e70d37b9241b6ec06b09530f56, type: 2}
@@ -412,10 +431,56 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.78
-  m_Height: 4
-  m_Direction: 2
-  m_Center: {x: 0.015004337, y: 0.96865743, z: 0.02765429}
+  m_Radius: 0.76
+  m_Height: 1.82
+  m_Direction: 0
+  m_Center: {x: 0, y: 1.07, z: -0.09}
+--- !u!136 &2964910829076913926
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729807838791809342}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.67
+  m_Height: 1.75
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.91, z: 1.4}
+--- !u!136 &7594175528747666813
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729807838791809342}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.55
+  m_Height: 1.87
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.91, z: -1.44}
 --- !u!1 &3115580707912803028
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +508,7 @@ Transform:
   m_GameObject: {fileID: 3115580707912803028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6, y: 0.30999994, z: 0}
+  m_LocalPosition: {x: 0.66, y: 0.30999994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -511,7 +576,7 @@ Transform:
   m_GameObject: {fileID: 3216670755800366537}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.55, y: 0.30999994, z: 0}
+  m_LocalPosition: {x: -0.62, y: 0.30999994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

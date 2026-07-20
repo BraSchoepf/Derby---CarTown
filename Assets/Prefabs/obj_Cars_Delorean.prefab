@@ -133,7 +133,7 @@ Transform:
   m_GameObject: {fileID: 2105307544865411552}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.65, y: 0.29999995, z: 0.09}
+  m_LocalPosition: {x: 0.71, y: 0.29999995, z: 0.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -154,7 +154,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -277,6 +277,8 @@ GameObject:
   - component: {fileID: 8963758484318626392}
   - component: {fileID: 7047158052766898438}
   - component: {fileID: 6494414295214446208}
+  - component: {fileID: 1069244369983403066}
+  - component: {fileID: 3212582707345820694}
   m_Layer: 6
   m_Name: obj_car_Delorean
   m_TagString: Untagged
@@ -332,7 +334,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4002703166313647725, guid: 115b9fb3b1b3b784197095216c123dcc, type: 3}
+  - {fileID: 2100000, guid: 446c7a077a904a74a930c525dfa540e4, type: 2}
   - {fileID: -7470476984854483569, guid: 115b9fb3b1b3b784197095216c123dcc, type: 3}
   - {fileID: 8572726162421888665, guid: 115b9fb3b1b3b784197095216c123dcc, type: 3}
   - {fileID: 6175515917529801181, guid: 115b9fb3b1b3b784197095216c123dcc, type: 3}
@@ -380,10 +382,56 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.7
-  m_Height: 2.87
-  m_Direction: 2
-  m_Center: {x: 0.021014392, y: 0.76, z: 0.056488514}
+  m_Radius: 0.46
+  m_Height: 2.05
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.67, z: -0.89}
+--- !u!136 &1069244369983403066
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2262912873069663313}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.62
+  m_Height: 1.96
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.83, z: 0.14}
+--- !u!136 &3212582707345820694
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2262912873069663313}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.37
+  m_Height: 1.95
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.64, z: 1.11}
 --- !u!1 &2504861365109943849
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,6 +629,7 @@ GameObject:
   - component: {fileID: -5034840903159613152}
   - component: {fileID: 8549354783792719471}
   - component: {fileID: 823476088256454969}
+  - component: {fileID: -8251522423475480650}
   m_Layer: 6
   m_Name: obj_Cars_Delorean
   m_TagString: Untagged
@@ -742,6 +791,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarMeshDamage
   targetMeshFilter: {fileID: 8963758484318626392}
+  vehicleHealth: {fileID: 0}
+  damageScaleByHealthLost:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.35
+      inSlope: 0
+      outSlope: 1.15
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1.5
+      inSlope: 1.15
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   damageRadius: 0.6
   damageMultiplier: 0.02
   maxVertexDisplacement: 0.35
@@ -767,6 +841,22 @@ MonoBehaviour:
   fixedHeight: 50
   rotateWithCar: 1
   yawOffset: -90
+--- !u!114 &-8251522423475480650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3316808279603120959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773f3ef6e4f1b96499279214a05914db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarColorApplier
+  paintableRenderers:
+  - renderer: {fileID: 7047158052766898438}
+    materialIndex: 0
+  colorPropertyName: _BaseColor
 --- !u!1 &4656262414772341800
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,7 +1067,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1024,7 +1114,7 @@ Transform:
   m_GameObject: {fileID: 4886452482364934449}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.57, y: 0.29999995, z: 0.09}
+  m_LocalPosition: {x: -0.64, y: 0.29999995, z: 0.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1045,7 +1135,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1184,7 +1274,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
