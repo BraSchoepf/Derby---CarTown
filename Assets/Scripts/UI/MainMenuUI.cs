@@ -15,6 +15,9 @@ public class MainMenuUI : MonoBehaviour
     public PlayerCarCursor player1Cursor;
     public PlayerCarCursor player2Cursor;
 
+    [Header("Car Preview Layout")]
+    public CarPreviewLayoutUI previewLayout;
+
     [Header("Map Selection UI")]
     public MapCarouselUI mapCarousel;
     public TMPro.TextMeshProUGUI mapNameText;
@@ -55,6 +58,8 @@ public class MainMenuUI : MonoBehaviour
 
         if (multiplayer)
             player2Cursor.gameObject.SetActive(true);
+
+        previewLayout.ConfigureLayout(multiplayer);
     }
 
     void Update()
