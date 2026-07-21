@@ -13,7 +13,6 @@ public class GameSetup : MonoBehaviour
     [System.Serializable]
     public class PlayerSlotConfig
     {
-        public Transform spawnPoint;
         public Camera splitScreenCamera;
         public string controlScheme;
     }
@@ -23,16 +22,26 @@ public class GameSetup : MonoBehaviour
 
     void Start()
     {
+        if (MapLoader.Instance.IsMapReady)
+            OnMapReady();
+        else
+            MapLoader.Instance.OnMapReady += OnMapReady;
+    }
+
+    void OnMapReady()
+    {
+        MapLoader.Instance.OnMapReady -= OnMapReady;
+
         GameSession session = GameSession.Instance;
         bool isMultiplayer = session != null && session.selectedMode == GameMode.MultiplayerSplitScreen;
 
         ConfigureCameraLayout(isMultiplayer);
         ConfigureHealthBars(isMultiplayer);
 
-        SpawnPlayer(playerSlotConfigs[0], session != null ? session.player1Car : null, 0);
+        SpawnPlayer(0, session != null ? session.player1Car : null);
 
         if (isMultiplayer)
-            SpawnPlayer(playerSlotConfigs[1], session.player2Car, 1);
+            SpawnPlayer(1, session.player2Car);
         else
             playerSlotConfigs[1].splitScreenCamera.gameObject.SetActive(false);
     }
@@ -44,7 +53,7 @@ public class GameSetup : MonoBehaviour
 
         if (isMultiplayer)
         {
-            cam1.rect = new Rect(0f, 0f, 0.5f, 1f);   // mitad IZQUIERDA
+            cam1.rect = new Rect(0f, 0f, 0.5f, 1f);
             cam2.rect = new Rect(0.5f, 0f, 0.5f, 1f);
             cam2.gameObject.SetActive(true);
         }
@@ -54,25 +63,35 @@ public class GameSetup : MonoBehaviour
             cam2.gameObject.SetActive(false);
         }
     }
+
     void ConfigureHealthBars(bool isMultiplayer)
     {
         if (healthBarP2 != null)
             healthBarP2.gameObject.SetActive(isMultiplayer);
     }
 
-    void SpawnPlayer(PlayerSlotConfig config, CarStatsSO carStats, int slotIndex)
+    void SpawnPlayer(int slotIndex, CarStatsSO carStats)
     {
+        Transform spawnPoint = MapLoader.Instance.GetPlayerSpawn(slotIndex);
+        if (spawnPoint == null)
+        {
+            Debug.LogError($"[GameSetup] No hay spawn point de mapa para el slot {slotIndex}.", this);
+            return;
+        }
+
+        PlayerSlotConfig config = playerSlotConfigs[slotIndex];
+
         GameObject prefabToSpawn = carStats != null
             ? registry.GetPrefabForStats(carStats)
             : registry.cars[0].prefab;
 
-        GameObject carInstance = Instantiate(prefabToSpawn, config.spawnPoint.position, config.spawnPoint.rotation);
+        GameObject carInstance = Instantiate(prefabToSpawn, spawnPoint.position, spawnPoint.rotation);
 
         CarController carController = carInstance.GetComponent<CarController>();
         if (carController != null)
         {
-            carController.playerIndex = slotIndex + 1; // 1 o 2
-            carController.SetSpawnPoint(config.spawnPoint.position, config.spawnPoint.rotation);
+            carController.playerIndex = slotIndex + 1;
+            carController.SetSpawnPoint(spawnPoint.position, spawnPoint.rotation);
         }
 
         PlayerInput playerInput = carInstance.GetComponent<PlayerInput>();
@@ -80,12 +99,11 @@ public class GameSetup : MonoBehaviour
         playerInput.camera = config.splitScreenCamera;
         playerInput.SwitchCurrentControlScheme(config.controlScheme, Keyboard.current);
 
-        // Asignar el Output Channel dinámicamente según el slot, no el prefab
         AssignCameraChannel(carInstance, slotIndex);
 
         VehicleHealth health = carInstance.GetComponent<VehicleHealth>();
         if (health != null && derbyManager != null)
-            derbyManager.RegisterPlayer($"Player {slotIndex + 1}", health, slotIndex); // ← agregado slotIndex
+            derbyManager.RegisterPlayer($"Player {slotIndex + 1}", health, slotIndex);
 
         HealthBarUI bar = slotIndex == 0 ? healthBarP1 : healthBarP2;
         if (bar != null && health != null)
@@ -95,7 +113,7 @@ public class GameSetup : MonoBehaviour
         if (minimapIcon != null)
             minimapIcon.SetOwner(slotIndex == 0 ? MinimapOwnerType.Player1 : MinimapOwnerType.Player2);
         else
-            Debug.LogWarning($"[GameSetup] {carInstance.name} no tiene MinimapIcon — no va a aparecer en el minimapa.", this);
+            Debug.LogWarning($"[GameSetup] {carInstance.name} no tiene MinimapIcon.", this);
 
         CarColorApplier colorApplier = carInstance.GetComponentInChildren<CarColorApplier>();
         if (colorApplier != null)
@@ -113,11 +131,9 @@ public class GameSetup : MonoBehaviour
             Debug.LogWarning($"No se encontró CinemachineCamera en {carInstance.name}");
             return;
         }
-
-        // slotIndex + 1 para saltar el bit de "Default" y empezar en Channel01
         vcam.OutputChannel = (Unity.Cinemachine.OutputChannels)(1 << (slotIndex + 1));
-        Debug.Log($"{carInstance.name} (slot {slotIndex}) → vcam '{vcam.name}' canal asignado: {vcam.OutputChannel}");
     }
+
     public void ExpandToFullscreen(int survivingSlotIndex)
     {
         int eliminatedSlotIndex = survivingSlotIndex == 0 ? 1 : 0;

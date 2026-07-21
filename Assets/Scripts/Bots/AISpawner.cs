@@ -4,26 +4,39 @@ using System.Collections.Generic;
 public class AISpawner : MonoBehaviour
 {
     [Header("Autos de IA disponibles")]
-    [Tooltip("Todos los prefabs de auto IA que pueden aparecer (CON CarAIController, SIN PlayerInput)")]
     public GameObject[] aiCarPrefabs;
 
     [Header("Spawn")]
-    public Transform[] aiSpawnPoints;
-    public bool allowRepeatedCars = true; // false = cada auto aparece como máximo una vez por partida
+    public bool allowRepeatedCars = true;
 
     public DerbyGameManager derbyManager;
 
     void Start()
     {
+        if (MapLoader.Instance.IsMapReady)
+            SpawnBots();
+        else
+            MapLoader.Instance.OnMapReady += SpawnBots;
+    }
+
+    void SpawnBots()
+    {
+        MapLoader.Instance.OnMapReady -= SpawnBots;
+
         if (aiCarPrefabs == null || aiCarPrefabs.Length == 0)
         {
             Debug.LogError("[AISpawner] No hay prefabs de auto IA asignados.", this);
             return;
         }
 
-        List<GameObject> pool = allowRepeatedCars
-            ? null
-            : new List<GameObject>(aiCarPrefabs);
+        Transform[] aiSpawnPoints = MapLoader.Instance.GetAISpawnPoints();
+        if (aiSpawnPoints.Length == 0)
+        {
+            Debug.LogError("[AISpawner] El mapa actual no tiene puntos de spawn de IA.", this);
+            return;
+        }
+
+        List<GameObject> pool = allowRepeatedCars ? null : new List<GameObject>(aiCarPrefabs);
 
         for (int i = 0; i < aiSpawnPoints.Length; i++)
         {
@@ -33,7 +46,7 @@ public class AISpawner : MonoBehaviour
 
             if (prefabToSpawn == null)
             {
-                Debug.LogWarning($"[AISpawner] No quedan autos disponibles para el spawn point {i} (sin repetición activado y se agotó el pool).", this);
+                Debug.LogWarning($"[AISpawner] No quedan autos disponibles para el spawn point {i}.", this);
                 continue;
             }
 
@@ -42,13 +55,9 @@ public class AISpawner : MonoBehaviour
             CarController carController = instance.GetComponent<CarController>();
             if (carController != null)
             {
-                carController.playerIndex = 0;
+                carController.playerIndex = -1;
                 carController.SetSpawnPoint(aiSpawnPoints[i].position, aiSpawnPoints[i].rotation);
             }
-
-            CarColorApplier colorApplier = instance.GetComponentInChildren<CarColorApplier>();
-            if (colorApplier != null)
-                colorApplier.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.6f, 1f)); // evita colores muy oscuros o desaturados/feos
 
             VehicleHealth health = instance.GetComponent<VehicleHealth>();
             if (health != null) derbyManager.RegisterPlayer($"Bot {i + 1}", health);
@@ -56,6 +65,10 @@ public class AISpawner : MonoBehaviour
             MinimapIcon minimapIcon = instance.GetComponent<MinimapIcon>();
             if (minimapIcon != null)
                 minimapIcon.SetOwner(MinimapOwnerType.Bot);
+
+            CarColorApplier colorApplier = instance.GetComponentInChildren<CarColorApplier>();
+            if (colorApplier != null)
+                colorApplier.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.6f, 1f));
         }
     }
 

@@ -1,25 +1,30 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
 
 public class MainMenuUI : MonoBehaviour
 {
     [Header("Paneles")]
     public GameObject modeSelectionPanel;
     public GameObject carSelectionPanel;
+    public GameObject mapSelectionPanel;
 
     [Header("Car Selection UI")]
     public CarSelectionGridUI grid;
     public PlayerCarCursor player1Cursor;
     public PlayerCarCursor player2Cursor;
 
+    [Header("Map Selection UI")]
+    public MapCarouselUI mapCarousel;
+    public TMPro.TextMeshProUGUI mapNameText;
+
     [Header("UI extra")]
     public GameObject startPromptUI;
-    public Button startButton;
+    public Button startButton; // confirma selección de auto, pasa a selección de mapa
 
     [Header("Escenas")]
-    public string gameSceneName = "GameScene";
+    public string gameplayCoreSceneName = "GameplayCore";
 
     GameMode chosenMode;
     bool multiplayer;
@@ -45,11 +50,8 @@ public class MainMenuUI : MonoBehaviour
 
         player1Cursor.gameObject.SetActive(true);
 
-        // Reset explícito de P2: si venía de una ronda anterior en multiplayer,
-        // hay que forzar que se apague ANTES de decidir si se vuelve a prender,
-        // así su Awake()/OnEnable() corre limpio si vuelve a activarse
         player2Cursor.gameObject.SetActive(false);
-        player2Cursor.ForceUnlock(); // limpia cualquier selección/ícono que haya quedado
+        player2Cursor.ForceUnlock();
 
         if (multiplayer)
             player2Cursor.gameObject.SetActive(true);
@@ -57,26 +59,51 @@ public class MainMenuUI : MonoBehaviour
 
     void Update()
     {
-        if (!carSelectionPanel.activeSelf) return;
-
-        // Escape global: deselecciona a AMBOS jugadores, sin importar quién lo presionó
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (carSelectionPanel.activeSelf)
         {
-            player1Cursor.ForceUnlock();
-            if (multiplayer) player2Cursor.ForceUnlock();
-            return;
+            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                player1Cursor.ForceUnlock();
+                if (multiplayer) player2Cursor.ForceUnlock();
+                return;
+            }
+
+            bool readyToStart = player1Cursor.IsLocked && (!multiplayer || player2Cursor.IsLocked);
+
+            if (startPromptUI != null) startPromptUI.SetActive(readyToStart);
+            if (startButton != null) startButton.interactable = readyToStart;
         }
 
-        bool readyToStart = player1Cursor.IsLocked && (!multiplayer || player2Cursor.IsLocked);
+        if (mapSelectionPanel.activeSelf && Keyboard.current != null)
+        {
+            bool moved = false;
+            if (Keyboard.current.aKey.wasPressedThisFrame || Keyboard.current.leftArrowKey.wasPressedThisFrame)
+            {
+                mapCarousel.Move(-1);
+                moved = true;
+            }
+            if (Keyboard.current.dKey.wasPressedThisFrame || Keyboard.current.rightArrowKey.wasPressedThisFrame)
+            {
+                mapCarousel.Move(1);
+                moved = true;
+            }
 
-        if (startPromptUI != null)
-            startPromptUI.SetActive(readyToStart);
-
-        if (startButton != null)
-            startButton.interactable = readyToStart;
+            if (moved && mapNameText != null)
+                mapNameText.text = mapCarousel.CurrentMap.mapName;
+        }
     }
 
-    // Llamado por el nuevo botón "Volver a elegir modo"
+    // Llamado por el botón de confirmar auto — pasa a selección de mapa
+    public void OnConfirmCarSelection()
+    {
+        carSelectionPanel.SetActive(false);
+        mapSelectionPanel.SetActive(true);
+
+        if (mapNameText != null)
+            mapNameText.text = mapCarousel.CurrentMap.mapName;
+    }
+
+    // Llamado por el botón "Volver a elegir modo" dentro de selección de auto
     public void OnBackToModeSelection()
     {
         player1Cursor.ForceUnlock();
@@ -89,8 +116,15 @@ public class MainMenuUI : MonoBehaviour
         modeSelectionPanel.SetActive(true);
     }
 
-    // Enganchar al OnClick() del botón en el Inspector
-    public void OnConfirmSelection()
+    // Llamado por el botón "Volver a elegir auto" dentro de selección de mapa
+    public void OnBackToCarSelection()
+    {
+        mapSelectionPanel.SetActive(false);
+        carSelectionPanel.SetActive(true);
+    }
+
+    // Llamado por el botón final "Empezar partida" dentro de selección de mapa
+    public void OnConfirmMapSelection()
     {
         GameSession session = GameSession.Instance;
         if (session == null)
@@ -101,7 +135,8 @@ public class MainMenuUI : MonoBehaviour
         session.player2Car = multiplayer ? player2Cursor.SelectedCar : null;
         session.player1Color = player1Cursor.SelectedColor;
         session.player2Color = multiplayer ? player2Cursor.SelectedColor : Color.white;
+        session.selectedMapSceneName = mapCarousel.CurrentMap.sceneName;
 
-        SceneManager.LoadScene(gameSceneName);
+        SceneManager.LoadScene(gameplayCoreSceneName);
     }
 }

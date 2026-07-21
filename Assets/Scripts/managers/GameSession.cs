@@ -9,6 +9,7 @@ public class GameSession : MonoBehaviour
     public GameMode selectedMode = GameMode.SinglePlayer;
     public CarStatsSO player1Car;
     public CarStatsSO player2Car; // null si es single player
+    public string selectedMapSceneName;
 
     public Color player1Color = Color.white;
     public Color player2Color = Color.white;
@@ -23,6 +24,5 @@ public class GameSession : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        Debug.Log("GameSession.Awake — este es el Instance activo");
     }
 }

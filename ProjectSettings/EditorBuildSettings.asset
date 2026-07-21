@@ -9,8 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: c4cb921b917945349b53e546a3fc91b7
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Scenes/GameplayCore.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/map_bouldDemolition.unity
+    guid: 481d9fdef166bee45a189ec985a04900
+  - enabled: 1
+    path: Assets/Scenes/map_MudCircuit.unity
+    guid: a72b70c9b7887e64d87eea794a0a2204
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 8bdbc1eef9400504687d796beaded8ee, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

@@ -33,10 +33,20 @@ public class MatchResultsUI : MonoBehaviour
 
     void ConfigureLayout(bool multiplayer)
     {
+        if (panelP1 == null)
+        {
+            Debug.LogError("[MatchResultsUI] 'Panel P1' no está asignado en el Inspector.", this);
+            return;
+        }
+
         if (multiplayer)
         {
             SetRect(panelP1.GetComponent<RectTransform>(), new Vector2(0f, 0f), new Vector2(0.5f, 1f));
-            SetRect(panelP2.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(1f, 1f));
+
+            if (panelP2 != null)
+                SetRect(panelP2.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(1f, 1f));
+            else
+                Debug.LogWarning("[MatchResultsUI] 'Panel P2' no está asignado — multiplayer sin panel de resultado para P2.", this);
         }
         else
         {
