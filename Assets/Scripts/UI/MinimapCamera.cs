@@ -7,7 +7,7 @@ public class MinimapCamera : MonoBehaviour
 
     void Start()
     {
-        ArenaBoundsMarker marker = FindObjectOfType<ArenaBoundsMarker>();
+        ArenaBoundsMarker marker = FindFirstObjectByType<ArenaBoundsMarker>();
         if (marker == null)
         {
             Debug.LogError("[MinimapCamera] No hay ArenaBoundsMarker en la escena.", this);

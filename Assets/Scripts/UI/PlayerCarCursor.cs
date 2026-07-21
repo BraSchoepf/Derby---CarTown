@@ -148,7 +148,7 @@ public class PlayerCarCursor : MonoBehaviour
 
     void ApplyColorMove(Vector2Int dir)
     {
-        Color color = colorPanel.Move(dir.x, dir.y); // -dir.y porque tu ReadDirection usa y=-1 para "arriba"
+        Color color = colorPanel.Move(dir.x, dir.y); // dir.y porque tu ReadDirection usa y=-1 para "arriba"
         preview.SetColor(color);
     }
 

@@ -24,6 +24,10 @@ public class DerbyGameManager : MonoBehaviour
 
     bool matchEnded = false;
 
+    public static DerbyGameManager Instance;
+
+    void Awake() => Instance = this;
+
     public void RegisterPlayer(string name, VehicleHealth health, int humanSlotIndex = -1)
     {
         var entry = new PlayerEntry

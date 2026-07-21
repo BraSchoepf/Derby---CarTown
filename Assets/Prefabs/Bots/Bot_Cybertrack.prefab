@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 6066436616699156613}
   - component: {fileID: -5994239835006648205}
   - component: {fileID: 3294159495961547155}
+  - component: {fileID: 9181107708128846182}
   m_Layer: 6
   m_Name: Bot_Cybertrack
   m_TagString: Untagged
@@ -184,7 +185,21 @@ MonoBehaviour:
     brake: 1
   handbrakeKey: 51
   handbrakeKeyAlt: 0
-  isAIControlled: 0
+  enableAirControl: 1
+  airPitchTorque: 4
+  airRollTorque: 5
+  airYawTorque: 2
+  enableFlipRecovery: 1
+  roofCheckBox: {fileID: 9181107708128846182}
+  groundLayerForFlipCheck:
+    serializedVersion: 2
+    m_Bits: 8
+  flipRecoveryTorque: 6
+  isAIControlled: 1
+  playerIndex: 0
+  stuckCheckSpeedThreshold: 0.5
+  stuckTimeBeforeRespawn: 4
+  autoRespawnWhenStuck: 1
 --- !u!114 &3620820567512020494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,9 +299,9 @@ MonoBehaviour:
   directRammingRange: 15
   pathRecalculateInterval: 0.75
   cornerReachedDistance: 3
-  stuckSpeedThreshold: 2
-  stuckTimeToTrigger: 0.8
-  reverseDuration: 2
+  stuckSpeedThreshold: 1.5
+  stuckTimeToTrigger: 1.2
+  reverseDuration: 1
   reverseStuckThrottle: -1
 --- !u!114 &3294159495961547155
 MonoBehaviour:
@@ -304,6 +319,27 @@ MonoBehaviour:
   - renderer: {fileID: 7208400431892112604}
     materialIndex: 1
   colorPropertyName: _BaseColor
+--- !u!65 &9181107708128846182
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078272866267778280}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.64, z: 3.04}
+  m_Center: {x: 0, y: 1.67, z: 0}
 --- !u!1 &2729807838791809342
 GameObject:
   m_ObjectHideFlags: 0

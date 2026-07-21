@@ -21,12 +21,44 @@ public class CarController : MonoBehaviour
     public Wheel[] wheels;
 
     [Header("Handbrake - Tecla específica del jugador")]
-    public Key handbrakeKey = Key.LeftShift; // se configura distinto por cada prefab/instancia
+    public Key handbrakeKey = Key.LeftShift;
     public Key handbrakeKeyAlt = Key.None;
+
+    [Header("Control Aéreo")]
+    public bool enableAirControl = true;
+    public float airPitchTorque = 4f;
+    public float airRollTorque = 5f;
+    public float airYawTorque = 2f;
+
+    [Header("Recuperación de Vuelco (trigger en el techo)")]
+    public bool enableFlipRecovery = true;
+    public BoxCollider roofCheckBox;
+    public LayerMask groundLayerForFlipCheck;
+    public float flipRecoveryTorque = 6f;
+
+    [Tooltip("Velocidad lineal máxima para considerar que el auto está 'detenido' y habilitar la recuperación de vuelco")]
+    public float maxSpeedForFlipRecovery = 1.5f;
+    [Tooltip("Velocidad angular máxima (rad/s) para no confundir un roll en curso con un vuelco quieto")]
+    public float maxAngularSpeedForFlipRecovery = 1f;
+
+    bool isRoofTouchingGround = false;
 
     [Header("IA")]
     public bool isAIControlled = false;
     bool isDead = false;
+
+    [Header("Identidad")]
+    [Tooltip("0 = bot/IA, 1 = P1, 2 = P2. Lo setea GameSetup/AISpawner al spawnear.")]
+    public int playerIndex = 0;
+
+    [Header("Anti-atasco / Respawn")]
+    public float stuckCheckSpeedThreshold = 0.5f;
+    public float stuckTimeBeforeRespawn = 4f;
+    public bool autoRespawnWhenStuck = true;
+
+    Vector3 spawnPosition;
+    Quaternion spawnRotation;
+    float stuckRespawnTimer;
 
     Rigidbody rb;
     float steerInput;
@@ -65,6 +97,7 @@ public class CarController : MonoBehaviour
 
     public void OnThrottle(InputValue value)
     {
+        if (isDead) return;
         throttleInput = value.Get<float>();
     }
 
@@ -73,17 +106,58 @@ public class CarController : MonoBehaviour
         Debug.Log($"{gameObject.name} OnHandbrake event fired! isPressed={value.isPressed}");
     }
 
-    public void OnSteer(InputValue value) => steerInput = value.Get<float>();
+    public void OnSteer(InputValue value)
+    {
+        if (isDead) return;
+        steerInput = value.Get<float>();
+    }
+
+    void Update()
+    {
+        HandleManualRespawnInput();
+        UpdateStuckRespawnTimer();
+    }
 
     void FixedUpdate()
     {
-        Debug.Log($"{gameObject.name} | throttle={throttleInput} steer={steerInput}");
+        // isDead PRIMERO: si el auto está destruido, frena de verdad y no procesa nada más
+        if (isDead)
+        {
+            foreach (var w in wheels)
+            {
+                w.collider.motorTorque = 0f;
+                w.collider.brakeTorque = stats.brakeForce;
+                UpdateWheelVisual(w);
+            }
+            return;
+        }
 
         ReadHandbrakeInput();
         UpdateHandbrakeResetTimer();
 
         if (rb.IsSleeping() && (Mathf.Abs(throttleInput) > 0.01f || Mathf.Abs(steerInput) > 0.01f))
             rb.WakeUp();
+
+        int groundedWheels = GroundedWheelCount();
+
+        // "Aéreo" = ruedas sin contacto Y techo tampoco tocando nada.
+        // Si el techo está apoyado (volcado y quieto), NO es aéreo aunque las ruedas,
+        // por estar invertidas, tampoco detecten el suelo.
+        bool isAirborne = groundedWheels == 0 && !isRoofTouchingGround;
+
+        if (isAirborne && enableAirControl)
+        {
+            ApplyAirControl();
+            ZeroAllWheelForces();
+            return;
+        }
+
+        if (IsFlipped() && enableFlipRecovery)
+        {
+            ApplyFlipRecovery();
+            ZeroAllWheelForces();
+            return;
+        }
 
         bool grounded = IsOnDriftableGround();
         float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
@@ -100,7 +174,6 @@ public class CarController : MonoBehaviour
 
         HandleDriftKickAndEntry(wantsHandbrakeDrift, forwardSpeed);
 
-        // Steering sensible a velocidad
         float speedMultiplier = CalculateSpeedSensitiveSteerMultiplier(rb.linearVelocity.magnitude);
         float effectiveSteerAngle = steerInput * stats.maxSteerAngle * speedMultiplier;
         if (isDrifting) effectiveSteerAngle *= stats.driftSteerBoost;
@@ -131,7 +204,6 @@ public class CarController : MonoBehaviour
             UpdateWheelVisual(w);
         }
 
-        // Frenado directo extra (S), para que se sienta "con mordida"
         bool isBraking = throttleInput < -0.01f && forwardSpeed > 0.5f && !handbrakeInput;
         if (isBraking)
         {
@@ -141,22 +213,11 @@ public class CarController : MonoBehaviour
 
         if (isDrifting && Mathf.Abs(forwardSpeed) > 3f)
             ApplyDriftPhysics(forwardSpeed, wantsHandbrakeDrift);
-
-        if (isDead)
-        {
-            foreach (var w in wheels)
-            {
-                w.collider.motorTorque = 0f;
-                w.collider.brakeTorque = stats.brakeForce; // frena de verdad, no solo deja de acelerar
-                UpdateWheelVisual(w);
-            }
-            return; // no procesa steering, drift, ni nada más
-        }
     }
 
     void ReadHandbrakeInput()
     {
-        if (isAIControlled) return; // el handbrake de IA ya viene seteado por SetAIInput()
+        if (isAIControlled) return;
 
         handbrakeInput = false;
         if (Keyboard.current != null)
@@ -182,8 +243,6 @@ public class CarController : MonoBehaviour
             handbrakeResetTimer -= Time.fixedDeltaTime;
     }
 
-    // ---------------- Steering sensible a velocidad ----------------
-
     float CalculateSpeedSensitiveSteerMultiplier(float speed)
     {
         float lowSpeedFactor = Mathf.Lerp(stats.lowSpeedSteerMultiplier, 1f,
@@ -197,8 +256,6 @@ public class CarController : MonoBehaviour
         return lowSpeedFactor * highSpeedFactor;
     }
 
-    // ---------------- Aceleración / Desaceleración ----------------
-
     void UpdateAccelerationRamp()
     {
         float target = Mathf.Abs(throttleInput) > 0.01f ? Mathf.Abs(throttleInput) : 0f;
@@ -210,7 +267,6 @@ public class CarController : MonoBehaviour
     {
         float currentSpeed = rb.linearVelocity.magnitude;
 
-        // Motor: se anula por completo si el handbrake está activo
         if (w.motor && !handbrakeActive)
         {
             if (throttleInput > 0.01f && currentSpeed < stats.maxSpeed)
@@ -226,7 +282,7 @@ public class CarController : MonoBehaviour
         }
 
         if (handbrakeActive)
-            return; // el brakeTorque del handbrake se aplica aparte en el foreach principal
+            return;
 
         bool brakingWithS = w.brake && throttleInput < -0.01f && forwardSpeed > 0.5f;
 
@@ -243,8 +299,6 @@ public class CarController : MonoBehaviour
         if (currentSpeed < 0.3f) return stats.brakeForce;
         return stats.decelerationRate * 40f;
     }
-
-    // ---------------- Drift ----------------
 
     void HandleDriftKickAndEntry(bool wantsHandbrakeDrift, float forwardSpeed)
     {
@@ -292,7 +346,6 @@ public class CarController : MonoBehaviour
         if (rb.angularVelocity.magnitude > stats.maxDriftAngularVelocity * Mathf.Deg2Rad)
             rb.angularVelocity = rb.angularVelocity.normalized * stats.maxDriftAngularVelocity * Mathf.Deg2Rad;
 
-        // Sustain solo si NO estás frenando con handbrake (para que el freno de mano frene de verdad)
         if (!handbrakeActive && Mathf.Abs(currentDriftAngle) > stats.minDriftAngleForSustain)
         {
             float currentSpeed = rb.linearVelocity.magnitude;
@@ -305,7 +358,32 @@ public class CarController : MonoBehaviour
         }
     }
 
-    // ---------------- Utilidades ----------------
+    void ApplyAirControl()
+    {
+        rb.AddTorque(transform.right * (throttleInput * airPitchTorque), ForceMode.Acceleration);
+        rb.AddTorque(-transform.forward * (steerInput * airRollTorque), ForceMode.Acceleration);
+    }
+
+    void ApplyFlipRecovery()
+    {
+        float rollDirection = steerInput != 0f ? Mathf.Sign(steerInput) : 1f;
+        rb.AddTorque(-transform.forward * rollDirection * flipRecoveryTorque, ForceMode.Acceleration);
+
+        if (Mathf.Abs(throttleInput) > 0.1f)
+            rb.AddTorque(-transform.forward * Mathf.Sign(throttleInput) * flipRecoveryTorque * 0.5f, ForceMode.Acceleration);
+
+        rb.AddForce(Vector3.up * 2f, ForceMode.Acceleration);
+    }
+
+    void ZeroAllWheelForces()
+    {
+        foreach (var w in wheels)
+        {
+            w.collider.motorTorque = 0f;
+            w.collider.brakeTorque = 0f;
+            UpdateWheelVisual(w);
+        }
+    }
 
     bool IsOnDriftableGround()
     {
@@ -335,7 +413,6 @@ public class CarController : MonoBehaviour
         w.visual.rotation = rot;
     }
 
-    // Llamado por CarAIController en vez de los callbacks de Input System
     public void SetAIInput(float throttle, float steer, bool handbrake)
     {
         if (isDead) return;
@@ -352,4 +429,89 @@ public class CarController : MonoBehaviour
         handbrakeInput = false;
     }
 
+    int GroundedWheelCount()
+    {
+        int count = 0;
+        foreach (var w in wheels)
+        {
+            if (w.collider.GetGroundHit(out _)) count++;
+        }
+        return count;
+    }
+
+    bool IsFlipped()
+    {
+        if (!isRoofTouchingGround) return false;
+
+        bool isSlowEnough = rb.linearVelocity.magnitude < maxSpeedForFlipRecovery;
+        bool isNotSpinning = rb.angularVelocity.magnitude < maxAngularSpeedForFlipRecovery;
+
+        return isSlowEnough && isNotSpinning;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (((1 << other.gameObject.layer) & groundLayerForFlipCheck) != 0)
+            isRoofTouchingGround = true;
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (((1 << other.gameObject.layer) & groundLayerForFlipCheck) != 0)
+            isRoofTouchingGround = false;
+    }
+
+    // Usar si el BoxCollider del techo vive en un GameObject hijo separado (con RoofTriggerRelay)
+    public void NotifyRoofTrigger(Collider other, bool entering)
+    {
+        if (((1 << other.gameObject.layer) & groundLayerForFlipCheck) == 0) return;
+        isRoofTouchingGround = entering;
+    }
+
+    // ---------------- Respawn ----------------
+
+    public void SetSpawnPoint(Vector3 position, Quaternion rotation)
+    {
+        spawnPosition = position;
+        spawnRotation = rotation;
+    }
+
+    void HandleManualRespawnInput()
+    {
+        if (isDead || Keyboard.current == null) return;
+
+        bool respawnPressed = playerIndex == 1
+            ? Keyboard.current.rKey.wasPressedThisFrame
+            : playerIndex == 2 && Keyboard.current.nKey.wasPressedThisFrame;
+
+        if (respawnPressed) RespawnAtSpawnPoint();
+    }
+
+    void UpdateStuckRespawnTimer()
+    {
+        if (!autoRespawnWhenStuck || isDead) return;
+
+        bool isMoving = rb.linearVelocity.magnitude > stuckCheckSpeedThreshold;
+
+        if (isMoving)
+        {
+            stuckRespawnTimer = 0f;
+            return;
+        }
+
+        stuckRespawnTimer += Time.deltaTime;
+        if (stuckRespawnTimer >= stuckTimeBeforeRespawn)
+        {
+            RespawnAtSpawnPoint();
+            stuckRespawnTimer = 0f;
+        }
+    }
+
+    void RespawnAtSpawnPoint()
+    {
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        transform.SetPositionAndRotation(spawnPosition, spawnRotation);
+        stuckRespawnTimer = 0f;
+    }
 }

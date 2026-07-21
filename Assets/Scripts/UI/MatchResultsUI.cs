@@ -16,7 +16,7 @@ public class MatchResultsUI : MonoBehaviour
 
     void Start()
     {
-        derby = FindObjectOfType<DerbyGameManager>();
+        derby = DerbyGameManager.Instance;
         if (derby == null)
         {
             Debug.LogError("[MatchResultsUI] No se encontró DerbyGameManager en la escena.", this);

@@ -68,6 +68,13 @@ public class GameSetup : MonoBehaviour
 
         GameObject carInstance = Instantiate(prefabToSpawn, config.spawnPoint.position, config.spawnPoint.rotation);
 
+        CarController carController = carInstance.GetComponent<CarController>();
+        if (carController != null)
+        {
+            carController.playerIndex = slotIndex + 1; // 1 o 2
+            carController.SetSpawnPoint(config.spawnPoint.position, config.spawnPoint.rotation);
+        }
+
         PlayerInput playerInput = carInstance.GetComponent<PlayerInput>();
         playerInput.actions = Instantiate(playerInput.actions);
         playerInput.camera = config.splitScreenCamera;

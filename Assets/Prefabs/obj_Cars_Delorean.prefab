@@ -630,6 +630,7 @@ GameObject:
   - component: {fileID: 8549354783792719471}
   - component: {fileID: 823476088256454969}
   - component: {fileID: -8251522423475480650}
+  - component: {fileID: 6329332761452684126}
   m_Layer: 6
   m_Name: obj_Cars_Delorean
   m_TagString: Untagged
@@ -727,7 +728,23 @@ MonoBehaviour:
     brake: 1
   handbrakeKey: 51
   handbrakeKeyAlt: 0
+  enableAirControl: 1
+  airPitchTorque: 4
+  airRollTorque: 5
+  airYawTorque: 2
+  enableFlipRecovery: 1
+  roofCheckBox: {fileID: 6329332761452684126}
+  groundLayerForFlipCheck:
+    serializedVersion: 2
+    m_Bits: 8
+  flipRecoveryTorque: 15
+  maxSpeedForFlipRecovery: 1.5
+  maxAngularSpeedForFlipRecovery: 1
   isAIControlled: 0
+  playerIndex: 0
+  stuckCheckSpeedThreshold: 0.5
+  stuckTimeBeforeRespawn: 4
+  autoRespawnWhenStuck: 0
 --- !u!114 &3061619388327265375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -771,7 +788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VehicleHealth
   maxHealth: 350
-  minForceForDamage: 2
+  minForceForDamage: 4
   forceToDamageRatio: 4
   attackerWeightFactor: 0.1
   fallbackMultiplier: 5
@@ -857,6 +874,27 @@ MonoBehaviour:
   - renderer: {fileID: 7047158052766898438}
     materialIndex: 0
   colorPropertyName: _BaseColor
+--- !u!65 &6329332761452684126
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3316808279603120959}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.64, z: 2.45}
+  m_Center: {x: 0, y: 1.13, z: 0}
 --- !u!1 &4656262414772341800
 GameObject:
   m_ObjectHideFlags: 0

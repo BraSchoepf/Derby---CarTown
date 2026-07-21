@@ -134,7 +134,7 @@ public class CarAIController : MonoBehaviour
 
     Transform FindTarget()
     {
-        DerbyGameManager derby = FindObjectOfType<DerbyGameManager>();
+        DerbyGameManager derby = DerbyGameManager.Instance;
         if (derby == null) return null;
 
         Transform closest = null;

@@ -39,6 +39,13 @@ public class AISpawner : MonoBehaviour
 
             GameObject instance = Instantiate(prefabToSpawn, aiSpawnPoints[i].position, aiSpawnPoints[i].rotation);
 
+            CarController carController = instance.GetComponent<CarController>();
+            if (carController != null)
+            {
+                carController.playerIndex = 0;
+                carController.SetSpawnPoint(aiSpawnPoints[i].position, aiSpawnPoints[i].rotation);
+            }
+
             CarColorApplier colorApplier = instance.GetComponentInChildren<CarColorApplier>();
             if (colorApplier != null)
                 colorApplier.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.6f, 1f)); // evita colores muy oscuros o desaturados/feos
