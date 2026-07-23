@@ -15,7 +15,7 @@ MonoBehaviour:
   category: 2
   carName: 'Porsche 911 '
   previewImage: {fileID: 21300000, guid: 0a1e4aa6e058e964bac54494bdfad7f9, type: 3}
-  previewPrefab: {fileID: 711543342545725848, guid: b29986343ae2c2743868dda8980da829, type: 3}
+  previewPrefab: {fileID: 711543342545725848, guid: fdf27848de1cc6c43bd32cd7f8384214, type: 3}
   displaySpeedStat: 0.8
   displayWeightStat: 0.7
   displayResistanceStat: 0.8
@@ -38,7 +38,7 @@ MonoBehaviour:
   driftableGroundLayer:
     serializedVersion: 2
     m_Bits: 8
-  enableDrift: 1
+  enableDrift: 0
   handbrakeDriftTorque: 2500
   driftSidewaysStiffness: 0.35
   driftKickForce: 1

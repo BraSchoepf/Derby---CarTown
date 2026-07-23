@@ -11,6 +11,11 @@ public class GameSession : MonoBehaviour
     public CarStatsSO player2Car; // null si es single player
     public string selectedMapSceneName;
 
+    public GameModeSO chosenGameMode;
+    public TeamId player1Team;
+    public TeamId player2Team;
+    public int teamSize = 1;
+
     public Color player1Color = Color.white;
     public Color player2Color = Color.white;
 

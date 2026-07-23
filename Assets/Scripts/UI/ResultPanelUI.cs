@@ -15,6 +15,9 @@ public class ResultPanelUI : MonoBehaviour
     public TextMeshProUGUI survivalTimeText;
     public TextMeshProUGUI killedByText; // solo visible en derrota
 
+    public GameObject raceResultHeader; // "Terminaste 2º", por ejemplo
+    public TMPro.TextMeshProUGUI racePlacementText;
+
     [Header("Navegación")]
     public Button backToMenuButton;
     public string mainMenuSceneName = "MainMenu";
@@ -24,6 +27,18 @@ public class ResultPanelUI : MonoBehaviour
         if (backToMenuButton != null)
             backToMenuButton.onClick.AddListener(BackToMenu);
         gameObject.SetActive(false); // arranca oculto, lo prende DerbyGameManager al eliminar/ganar
+    }
+
+    public void ShowRaceResult(int placement, int totalRacers)
+    {
+        gameObject.SetActive(true);
+        victoryHeader.SetActive(placement == 1);
+        defeatHeader.SetActive(false);
+        if (killedByText != null) killedByText.gameObject.SetActive(false);
+
+        if (raceResultHeader != null) raceResultHeader.SetActive(true);
+        if (racePlacementText != null)
+            racePlacementText.text = $"{placement}° de {totalRacers}";
     }
 
     public void ShowVictory(DerbyGameManager.PlayerEntry entry)

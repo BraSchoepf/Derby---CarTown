@@ -15,3 +15,7 @@ MonoBehaviour:
   mapName: Mud Circuit
   previewImage: {fileID: 21300000, guid: f0e7e9104f50a7642bad461f2e9d8424, type: 3}
   sceneName: map_MudCircuit
+  compatibleModes:
+  - {fileID: 11400000, guid: 7487775e1f0e88a45aa21f5d1511cd7d, type: 2}
+  - {fileID: 11400000, guid: fb81c38614c3078418632e53eccbfd82, type: 2}
+  - {fileID: 11400000, guid: a870a34c8c530f748b3321ab48e741f1, type: 2}

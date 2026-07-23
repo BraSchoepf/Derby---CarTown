@@ -6,13 +6,34 @@ public class AISpawner : MonoBehaviour
     [Header("Autos de IA disponibles")]
     public GameObject[] aiCarPrefabs;
 
+    [Header("Categoría que maneja este spawner")]
+    public GameModeCategory category = GameModeCategory.Demolition;
+
     [Header("Spawn")]
     public bool allowRepeatedCars = true;
-
     public DerbyGameManager derbyManager;
 
     void Start()
     {
+        GameSession session = GameSession.Instance;
+
+        // Salir si el modo elegido no corresponde a la categoría de este spawner
+        if (session != null && session.chosenGameMode != null
+            && session.chosenGameMode.category != category)
+        {
+            Debug.Log($"[AISpawner] Modo actual es {session.chosenGameMode.category}, este spawner maneja {category} — no actúa.");
+            return;
+        }
+
+        bool teamsActive = session != null && session.chosenGameMode != null
+                            && session.chosenGameMode.supportsTeams && session.teamSize > 0;
+
+        if (teamsActive)
+        {
+            Debug.Log("[AISpawner] Modo con equipos activo — los spawn points los completa GameSetup.SpawnTeamFillBots(), este spawner no actúa.");
+            return;
+        }
+
         if (MapLoader.Instance.IsMapReady)
             SpawnBots();
         else
@@ -29,7 +50,8 @@ public class AISpawner : MonoBehaviour
             return;
         }
 
-        Transform[] aiSpawnPoints = MapLoader.Instance.GetAISpawnPoints();
+        // Ya no hardcodeado: usa la categoría propia de este spawner
+        Transform[] aiSpawnPoints = MapLoader.Instance.GetAISpawnPoints(category);
         if (aiSpawnPoints.Length == 0)
         {
             Debug.LogError("[AISpawner] El mapa actual no tiene puntos de spawn de IA.", this);
@@ -59,8 +81,16 @@ public class AISpawner : MonoBehaviour
                 carController.SetSpawnPoint(aiSpawnPoints[i].position, aiSpawnPoints[i].rotation);
             }
 
+            CarAIController aiController = instance.GetComponent<CarAIController>();
+            if (aiController == null) aiController = instance.AddComponent<CarAIController>();
+
             VehicleHealth health = instance.GetComponent<VehicleHealth>();
-            if (health != null) derbyManager.RegisterPlayer($"Bot {i + 1}", health);
+            if (health != null)
+            {
+                health.damageEnabled = GameSession.Instance == null || GameSession.Instance.chosenGameMode == null
+                    || GameSession.Instance.chosenGameMode.enableDamage;
+                derbyManager.RegisterPlayer($"Bot {i + 1}", health);
+            }
 
             MinimapIcon minimapIcon = instance.GetComponent<MinimapIcon>();
             if (minimapIcon != null)

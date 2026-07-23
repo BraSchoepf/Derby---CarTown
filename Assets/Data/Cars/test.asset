@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30da1255a491cff478e82fe3fe9ee952, type: 3}
+  m_Name: test
+  m_EditorClassIdentifier: Assembly-CSharp::CarStatsSO
+  category: 2
+  carName: 'Porsche 911 '
+  previewImage: {fileID: 21300000, guid: 0a1e4aa6e058e964bac54494bdfad7f9, type: 3}
+  previewPrefab: {fileID: 711543342545725848, guid: fdf27848de1cc6c43bd32cd7f8384214, type: 3}
+  displaySpeedStat: 0.8
+  displayWeightStat: 0.7
+  displayResistanceStat: 0.8
+  maxMotorTorque: 1800
+  maxSpeed: 42
+  accelerationRate: 7
+  decelerationRate: 9
+  brakeForce: 6000
+  brakeDecelStrength: 1
+  maxSteerAngle: 34
+  driftSteerBoost: 1.3
+  lowSpeedSteerMultiplier: 0.85
+  fullSteerSpeedThreshold: 6
+  highSpeedSteerReduction: 0.8
+  highSpeedThreshold: 38
+  centerOfMassOffset: {x: 0, y: -0.65, z: -0.1}
+  suspensionSpring: 43000
+  suspensionDamper: 5000
+  suspensionDistance: 0.28
+  forwardExtremumSlip: 0.35
+  forwardExtremumValue: 1.5
+  forwardAsymptoteSlip: 0.8
+  forwardAsymptoteValue: 1
+  forwardStiffness: 1.6
+  sidewaysExtremumSlip: 0.3
+  sidewaysExtremumValue: 1.3
+  sidewaysAsymptoteSlip: 0.5
+  sidewaysAsymptoteValue: 1
+  sidewaysStiffnessFront: 1.9
+  sidewaysStiffnessRear: 1.75
+  driftableGroundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  enableDrift: 1
+  handbrakeDriftTorque: 2200
+  driftSidewaysStiffness: 0.4
+  driftKickForce: 2
+  maxDriftAngle: 85
+  driftAngularTorque: 16
+  driftAngularDamping: 3.5
+  maxDriftAngularVelocity: 120
+  driftSustainForce: 1500
+  minDriftAngleForSustain: 8
+  directionChangeKick: 18
+  brakeResetDamping: 12
+  brakeResetThreshold: 0.15
+  handbrakeResetWindow: 0.15
+  enableAutoDrift: 0
+  autoDriftSpeedThreshold: 20
+  autoDriftSteerThreshold: 0.75
+  autoDriftStiffness: 0.6
+  enableOffroadGrip: 0
+  offroadStiffnessMultiplier: 1.3

@@ -3,7 +3,8 @@ using UnityEngine.UI;
 
 public class MapCarouselUI : MonoBehaviour
 {
-    public MapDataSO[] maps;
+    public MapDataSO[] allMaps;
+    MapDataSO[] maps;
     public Image slotPrefab;
     public Transform carouselContainer;
 
@@ -18,8 +19,6 @@ public class MapCarouselUI : MonoBehaviour
     int currentIndex = 0;
 
     public MapDataSO CurrentMap => maps[currentIndex];
-
-    void Awake() => BuildSlots();
 
     void BuildSlots()
     {
@@ -79,6 +78,23 @@ public class MapCarouselUI : MonoBehaviour
             // al final del proceso mueve al frente, y el último en ejecutarse (el centro) queda arriba de todo
             spawnedSlots[i].transform.SetAsLastSibling();
         }
+    }
+    public void SetAvailableMaps(GameModeSO mode)
+    {
+        if (spawnedSlots != null)
+            foreach (var slot in spawnedSlots)
+                if (slot != null) Destroy(slot.gameObject);
+
+        maps = System.Array.FindAll(allMaps, m => System.Array.IndexOf(m.compatibleModes, mode) >= 0);
+        currentIndex = 0;
+
+        if (maps.Length == 0)
+        {
+            Debug.LogError($"[MapCarouselUI] Ningún mapa es compatible con el modo '{mode.modeName}'.", this);
+            return; // corta ACÁ, no llames BuildSlots() con array vacío
+        }
+
+        BuildSlots();
     }
 
     int GetShortestOffset(int index, int center, int count)

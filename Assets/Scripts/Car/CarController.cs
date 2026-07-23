@@ -24,6 +24,9 @@ public class CarController : MonoBehaviour
     public Key handbrakeKey = Key.LeftShift;
     public Key handbrakeKeyAlt = Key.None;
 
+    [Header("Estabilidad anti-vuelco")]
+    public float maxRollPitchAngularVelocity = 3f;
+
     [Header("Control Aéreo")]
     public bool enableAirControl = true;
     public float airPitchTorque = 4f;
@@ -55,6 +58,9 @@ public class CarController : MonoBehaviour
     public float stuckCheckSpeedThreshold = 0.5f;
     public float stuckTimeBeforeRespawn = 4f;
     public bool autoRespawnWhenStuck = true;
+
+    public float CurrentDriftAngle => currentDriftAngle;
+    public float CurrentSpeed => rb != null ? rb.linearVelocity.magnitude : 0f;
 
     Vector3 spawnPosition;
     Quaternion spawnRotation;
@@ -213,8 +219,22 @@ public class CarController : MonoBehaviour
 
         if (isDrifting && Mathf.Abs(forwardSpeed) > 3f)
             ApplyDriftPhysics(forwardSpeed, wantsHandbrakeDrift);
+
+        ClampRollPitch();
     }
 
+    void ClampRollPitch()
+    {
+        Vector3 angVel = rb.angularVelocity;
+        Vector3 localAngVel = transform.InverseTransformDirection(angVel);
+
+        // Clampeamos rotación en X (pitch/cabeceo) y Z (roll/vuelco lateral),
+        // dejamos Y (yaw/giro normal del auto) libre
+        localAngVel.x = Mathf.Clamp(localAngVel.x, -maxRollPitchAngularVelocity, maxRollPitchAngularVelocity);
+        localAngVel.z = Mathf.Clamp(localAngVel.z, -maxRollPitchAngularVelocity, maxRollPitchAngularVelocity);
+
+        rb.angularVelocity = transform.TransformDirection(localAngVel);
+    }
     void ReadHandbrakeInput()
     {
         if (isAIControlled) return;

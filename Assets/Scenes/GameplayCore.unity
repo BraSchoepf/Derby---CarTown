@@ -168,6 +168,11 @@ MonoBehaviour:
   derbyManager: {fileID: 27386396}
   healthBarP1: {fileID: 692101908}
   healthBarP2: {fileID: 998955509}
+  teamFillBotPrefabs:
+  - {fileID: 1078272866267778280, guid: 3432aa09b12e713438f5085a564e09f4, type: 3}
+  - {fileID: 3316808279603120959, guid: 77fb623ee42df374c82c7017b77e7d85, type: 3}
+  - {fileID: 1827370793001695660, guid: b832ea7b6d46e4443ac7ec12761d0830, type: 3}
+  - {fileID: 711543342545725848, guid: bdf9123a040f26b4e988358f46669a54, type: 3}
   registry: {fileID: 11400000, guid: 99ddd08c3607d7b4f80e84e15ad8ed10, type: 2}
   playerSlotConfigs:
   - splitScreenCamera: {fileID: 330585545}
@@ -207,6 +212,7 @@ MonoBehaviour:
     survivalStartTime: 0
     killedByName: 
     humanSlotIndex: -1
+    team: 0
   - playerName: GeroGay
     health: {fileID: 0}
     isAlive: 0
@@ -215,6 +221,7 @@ MonoBehaviour:
     survivalStartTime: 0
     killedByName: 
     humanSlotIndex: -1
+    team: 0
 --- !u!1 &78718148
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,6 +679,8 @@ MonoBehaviour:
   killsText: {fileID: 180657864}
   survivalTimeText: {fileID: 512948133}
   killedByText: {fileID: 1022680437}
+  raceResultHeader: {fileID: 0}
+  racePlacementText: {fileID: 0}
   backToMenuButton: {fileID: 1632945031}
   mainMenuSceneName: MainMenu
 --- !u!114 &171314992
@@ -4589,6 +4598,8 @@ MonoBehaviour:
   killsText: {fileID: 955839760}
   survivalTimeText: {fileID: 2091556714}
   killedByText: {fileID: 1224334740}
+  raceResultHeader: {fileID: 0}
+  racePlacementText: {fileID: 0}
   backToMenuButton: {fileID: 825571207}
   mainMenuSceneName: MainMenu
 --- !u!114 &1816777130

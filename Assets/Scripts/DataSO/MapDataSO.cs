@@ -7,4 +7,5 @@ public class MapDataSO : ScriptableObject
     public Sprite previewImage;
     [Tooltip("Nombre EXACTO de la escena del mapa, tal como figura en Build Settings")]
     public string sceneName;
+    public GameModeSO[] compatibleModes;
 }

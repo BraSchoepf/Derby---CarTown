@@ -458,10 +458,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 499339180b1d26547bcdb0ef763f6d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapSpawnPoints
-  playerSpawnPoints:
+  demolitionPlayerSpawnPoints:
   - {fileID: 37021011}
   - {fileID: 84323914}
-  aiSpawnPoints:
+  demolitionAISpawnPoints:
   - {fileID: 1617217428}
   - {fileID: 294534293}
   - {fileID: 2027313029}
@@ -471,6 +471,8 @@ MonoBehaviour:
   - {fileID: 24914150}
   - {fileID: 1447588248}
   - {fileID: 1241370873}
+  racePlayerSpawnPoints: []
+  raceAISpawnPoints: []
 --- !u!4 &1709029006
 Transform:
   m_ObjectHideFlags: 0

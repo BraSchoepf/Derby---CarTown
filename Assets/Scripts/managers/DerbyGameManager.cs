@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class DerbyGameManager : MonoBehaviour
 {
+    public static DerbyGameManager Instance;
+
     [System.Serializable]
     public class PlayerEntry
     {
@@ -11,31 +14,35 @@ public class DerbyGameManager : MonoBehaviour
         public VehicleHealth health;
         public bool isAlive = true;
         public int killCount = 0;
-        public int placement = 0;       // 1 = ganador, se asigna al morir o al terminar la partida
+        public int placement = 0;
         public float survivalStartTime;
         public string killedByName = "";
-        public int humanSlotIndex = -1; // 0 = P1, 1 = P2, -1 = bot (sin panel de UI propio)
+        public int humanSlotIndex = -1;
+        public TeamId team;
     }
 
     public List<PlayerEntry> players = new List<PlayerEntry>();
-    public System.Action<string> OnMatchWon; // nombre del ganador
-    public Action<PlayerEntry> OnPlayerEliminated;  // dispara el panel de derrota
-    public Action<PlayerEntry> OnPlayerWon;         // dispara el panel de victoria
+
+    public Action<string> OnMatchWon;
+    public Action<PlayerEntry> OnPlayerEliminated;
+    public Action<PlayerEntry> OnPlayerWon;
 
     bool matchEnded = false;
-
-    public static DerbyGameManager Instance;
+    bool teamsEnabled = false;
 
     void Awake() => Instance = this;
 
-    public void RegisterPlayer(string name, VehicleHealth health, int humanSlotIndex = -1)
+    public void SetTeamsEnabled(bool enabled) => teamsEnabled = enabled;
+
+    public void RegisterPlayer(string name, VehicleHealth health, int humanSlotIndex = -1, TeamId team = default)
     {
         var entry = new PlayerEntry
         {
             playerName = name,
             health = health,
             survivalStartTime = Time.time,
-            humanSlotIndex = humanSlotIndex
+            humanSlotIndex = humanSlotIndex,
+            team = team
         };
         players.Add(entry);
         health.OnVehicleDestroyedByAttacker += (attacker) => HandlePlayerDestroyed(entry, attacker);
@@ -46,7 +53,7 @@ public class DerbyGameManager : MonoBehaviour
         entry.isAlive = false;
 
         int stillAlive = players.FindAll(p => p.isAlive).Count;
-        entry.placement = stillAlive + 1; // el resto que sigue en pie te supera en puesto
+        entry.placement = stillAlive + 1;
 
         PlayerEntry attackerEntry = attacker != null ? players.Find(p => p.health == attacker) : null;
         entry.killedByName = attackerEntry != null ? attackerEntry.playerName : "Choque";
@@ -63,6 +70,14 @@ public class DerbyGameManager : MonoBehaviour
     {
         if (matchEnded) return;
 
+        if (teamsEnabled)
+            CheckForTeamWinner();
+        else
+            CheckForIndividualWinner();
+    }
+
+    void CheckForIndividualWinner()
+    {
         var alive = players.FindAll(p => p.isAlive);
         if (alive.Count <= 1)
         {
@@ -76,6 +91,30 @@ public class DerbyGameManager : MonoBehaviour
             }
 
             string winnerName = winner != null ? winner.playerName : "Empate";
+            Debug.Log($"Partida terminada. Ganador: {winnerName}");
+            OnMatchWon?.Invoke(winnerName);
+        }
+    }
+
+    void CheckForTeamWinner()
+    {
+        var aliveTeams = players.Where(p => p.isAlive).Select(p => p.team).Distinct().ToList();
+
+        if (aliveTeams.Count <= 1)
+        {
+            matchEnded = true;
+            TeamId? winningTeam = aliveTeams.Count == 1 ? aliveTeams[0] : (TeamId?)null;
+
+            if (winningTeam.HasValue)
+            {
+                foreach (var member in players.Where(p => p.team == winningTeam.Value))
+                {
+                    member.placement = 1;
+                    OnPlayerWon?.Invoke(member);
+                }
+            }
+
+            string winnerName = winningTeam.HasValue ? $"Equipo {winningTeam.Value}" : "Empate";
             Debug.Log($"Partida terminada. Ganador: {winnerName}");
             OnMatchWon?.Invoke(winnerName);
         }

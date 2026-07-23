@@ -14,6 +14,8 @@ public class MapLoader : MonoBehaviour
 
     Scene loadedMapScene;
     MapSpawnPoints spawnPoints;
+    RaceCourseSet raceCourseSet;
+
     public bool IsMapReady { get; private set; }
 
     void Awake()
@@ -43,9 +45,13 @@ public class MapLoader : MonoBehaviour
 
         loadedMapScene = SceneManager.GetSceneByName(sceneName);
 
-        spawnPoints = FindSpawnPointsInScene(loadedMapScene);
+        spawnPoints = FindInScene<MapSpawnPoints>(loadedMapScene);
         if (spawnPoints == null)
             Debug.LogError($"[MapLoader] La escena '{sceneName}' no tiene MapSpawnPoints.", this);
+
+        // RaceCourseSet es opcional — solo lo necesitan mapas compatibles con modos de Racing.
+        // No es un error si un mapa de Demolición no lo tiene.
+        raceCourseSet = FindInScene<RaceCourseSet>(loadedMapScene);
 
         if (loadingScreen != null) loadingScreen.SetActive(false);
 
@@ -53,21 +59,33 @@ public class MapLoader : MonoBehaviour
         OnMapReady?.Invoke();
     }
 
-    MapSpawnPoints FindSpawnPointsInScene(Scene scene)
+    T FindInScene<T>(Scene scene) where T : Component
     {
         foreach (var root in scene.GetRootGameObjects())
         {
-            var found = root.GetComponentInChildren<MapSpawnPoints>();
+            var found = root.GetComponentInChildren<T>();
             if (found != null) return found;
         }
         return null;
     }
 
-    public Transform GetPlayerSpawn(int slotIndex) =>
-        spawnPoints != null && slotIndex < spawnPoints.playerSpawnPoints.Length
-            ? spawnPoints.playerSpawnPoints[slotIndex]
-            : null;
+    public Transform GetPlayerSpawn(int slotIndex, GameModeCategory category)
+    {
+        Transform[] points = category == GameModeCategory.Racing
+            ? spawnPoints.racePlayerSpawnPoints
+            : spawnPoints.demolitionPlayerSpawnPoints;
 
-    public Transform[] GetAISpawnPoints() =>
-        spawnPoints != null ? spawnPoints.aiSpawnPoints : new Transform[0];
+        return spawnPoints != null && slotIndex < points.Length ? points[slotIndex] : null;
+    }
+
+    public Transform[] GetAISpawnPoints(GameModeCategory category)
+    {
+        if (spawnPoints == null) return new Transform[0];
+
+        return category == GameModeCategory.Racing
+            ? spawnPoints.raceAISpawnPoints
+            : spawnPoints.demolitionAISpawnPoints;
+    }
+
+    public RaceCourseSet GetRaceCourseSet() => raceCourseSet;
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CarRegistry
   cars:
   - stats: {fileID: 11400000, guid: 45858658d4c1edb4da78caca033874c7, type: 2}
-    prefab: {fileID: 711543342545725848, guid: b29986343ae2c2743868dda8980da829, type: 3}
+    prefab: {fileID: 711543342545725848, guid: fdf27848de1cc6c43bd32cd7f8384214, type: 3}
   - stats: {fileID: 11400000, guid: 6d810ede9def6e64881e407f679994eb, type: 2}
     prefab: {fileID: 1827370793001695660, guid: 0e6606b71f7794a4fbf8beb660bb57b4, type: 3}
   - stats: {fileID: 11400000, guid: c7637162fd1481b45a1974dc45c40369, type: 2}

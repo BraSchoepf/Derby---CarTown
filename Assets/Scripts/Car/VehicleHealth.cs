@@ -9,11 +9,11 @@ public class VehicleHealth : MonoBehaviour
     float currentHealth;
 
     [Header("Config de daño")]
+    [Tooltip("Si está destildado, los choques no restan vida (ej: modo Drift). Los eventos de colisión igual se disparan para otros sistemas (ej: reset de multiplicador de drift).")]
+    public bool damageEnabled = true;
     public float minForceForDamage = 3f;
     public float forceToDamageRatio = 1.5f;
-    [Tooltip("Cuánto pesa 'quién te embistió' vs tu propia velocidad al calcular tu daño recibido")]
     [Range(0f, 1f)] public float attackerWeightFactor = 0.8f;
-    [Tooltip("Multiplicador si no se encuentra ninguna zona (fallback de seguridad)")]
     public float fallbackMultiplier = 1f;
 
     [Header("Layer de otros autos")]
@@ -22,9 +22,9 @@ public class VehicleHealth : MonoBehaviour
     public event Action<float, float> OnHealthChanged;
     public event Action OnVehicleDestroyed;
     public event Action<VehicleHealth> OnVehicleDestroyedByAttacker;
+    public event Action<Collision> OnCollisionDetected; // se dispara SIEMPRE, tenga o no daño habilitado
 
     VehicleHealth lastAttacker;
-
     bool isDestroyed = false;
     Rigidbody rb;
     VehicleHitZone[] hitZones;
@@ -44,6 +44,10 @@ public class VehicleHealth : MonoBehaviour
         Rigidbody otherRb = collision.rigidbody;
         if (otherRb == null) return;
 
+        OnCollisionDetected?.Invoke(collision); // siempre, útil para sistemas como DriftScoreTracker
+
+        if (!damageEnabled) return; // corta acá si el modo actual no aplica daño
+
         VehicleHealth otherHealth = otherRb.GetComponent<VehicleHealth>();
         if (otherHealth != null) lastAttacker = otherHealth;
 
@@ -52,8 +56,6 @@ public class VehicleHealth : MonoBehaviour
         float closingSpeed = CalculateClosingSpeed(otherRb, contact);
         if (closingSpeed < minForceForDamage) return;
 
-        // La cápsula física es la que recibe el contacto real; buscamos
-        // qué zona lógica (trigger) está geométricamente más cerca de ese punto
         VehicleHitZone zone = GetClosestZone(contact.point);
         float zoneMultiplier = zone != null ? zone.damageMultiplier : fallbackMultiplier;
 
@@ -82,9 +84,6 @@ public class VehicleHealth : MonoBehaviour
         return closest;
     }
 
-    // Fuerza asimétrica: cuánto se movía el OTRO hacia mí + cuánto me movía YO hacia el impacto,
-    // ponderado por attackerWeightFactor. Esto reemplaza el par duplicado que tenías antes
-    // (CalculateClosingSpeed / CalculateAsymmetricForce hacían lo mismo con distinto peso).
     float CalculateClosingSpeed(Rigidbody otherRb, ContactPoint contact)
     {
         float otherSpeedTowardMe = Mathf.Max(0f, Vector3.Dot(otherRb.linearVelocity, -contact.normal));
@@ -96,7 +95,7 @@ public class VehicleHealth : MonoBehaviour
 
     public void ApplyDamage(float amount)
     {
-        if (isDestroyed) return;
+        if (isDestroyed || !damageEnabled) return;
         currentHealth = Mathf.Max(0f, currentHealth - amount);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
         if (currentHealth <= 0f) DestroyVehicle();
