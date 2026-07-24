@@ -24,14 +24,20 @@ public class CarController : MonoBehaviour
     public Key handbrakeKey = Key.LeftShift;
     public Key handbrakeKeyAlt = Key.None;
 
-    [Header("Estabilidad anti-vuelco")]
-    public float maxRollPitchAngularVelocity = 3f;
-
     [Header("Control Aéreo")]
     public bool enableAirControl = true;
     public float airPitchTorque = 4f;
     public float airRollTorque = 5f;
     public float airYawTorque = 2f;
+
+    [Tooltip("Techo de velocidad angular mientras está en el aire — evita que rolls descontrolados se retroalimenten con el acelerador")]
+    public float maxAirAngularVelocity = 180f; // grados/segundo
+    public float airAngularDamping = 1.5f;
+
+    [Header("Detección de estado - anti-parpadeo")]
+    public float airborneConfirmTime = 0.15f; // segundos que debe sostenerse el estado antes de confirmarlo
+    float airborneStateTimer = 0f;
+    bool confirmedAirborne = false;
 
     [Header("Recuperación de Vuelco (trigger en el techo)")]
     public bool enableFlipRecovery = true;
@@ -67,6 +73,7 @@ public class CarController : MonoBehaviour
     float stuckRespawnTimer;
 
     Rigidbody rb;
+    bool initialized = false;
     float steerInput;
     float throttleInput;
     bool handbrakeInput;
@@ -82,9 +89,16 @@ public class CarController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        if (!initialized) Initialize(stats);
+    }
+    public void Initialize(CarStatsSO statsToUse)
+    {
+        stats = statsToUse;
+        rb.centerOfMass = Vector3.zero; // reset por si se llama más de una vez
         rb.centerOfMass += stats.centerOfMassOffset;
         rb.sleepThreshold = 0f;
         ConfigureWheelFriction();
+        initialized = true;
     }
 
     void ConfigureWheelFriction()
@@ -145,11 +159,23 @@ public class CarController : MonoBehaviour
             rb.WakeUp();
 
         int groundedWheels = GroundedWheelCount();
+        bool rawAirborne = groundedWheels == 0 && !isRoofTouchingGround;
 
-        // "Aéreo" = ruedas sin contacto Y techo tampoco tocando nada.
-        // Si el techo está apoyado (volcado y quieto), NO es aéreo aunque las ruedas,
-        // por estar invertidas, tampoco detecten el suelo.
-        bool isAirborne = groundedWheels == 0 && !isRoofTouchingGround;
+        if (rawAirborne != confirmedAirborne)
+        {
+            airborneStateTimer += Time.fixedDeltaTime;
+            if (airborneStateTimer >= airborneConfirmTime)
+            {
+                confirmedAirborne = rawAirborne;
+                airborneStateTimer = 0f;
+            }
+        }
+        else
+        {
+            airborneStateTimer = 0f;
+        }
+
+        bool isAirborne = confirmedAirborne;
 
         if (isAirborne && enableAirControl)
         {
@@ -219,21 +245,6 @@ public class CarController : MonoBehaviour
 
         if (isDrifting && Mathf.Abs(forwardSpeed) > 3f)
             ApplyDriftPhysics(forwardSpeed, wantsHandbrakeDrift);
-
-        ClampRollPitch();
-    }
-
-    void ClampRollPitch()
-    {
-        Vector3 angVel = rb.angularVelocity;
-        Vector3 localAngVel = transform.InverseTransformDirection(angVel);
-
-        // Clampeamos rotación en X (pitch/cabeceo) y Z (roll/vuelco lateral),
-        // dejamos Y (yaw/giro normal del auto) libre
-        localAngVel.x = Mathf.Clamp(localAngVel.x, -maxRollPitchAngularVelocity, maxRollPitchAngularVelocity);
-        localAngVel.z = Mathf.Clamp(localAngVel.z, -maxRollPitchAngularVelocity, maxRollPitchAngularVelocity);
-
-        rb.angularVelocity = transform.TransformDirection(localAngVel);
     }
     void ReadHandbrakeInput()
     {
@@ -382,6 +393,15 @@ public class CarController : MonoBehaviour
     {
         rb.AddTorque(transform.right * (throttleInput * airPitchTorque), ForceMode.Acceleration);
         rb.AddTorque(-transform.forward * (steerInput * airRollTorque), ForceMode.Acceleration);
+
+        // Damping propio del aire: sin esto, la rotación nunca se frena sola,
+        // solo se le sigue sumando torque sin control
+        rb.AddTorque(-rb.angularVelocity * airAngularDamping, ForceMode.Acceleration);
+
+        // Clamp duro: pase lo que pase, la rotación en el aire nunca puede superar este techo
+        float maxRad = maxAirAngularVelocity * Mathf.Deg2Rad;
+        if (rb.angularVelocity.magnitude > maxRad)
+            rb.angularVelocity = rb.angularVelocity.normalized * maxRad;
     }
 
     void ApplyFlipRecovery()

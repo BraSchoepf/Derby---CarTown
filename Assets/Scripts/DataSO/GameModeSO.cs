@@ -10,6 +10,8 @@ public class GameModeSO : ScriptableObject
     public Sprite icon;
     public GameModeCategory category;
 
+    public DrivingProfileSO drivingProfile;
+
     [Header("Reglas generales")]
     public bool enableDamage = true;
     public bool requiresCheckpoints = false;

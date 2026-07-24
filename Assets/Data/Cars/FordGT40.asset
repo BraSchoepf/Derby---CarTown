@@ -13,48 +13,59 @@ MonoBehaviour:
   m_Name: FordGT40
   m_EditorClassIdentifier: Assembly-CSharp::CarStatsSO
   category: 0
-  carName: Ford GT 40
+  carName: FordGT40
   previewImage: {fileID: 21300000, guid: 1682d8b939b59ac48b8ea19e5047f35c, type: 3}
   previewPrefab: {fileID: 1827370793001695660, guid: 0e6606b71f7794a4fbf8beb660bb57b4, type: 3}
-  displaySpeedStat: 1
+  displaySpeedStat: 0.8
   displayWeightStat: 0.7
-  displayResistanceStat: 0.6
-  maxMotorTorque: 2200
-  maxSpeed: 50
-  accelerationRate: 9
-  decelerationRate: 20
-  brakeForce: 5000
-  brakeDecelStrength: 0.8
-  maxSteerAngle: 45
-  driftSteerBoost: 1.3
-  lowSpeedSteerMultiplier: 0.7
-  fullSteerSpeedThreshold: 10
-  highSpeedSteerReduction: 0.75
-  highSpeedThreshold: 30
-  centerOfMassOffset: {x: 0, y: -0.5, z: 0}
-  forwardStiffness: 2.2
-  sidewaysStiffnessFront: 1.2
-  sidewaysStiffnessRear: 1
+  displayResistanceStat: 0.8
+  maxMotorTorque: 1800
+  maxSpeed: 42
+  accelerationRate: 7
+  decelerationRate: 9
+  brakeForce: 6000
+  brakeDecelStrength: 2
+  maxSteerAngle: 38
+  driftSteerBoost: 0.2
+  lowSpeedSteerMultiplier: 0.85
+  fullSteerSpeedThreshold: 6
+  highSpeedSteerReduction: 0.8
+  highSpeedThreshold: 38
+  centerOfMassOffset: {x: 0, y: -0.7, z: 0}
+  suspensionSpring: 43000
+  suspensionDamper: 5000
+  suspensionDistance: 0.28
+  forwardExtremumSlip: 0.35
+  forwardExtremumValue: 1.5
+  forwardAsymptoteSlip: 0.8
+  forwardAsymptoteValue: 1
+  forwardStiffness: 1.6
+  sidewaysExtremumSlip: 0.25
+  sidewaysExtremumValue: 1
+  sidewaysAsymptoteSlip: 0.7
+  sidewaysAsymptoteValue: 1
+  sidewaysStiffnessFront: 1.7
+  sidewaysStiffnessRear: 1.9
   driftableGroundLayer:
     serializedVersion: 2
     m_Bits: 8
   enableDrift: 1
-  handbrakeDriftTorque: 1800
-  driftSidewaysStiffness: 0.35
-  driftKickForce: 1
-  maxDriftAngle: 85
-  driftAngularTorque: 15
-  driftAngularDamping: 3
-  maxDriftAngularVelocity: 120
+  handbrakeDriftTorque: 2200
+  driftSidewaysStiffness: 0.4
+  driftKickForce: 1.2
+  maxDriftAngle: 60
+  driftAngularTorque: 10
+  driftAngularDamping: 4.5
+  maxDriftAngularVelocity: 90
   driftSustainForce: 1500
   minDriftAngleForSustain: 8
-  directionChangeKick: 25
+  directionChangeKick: 15
   brakeResetDamping: 12
   brakeResetThreshold: 0.15
   handbrakeResetWindow: 0.15
   enableAutoDrift: 0
   autoDriftSpeedThreshold: 20
-  autoDriftSteerThreshold: 0.6
-  autoDriftStiffness: 0.5
+  autoDriftSteerThreshold: 0.75
+  autoDriftStiffness: 0.6
   enableOffroadGrip: 0
   offroadStiffnessMultiplier: 1.3

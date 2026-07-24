@@ -13,48 +13,59 @@ MonoBehaviour:
   m_Name: Porsche
   m_EditorClassIdentifier: Assembly-CSharp::CarStatsSO
   category: 2
-  carName: 'Porsche 911 '
+  carName: Porsche
   previewImage: {fileID: 21300000, guid: 0a1e4aa6e058e964bac54494bdfad7f9, type: 3}
   previewPrefab: {fileID: 711543342545725848, guid: fdf27848de1cc6c43bd32cd7f8384214, type: 3}
   displaySpeedStat: 0.8
   displayWeightStat: 0.7
   displayResistanceStat: 0.8
-  maxMotorTorque: 2000
-  maxSpeed: 45
-  accelerationRate: 8
-  decelerationRate: 25
+  maxMotorTorque: 1800
+  maxSpeed: 42
+  accelerationRate: 7
+  decelerationRate: 9
   brakeForce: 6000
-  brakeDecelStrength: 1
-  maxSteerAngle: 45
-  driftSteerBoost: 1.3
-  lowSpeedSteerMultiplier: 0.9
-  fullSteerSpeedThreshold: 10
-  highSpeedSteerReduction: 0.5
-  highSpeedThreshold: 30
-  centerOfMassOffset: {x: 0, y: -0.5, z: 0}
-  forwardStiffness: 2
-  sidewaysStiffnessFront: 1.4
-  sidewaysStiffnessRear: 1
+  brakeDecelStrength: 2
+  maxSteerAngle: 38
+  driftSteerBoost: 0.2
+  lowSpeedSteerMultiplier: 0.85
+  fullSteerSpeedThreshold: 6
+  highSpeedSteerReduction: 0.8
+  highSpeedThreshold: 38
+  centerOfMassOffset: {x: 0, y: -0.7, z: 0}
+  suspensionSpring: 43000
+  suspensionDamper: 5000
+  suspensionDistance: 0.28
+  forwardExtremumSlip: 0.35
+  forwardExtremumValue: 1.5
+  forwardAsymptoteSlip: 0.8
+  forwardAsymptoteValue: 1
+  forwardStiffness: 1.6
+  sidewaysExtremumSlip: 0.25
+  sidewaysExtremumValue: 1
+  sidewaysAsymptoteSlip: 0.7
+  sidewaysAsymptoteValue: 1
+  sidewaysStiffnessFront: 1.7
+  sidewaysStiffnessRear: 1.9
   driftableGroundLayer:
     serializedVersion: 2
     m_Bits: 8
-  enableDrift: 0
-  handbrakeDriftTorque: 2500
-  driftSidewaysStiffness: 0.35
-  driftKickForce: 1
+  enableDrift: 1
+  handbrakeDriftTorque: 2200
+  driftSidewaysStiffness: 0.4
+  driftKickForce: 1.2
   maxDriftAngle: 60
-  driftAngularTorque: 15
-  driftAngularDamping: 4
-  maxDriftAngularVelocity: 70
+  driftAngularTorque: 10
+  driftAngularDamping: 4.5
+  maxDriftAngularVelocity: 90
   driftSustainForce: 1500
   minDriftAngleForSustain: 8
-  directionChangeKick: 25
-  brakeResetDamping: 15
-  brakeResetThreshold: 0.1
+  directionChangeKick: 15
+  brakeResetDamping: 12
+  brakeResetThreshold: 0.15
   handbrakeResetWindow: 0.15
   enableAutoDrift: 0
   autoDriftSpeedThreshold: 20
-  autoDriftSteerThreshold: 0.8
-  autoDriftStiffness: 0.5
+  autoDriftSteerThreshold: 0.75
+  autoDriftStiffness: 0.6
   enableOffroadGrip: 0
   offroadStiffnessMultiplier: 1.3

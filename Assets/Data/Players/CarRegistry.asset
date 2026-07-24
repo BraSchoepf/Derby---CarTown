@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: CarRegistry
   m_EditorClassIdentifier: Assembly-CSharp::CarRegistry
   cars:
-  - stats: {fileID: 11400000, guid: 45858658d4c1edb4da78caca033874c7, type: 2}
-    prefab: {fileID: 711543342545725848, guid: fdf27848de1cc6c43bd32cd7f8384214, type: 3}
-  - stats: {fileID: 11400000, guid: 6d810ede9def6e64881e407f679994eb, type: 2}
+  - stats: {fileID: 11400000, guid: 65bc9cfb26bee0745a4dbe9b322ca830, type: 2}
+    prefab: {fileID: 711543342545725848, guid: b29986343ae2c2743868dda8980da829, type: 3}
+  - stats: {fileID: 11400000, guid: 8dfa0c7f2db4d4c42b8f7d6f10701882, type: 2}
     prefab: {fileID: 1827370793001695660, guid: 0e6606b71f7794a4fbf8beb660bb57b4, type: 3}
-  - stats: {fileID: 11400000, guid: c7637162fd1481b45a1974dc45c40369, type: 2}
+  - stats: {fileID: 11400000, guid: 36d46e2c998c26b49a10c3764be9a147, type: 2}
     prefab: {fileID: 1078272866267778280, guid: eab1b160024cd0049a5a56d97c4a2b43, type: 3}
-  - stats: {fileID: 11400000, guid: 14d5abb8d4737a94390cf9978421cfea, type: 2}
+  - stats: {fileID: 11400000, guid: 50876908db3c12341b54bc14695f6ef3, type: 2}
     prefab: {fileID: 3316808279603120959, guid: c6eecd7eda91b094d8528e51837f65c2, type: 3}

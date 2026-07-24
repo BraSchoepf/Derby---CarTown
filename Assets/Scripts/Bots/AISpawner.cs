@@ -13,6 +13,8 @@ public class AISpawner : MonoBehaviour
     public bool allowRepeatedCars = true;
     public DerbyGameManager derbyManager;
 
+    GameSession session;
+
     void Start()
     {
         GameSession session = GameSession.Instance;
@@ -77,6 +79,13 @@ public class AISpawner : MonoBehaviour
             CarController carController = instance.GetComponent<CarController>();
             if (carController != null)
             {
+                CarStatsSO baseCarStats = carController.stats;
+                DrivingProfileSO profile = GameSession.Instance != null && GameSession.Instance.chosenGameMode != null
+                ? GameSession.Instance.chosenGameMode.drivingProfile
+                : null;
+                CarStatsSO effectiveStats = CarStatsFactory.BuildEffectiveStats(baseCarStats, profile);
+
+                carController.Initialize(effectiveStats);
                 carController.playerIndex = -1;
                 carController.SetSpawnPoint(aiSpawnPoints[i].position, aiSpawnPoints[i].rotation);
             }

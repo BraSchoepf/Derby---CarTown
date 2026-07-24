@@ -105,6 +105,11 @@ public class RaceSetup : MonoBehaviour
         CarController carController = carInstance.GetComponent<CarController>();
         if (carController != null)
         {
+            CarStatsSO baseCarStats = carStats != null ? carStats : carController.stats;
+            DrivingProfileSO profile = session.chosenGameMode != null ? session.chosenGameMode.drivingProfile : null;
+            CarStatsSO effectiveStats = CarStatsFactory.BuildEffectiveStats(baseCarStats, profile);
+
+            carController.Initialize(effectiveStats);
             carController.playerIndex = slotIndex + 1;
             carController.SetSpawnPoint(spawnPoint.position, spawnPoint.rotation);
         }
@@ -158,6 +163,11 @@ public class RaceSetup : MonoBehaviour
             CarController carController = instance.GetComponent<CarController>();
             if (carController != null)
             {
+                CarStatsSO baseCarStats = carController.stats;
+                DrivingProfileSO profile = session.chosenGameMode != null ? session.chosenGameMode.drivingProfile : null;
+                CarStatsSO effectiveStats = CarStatsFactory.BuildEffectiveStats(baseCarStats, profile);
+
+                carController.Initialize(effectiveStats);
                 carController.playerIndex = -1;
                 carController.SetSpawnPoint(aiSpawnPoints[i].position, aiSpawnPoints[i].rotation);
             }

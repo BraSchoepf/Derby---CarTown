@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56afc3e244c6c144a04a966659f1560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarController
-  stats: {fileID: 11400000, guid: 45858658d4c1edb4da78caca033874c7, type: 2}
+  stats: {fileID: 11400000, guid: 65bc9cfb26bee0745a4dbe9b322ca830, type: 2}
   wheels:
   - collider: {fileID: 4888099549530376706}
     visual: {fileID: 712064566119067704}
@@ -205,6 +205,7 @@ MonoBehaviour:
     brake: 1
   handbrakeKey: 51
   handbrakeKeyAlt: 0
+  maxRollPitchAngularVelocity: 3
   enableAirControl: 1
   airPitchTorque: 4
   airRollTorque: 5
@@ -565,25 +566,25 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.3
   m_SuspensionSpring:
-    spring: 40000
-    damper: 4500
-    targetPosition: 0.1
-  m_SuspensionDistance: 0.1
+    spring: 43000
+    damper: 5000
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.25
   m_ForceAppPointDistance: 0
-  m_Mass: 40
+  m_Mass: 30
   m_WheelDampingRate: 0.3
   m_ForwardFriction:
-    m_ExtremumSlip: 2.2
-    m_ExtremumValue: 1.2
-    m_AsymptoteSlip: 0.4
-    m_AsymptoteValue: 1.2
-    m_Stiffness: 1
+    m_ExtremumSlip: 0.35
+    m_ExtremumValue: 1.5
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 1
+    m_Stiffness: 1.6
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1.2
-    m_AsymptoteSlip: 0.9
-    m_AsymptoteValue: 1.2
-    m_Stiffness: 1
+    m_ExtremumSlip: 0.3
+    m_ExtremumValue: 1.3
+    m_AsymptoteSlip: 0.5
+    m_AsymptoteValue: 1
+    m_Stiffness: 2.2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -636,25 +637,25 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.3
   m_SuspensionSpring:
-    spring: 40000
-    damper: 4500
-    targetPosition: 0.1
-  m_SuspensionDistance: 0.1
+    spring: 43000
+    damper: 5000
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.25
   m_ForceAppPointDistance: 0
-  m_Mass: 40
+  m_Mass: 30
   m_WheelDampingRate: 0.3
   m_ForwardFriction:
-    m_ExtremumSlip: 2.2
-    m_ExtremumValue: 1.2
-    m_AsymptoteSlip: 0.4
-    m_AsymptoteValue: 1.2
-    m_Stiffness: 1
+    m_ExtremumSlip: 0.35
+    m_ExtremumValue: 1.5
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 1
+    m_Stiffness: 1.6
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1.2
-    m_AsymptoteSlip: 0.9
-    m_AsymptoteValue: 1.2
-    m_Stiffness: 1
+    m_ExtremumSlip: 0.3
+    m_ExtremumValue: 1.3
+    m_AsymptoteSlip: 0.5
+    m_AsymptoteValue: 1
+    m_Stiffness: 2.2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -798,25 +799,25 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.3
   m_SuspensionSpring:
-    spring: 40000
-    damper: 4500
-    targetPosition: 0.1
-  m_SuspensionDistance: 0.1
+    spring: 43000
+    damper: 5000
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.25
   m_ForceAppPointDistance: 0
-  m_Mass: 40
+  m_Mass: 30
   m_WheelDampingRate: 0.3
   m_ForwardFriction:
-    m_ExtremumSlip: 2.2
-    m_ExtremumValue: 1.2
-    m_AsymptoteSlip: 0.4
-    m_AsymptoteValue: 1.2
-    m_Stiffness: 1
+    m_ExtremumSlip: 0.35
+    m_ExtremumValue: 1.5
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 1
+    m_Stiffness: 1.6
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1.2
-    m_AsymptoteSlip: 0.9
-    m_AsymptoteValue: 1.2
-    m_Stiffness: 1
+    m_ExtremumSlip: 0.3
+    m_ExtremumValue: 1.3
+    m_AsymptoteSlip: 0.5
+    m_AsymptoteValue: 1
+    m_Stiffness: 1.75
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1228,25 +1229,25 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.3
   m_SuspensionSpring:
-    spring: 40000
-    damper: 4500
-    targetPosition: 0.1
-  m_SuspensionDistance: 0.1
+    spring: 43000
+    damper: 5000
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.25
   m_ForceAppPointDistance: 0
-  m_Mass: 40
+  m_Mass: 30
   m_WheelDampingRate: 0.3
   m_ForwardFriction:
-    m_ExtremumSlip: 2.2
-    m_ExtremumValue: 1.2
-    m_AsymptoteSlip: 0.4
-    m_AsymptoteValue: 1.2
-    m_Stiffness: 1
+    m_ExtremumSlip: 0.35
+    m_ExtremumValue: 1.5
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 1
+    m_Stiffness: 1.6
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1.2
-    m_AsymptoteSlip: 0.9
-    m_AsymptoteValue: 1.2
-    m_Stiffness: 1
+    m_ExtremumSlip: 0.3
+    m_ExtremumValue: 1.3
+    m_AsymptoteSlip: 0.5
+    m_AsymptoteValue: 1
+    m_Stiffness: 1.75
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
