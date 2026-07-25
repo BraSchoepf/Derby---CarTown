@@ -69,6 +69,11 @@ public class MinimapIcon : MonoBehaviour
         GameObject go = Instantiate(prefabToUse, transform.position, Quaternion.Euler(90f, 0f, 0f));
         iconInstance = go.transform;
     }
+    public void SetTeamColor(Color color)
+    {
+        var renderer = iconInstance?.GetComponent<Renderer>();
+        if (renderer != null) renderer.material.color = color;
+    }
 
     void LateUpdate()
     {

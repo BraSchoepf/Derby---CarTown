@@ -15,6 +15,13 @@ public class GameSetup : MonoBehaviour
     [Header("Bots de equipo (Demolición con teams)")]
     public GameObject[] teamFillBotPrefabs;
 
+    [Header("Colores de equipo (modos con Teams)")]
+    public Color teamAColor = Color.blue;
+    public Color teamBColor = Color.red;
+
+    [Header("Sumo")]
+    public LayerMask groundLayer;
+
     [System.Serializable]
     public class PlayerSlotConfig
     {
@@ -122,16 +129,27 @@ public class GameSetup : MonoBehaviour
 
         AssignCameraChannel(carInstance, slotIndex);
 
-        TeamId team = teamsActive
-            ? (slotIndex == 0 ? session.player1Team : session.player2Team)
-            : default;
-
         VehicleHealth health = carInstance.GetComponent<VehicleHealth>();
-        if (health != null && derbyManager != null)
-            derbyManager.RegisterPlayer($"Player {slotIndex + 1}", health, slotIndex, team);
-
         if (health != null)
-            health.damageEnabled = GameSession.Instance.chosenGameMode == null || GameSession.Instance.chosenGameMode.enableDamage;
+        {
+            health.damageEnabled = session.chosenGameMode.enableDamage;
+            health.teamsActive = teamsActive;
+            health.friendlyFireEnabled = false;
+
+            TeamId team = teamsActive ? (slotIndex == 0 ? session.player1Team : session.player2Team) : default;
+            health.team = team;
+
+            derbyManager.RegisterPlayer($"Player {slotIndex + 1}", health, slotIndex, team);
+        }
+
+        EdgeAvoidance edgeAvoidance = carInstance.GetComponent<EdgeAvoidance>();
+        if (edgeAvoidance == null) edgeAvoidance = carInstance.AddComponent<EdgeAvoidance>();
+
+        bool isSumo = session.chosenGameMode != null && session.chosenGameMode.enableEdgeDetection;
+        edgeAvoidance.enabled = isSumo;
+
+        if (isSumo)
+            edgeAvoidance.edgeCheckDistance = groundLayer;
 
         HealthBarUI bar = slotIndex == 0 ? healthBarP1 : healthBarP2;
         if (bar != null && health != null)
@@ -146,7 +164,16 @@ public class GameSetup : MonoBehaviour
         CarColorApplier colorApplier = carInstance.GetComponentInChildren<CarColorApplier>();
         if (colorApplier != null)
         {
-            Color chosenColor = slotIndex == 0 ? GameSession.Instance.player1Color : GameSession.Instance.player2Color;
+            Color chosenColor;
+            if (teamsActive)
+            {
+                TeamId team = slotIndex == 0 ? session.player1Team : session.player2Team;
+                chosenColor = team == TeamId.TeamA ? teamAColor : teamBColor;
+            }
+            else
+            {
+                chosenColor = slotIndex == 0 ? session.player1Color : session.player2Color;
+            }
             colorApplier.SetColor(chosenColor);
         }
     }
@@ -168,6 +195,7 @@ public class GameSetup : MonoBehaviour
             CarController carController = instance.GetComponent<CarController>();
             if (carController != null)
             {
+                Debug.LogError($"[GameSetup] {instance.name} no tiene CarController!", instance);
                 CarStatsSO baseCarStats = carController.stats;
                 DrivingProfileSO profile = session.chosenGameMode != null ? session.chosenGameMode.drivingProfile : null;
                 CarStatsSO effectiveStats = CarStatsFactory.BuildEffectiveStats(baseCarStats, profile);
@@ -177,17 +205,41 @@ public class GameSetup : MonoBehaviour
                 carController.SetSpawnPoint(aiSpawnPoints[i].position, aiSpawnPoints[i].rotation);
             }
 
+            CarAIController aiController = instance.GetComponent<CarAIController>();
+            if (aiController == null) aiController = instance.AddComponent<CarAIController>();
+
+
             VehicleHealth health = instance.GetComponent<VehicleHealth>();
             if (health != null)
+            {
+                // ESTO faltaba: sin esto, el propio bot no sabe su team ni que está en un modo con equipos,
+                // así que su FindTarget() nunca filtra a los compañeros correctamente
+                health.team = botSlots[i].team;
+                health.teamsActive = true;
+                health.friendlyFireEnabled = false;
+                health.damageEnabled = session.chosenGameMode.enableDamage;
+
                 derbyManager.RegisterPlayer($"Bot ({botSlots[i].team})", health, -1, botSlots[i].team);
+            }
+
+            EdgeAvoidance edgeAvoidance = instance.GetComponent<EdgeAvoidance>();
+            if (edgeAvoidance == null) edgeAvoidance = instance.AddComponent<EdgeAvoidance>();
+
+            bool isSumo = session.chosenGameMode != null && session.chosenGameMode.enableEdgeDetection;
+            edgeAvoidance.enabled = isSumo;
+
+            if (isSumo)
+                edgeAvoidance.edgeCheckDistance = groundLayer;
 
             MinimapIcon minimapIcon = instance.GetComponent<MinimapIcon>();
             if (minimapIcon != null)
                 minimapIcon.SetOwner(MinimapOwnerType.Bot);
 
             CarColorApplier colorApplier = instance.GetComponentInChildren<CarColorApplier>();
-            if (colorApplier != null)
-                colorApplier.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.6f, 1f));
+            Color botColor = botSlots[i].team == TeamId.TeamA ? teamAColor : teamBColor;
+            colorApplier.SetColor(botColor);
+
+
         }
     }
 

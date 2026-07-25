@@ -20,4 +20,6 @@ public class GameModeSO : ScriptableObject
     [Header("Equipos")]
     public bool supportsTeams = false;
     public int[] teamSizeOptions;
+
+    public bool enableEdgeDetection = false;
 }

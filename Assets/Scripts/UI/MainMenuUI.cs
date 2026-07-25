@@ -60,15 +60,25 @@ public class MainMenuUI : MonoBehaviour
         ShowCategorySelection();
     }
 
-    public void OnSelectCategory(int categoryIndex) // 0 = Racing, 1 = Demolition, conectado desde 2 botones
+    void OnSelectCategory(int categoryIndex)
     {
         GameModeCategory category = (GameModeCategory)categoryIndex;
         var filteredModes = System.Array.FindAll(allGameModes, m => m.category == category);
 
-        modeTypeList.PopulateModes(filteredModes, OnSelectGameModeType);
+        modeTypeList.PopulateModes(filteredModes, OnModeReadyToProceed);
 
         categorySelectionPanel.SetActive(false);
         modeTypeSelectionPanel.SetActive(true);
+    }
+
+    GameModeSlotUI chosenSlot;
+
+    void OnModeReadyToProceed(GameModeSO mode, GameModeSlotUI slot)
+    {
+        chosenGameMode = mode;
+        chosenSlot = slot;
+        modeTypeSelectionPanel.SetActive(false);
+        ShowCarSelection();
     }
 
     void ShowCategorySelection()
@@ -83,7 +93,7 @@ public class MainMenuUI : MonoBehaviour
         chosenGameMode = mode;
         modeTypeSelectionPanel.SetActive(false);
 
-        if (mode.supportsTeams && multiplayer)
+        if (mode.supportsTeams)
         {
             teamConfig.currentMode = mode;
             teamConfigPanel.SetActive(true);
@@ -197,11 +207,11 @@ public class MainMenuUI : MonoBehaviour
         session.player2Color = multiplayer ? player2Cursor.SelectedColor : Color.white;
         session.selectedMapSceneName = mapCarousel.CurrentMap.sceneName;
 
-        if (chosenGameMode.supportsTeams)
+        if (chosenGameMode.supportsTeams && chosenSlot != null && chosenSlot.teamConfigUI != null)
         {
-            session.player1Team = teamConfig.player1Team;
-            session.player2Team = teamConfig.player2Team;
-            session.teamSize = teamConfig.selectedTeamSize;
+            session.player1Team = chosenSlot.teamConfigUI.player1Team;
+            session.player2Team = chosenSlot.teamConfigUI.player2Team;
+            session.teamSize = chosenSlot.teamConfigUI.selectedTeamSize;
         }
 
         string targetScene = chosenGameMode.category == GameModeCategory.Racing

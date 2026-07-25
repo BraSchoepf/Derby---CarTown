@@ -16,6 +16,14 @@ public class VehicleHealth : MonoBehaviour
     [Range(0f, 1f)] public float attackerWeightFactor = 0.8f;
     public float fallbackMultiplier = 1f;
 
+    [Header("Equipo")]
+    [Tooltip("Seteado por GameSetup al spawnear. Solo relevante en modos con equipos.")]
+    public TeamId team;
+    [Tooltip("Seteado por GameSetup. Si es false, autos del mismo team no se dañan entre sí.")]
+    public bool friendlyFireEnabled = false;
+    [Tooltip("Seteado por GameSetup. Si el modo actual no usa equipos, esto queda en false y el chequeo de team se ignora.")]
+    public bool teamsActive = false;
+
     [Header("Layer de otros autos")]
     public LayerMask carLayer;
 
@@ -28,6 +36,7 @@ public class VehicleHealth : MonoBehaviour
     bool isDestroyed = false;
     Rigidbody rb;
     VehicleHitZone[] hitZones;
+    public VehicleHealth LastAttacker => lastAttacker;
 
     void Awake()
     {
@@ -49,7 +58,11 @@ public class VehicleHealth : MonoBehaviour
         if (!damageEnabled) return; // corta acá si el modo actual no aplica daño
 
         VehicleHealth otherHealth = otherRb.GetComponent<VehicleHealth>();
+        if (teamsActive && !friendlyFireEnabled && otherHealth != null && otherHealth.team == team)
+            return;
+
         if (otherHealth != null) lastAttacker = otherHealth;
+        if (!damageEnabled) return;
 
         ContactPoint contact = collision.contacts[0];
 
@@ -101,7 +114,7 @@ public class VehicleHealth : MonoBehaviour
         if (currentHealth <= 0f) DestroyVehicle();
     }
 
-    void DestroyVehicle()
+    public void DestroyVehicle()
     {
         isDestroyed = true;
         OnVehicleDestroyed?.Invoke();

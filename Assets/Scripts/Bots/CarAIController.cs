@@ -32,7 +32,7 @@ public class CarAIController : MonoBehaviour
     VehicleHealth ownHealth;
     CarController carController;
     Rigidbody rb;
-
+    public Transform CurrentTarget => currentTarget;
     void Awake()
     {
         ownHealth = GetComponent<VehicleHealth>();
@@ -143,6 +143,10 @@ public class CarAIController : MonoBehaviour
         foreach (var entry in derby.players)
         {
             if (!entry.isAlive || entry.health.transform == transform) continue;
+
+            // Si hay equipos activos, ignorar a los compañeros de mi propio team
+            if (ownHealth.teamsActive && entry.health.team == ownHealth.team) continue;
+
             float dist = Vector3.Distance(transform.position, entry.health.transform.position);
             if (dist < closestDist) { closestDist = dist; closest = entry.health.transform; }
         }

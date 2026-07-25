@@ -105,9 +105,11 @@ GameObject:
   - component: {fileID: 1254508488530192516}
   - component: {fileID: -929792119589169178}
   - component: {fileID: -2239325961789334810}
-  - component: {fileID: 3787514153138473219}
-  - component: {fileID: -296601863701263723}
-  - component: {fileID: 3555987627517781728}
+  - component: {fileID: -1412604066301055773}
+  - component: {fileID: 5203017054435290033}
+  - component: {fileID: 2892522314515909961}
+  - component: {fileID: 8130686061292975608}
+  - component: {fileID: 6254806032608643648}
   m_Layer: 6
   m_Name: Bot_PorscheRWB
   m_TagString: Untagged
@@ -137,9 +139,8 @@ Transform:
   - {fileID: 2577973887408212137}
   - {fileID: 7345144873877274058}
   - {fileID: 5775842612116197875}
-  - {fileID: 7457427640941765270}
   - {fileID: 8207688570750231606}
-  - {fileID: 4983143404429902359}
+  - {fileID: 581060810664321746}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5996716825968827000
@@ -205,24 +206,26 @@ MonoBehaviour:
     brake: 1
   handbrakeKey: 51
   handbrakeKeyAlt: 0
-  maxRollPitchAngularVelocity: 3
   enableAirControl: 1
   airPitchTorque: 4
   airRollTorque: 5
   airYawTorque: 2
+  maxAirAngularVelocity: 180
+  airAngularDamping: 1.5
+  airborneConfirmTime: 0.15
   enableFlipRecovery: 1
-  roofCheckBox: {fileID: 3555987627517781728}
+  roofCheckBox: {fileID: 5203017054435290033}
   groundLayerForFlipCheck:
     serializedVersion: 2
     m_Bits: 8
-  flipRecoveryTorque: 6
+  flipRecoveryTorque: 15
   maxSpeedForFlipRecovery: 1.5
   maxAngularSpeedForFlipRecovery: 1
   isAIControlled: 1
   playerIndex: 0
   stuckCheckSpeedThreshold: 0.5
   stuckTimeBeforeRespawn: 4
-  autoRespawnWhenStuck: 1
+  autoRespawnWhenStuck: 0
 --- !u!114 &1254508488530192516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,10 +283,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VehicleHealth
   maxHealth: 350
   damageEnabled: 1
-  minForceForDamage: 2
+  minForceForDamage: 4
   forceToDamageRatio: 4
   attackerWeightFactor: 0.1
   fallbackMultiplier: 5
+  team: 0
+  friendlyFireEnabled: 0
+  teamsActive: 0
   carLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -303,31 +309,11 @@ MonoBehaviour:
   p2IconPrefab: {fileID: 8378919720397427414, guid: 3a2d7158861e67a48b86cadfdc4c1ded, type: 3}
   botIconPrefab: {fileID: 8378919720397427414, guid: 51165e305ecdd7e428fd7dc9896efbac, type: 3}
   deadIconPrefab: {fileID: 8378919720397427414, guid: 59f8f96ee84d7e047b842ab678af48c8, type: 3}
-  ownerType: 2
+  ownerType: 0
   fixedHeight: 50
   rotateWithCar: 1
   yawOffset: -90
---- !u!114 &3787514153138473219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711543342545725848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b889adda645f4842abdd1eec1d57217, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CarAIController
-  targetReacquireInterval: 1.5
-  directRammingRange: 15
-  pathRecalculateInterval: 0.75
-  cornerReachedDistance: 3
-  stuckSpeedThreshold: 1.5
-  stuckTimeToTrigger: 1.2
-  reverseDuration: 1
-  reverseStuckThrottle: -1
---- !u!114 &-296601863701263723
+--- !u!114 &-1412604066301055773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -343,7 +329,7 @@ MonoBehaviour:
   - renderer: {fileID: 4599814607758988988}
     materialIndex: 0
   colorPropertyName: _BaseColor
---- !u!65 &3555987627517781728
+--- !u!65 &5203017054435290033
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -364,6 +350,57 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.64, z: 2.18}
   m_Center: {x: 0, y: 1.08, z: 0}
+--- !u!114 &2892522314515909961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711543342545725848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 857a63b8326bbd24ab458d10542aca3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AntiRollBar
+  wheelLeft: {fileID: 4888099549530376706}
+  wheelRight: {fileID: 2278483913117794186}
+  antiRollForce: 5000
+--- !u!114 &8130686061292975608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711543342545725848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 857a63b8326bbd24ab458d10542aca3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AntiRollBar
+  wheelLeft: {fileID: 1938750556248316119}
+  wheelRight: {fileID: 7617525078474502543}
+  antiRollForce: 5000
+--- !u!114 &6254806032608643648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711543342545725848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55d99f8a10c8834ab1329bcd3aef628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EdgeAvoidance
+  edgeCheckDistance: 13
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  groundCheckRayLength: 5
+  speedDistanceMultiplier: 0.3
+  edgeRetreatDuration: 2
+  reorientAngleThreshold: 90
+  reorientMaxThrottle: 2
 --- !u!1 &1048758862022746729
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,7 +606,7 @@ WheelCollider:
     spring: 43000
     damper: 5000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.25
+  m_SuspensionDistance: 0.12
   m_ForceAppPointDistance: 0
   m_Mass: 30
   m_WheelDampingRate: 0.3
@@ -640,7 +677,7 @@ WheelCollider:
     spring: 43000
     damper: 5000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.25
+  m_SuspensionDistance: 0.12
   m_ForceAppPointDistance: 0
   m_Mass: 30
   m_WheelDampingRate: 0.3
@@ -665,6 +702,73 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!1 &2753047754505801501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 581060810664321746}
+  - component: {fileID: 894632005686820902}
+  - component: {fileID: 4435971891877417791}
+  m_Layer: 6
+  m_Name: CheckpointDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &581060810664321746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2753047754505801501}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 193802155677108906}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &894632005686820902
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2753047754505801501}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.51, y: 0.86, z: 2.24}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4435971891877417791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2753047754505801501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf09ae9bfd39b249a919267b4146e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RaceCheckpointDetector
+  checkpointIndex: -1
 --- !u!1 &3024483598958326567
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,7 +906,7 @@ WheelCollider:
     spring: 43000
     damper: 5000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.25
+  m_SuspensionDistance: 0.12
   m_ForceAppPointDistance: 0
   m_Mass: 30
   m_WheelDampingRate: 0.3
@@ -1033,8 +1137,8 @@ GameObject:
   - component: {fileID: 7741234776339382651}
   - component: {fileID: 4599814607758988988}
   - component: {fileID: 8404569537542082837}
-  - component: {fileID: 7472159242785163353}
-  - component: {fileID: 8503382690790555297}
+  - component: {fileID: 8076314374632912526}
+  - component: {fileID: 7294528774006218535}
   m_Layer: 6
   m_Name: obj_car_PorscheRWB
   m_TagString: Untagged
@@ -1140,7 +1244,7 @@ CapsuleCollider:
   m_Height: 1.66
   m_Direction: 0
   m_Center: {x: 0, y: 0.57, z: -1.11}
---- !u!136 &7472159242785163353
+--- !u!136 &8076314374632912526
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1163,7 +1267,7 @@ CapsuleCollider:
   m_Height: 1.66
   m_Direction: 0
   m_Center: {x: 0, y: 0.46, z: 0.96}
---- !u!136 &8503382690790555297
+--- !u!136 &7294528774006218535
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1232,7 +1336,7 @@ WheelCollider:
     spring: 43000
     damper: 5000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.25
+  m_SuspensionDistance: 0.12
   m_ForceAppPointDistance: 0
   m_Mass: 30
   m_WheelDampingRate: 0.3
@@ -1325,104 +1429,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VehicleHitZone
   zone: 1
   damageMultiplier: 1
---- !u!1 &6642486829466159156
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7457427640941765270}
-  m_Layer: 0
-  m_Name: targetCam
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7457427640941765270
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6642486829466159156}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 193802155677108906}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7145817743350080134
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4983143404429902359}
-  - component: {fileID: 9091485346070591505}
-  - component: {fileID: 2098441786609004705}
-  m_Layer: 6
-  m_Name: CheckpointDetector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4983143404429902359
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7145817743350080134}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 193802155677108906}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &9091485346070591505
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7145817743350080134}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.51, y: 0.86, z: 2.24}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2098441786609004705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7145817743350080134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebf09ae9bfd39b249a919267b4146e59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RaceCheckpointDetector
-  checkpointIndex: -1
 --- !u!1 &8459592059298757199
 GameObject:
   m_ObjectHideFlags: 0

@@ -169,10 +169,15 @@ MonoBehaviour:
   healthBarP1: {fileID: 692101908}
   healthBarP2: {fileID: 998955509}
   teamFillBotPrefabs:
-  - {fileID: 1078272866267778280, guid: 3432aa09b12e713438f5085a564e09f4, type: 3}
-  - {fileID: 3316808279603120959, guid: 77fb623ee42df374c82c7017b77e7d85, type: 3}
-  - {fileID: 1827370793001695660, guid: b832ea7b6d46e4443ac7ec12761d0830, type: 3}
-  - {fileID: 711543342545725848, guid: bdf9123a040f26b4e988358f46669a54, type: 3}
+  - {fileID: 1078272866267778280, guid: f251a6cfbb513c64abb222588dcdf14b, type: 3}
+  - {fileID: 2683970242854663803, guid: c7e9a9ca139160e458ff613669894082, type: 3}
+  - {fileID: 1827370793001695660, guid: e09b15f8896f5d1438b7ba898df884cd, type: 3}
+  - {fileID: 711543342545725848, guid: ad0080f5f04a21e479ba578ef9bfa9a0, type: 3}
+  teamAColor: {r: 0, g: 0, b: 1, a: 1}
+  teamBColor: {r: 1, g: 0, b: 0, a: 1}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   registry: {fileID: 11400000, guid: 99ddd08c3607d7b4f80e84e15ad8ed10, type: 2}
   playerSlotConfigs:
   - splitScreenCamera: {fileID: 330585545}
@@ -3541,10 +3546,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AISpawner
   aiCarPrefabs:
-  - {fileID: 1078272866267778280, guid: 3432aa09b12e713438f5085a564e09f4, type: 3}
-  - {fileID: 3316808279603120959, guid: 77fb623ee42df374c82c7017b77e7d85, type: 3}
-  - {fileID: 1827370793001695660, guid: b832ea7b6d46e4443ac7ec12761d0830, type: 3}
-  - {fileID: 711543342545725848, guid: bdf9123a040f26b4e988358f46669a54, type: 3}
+  - {fileID: 1078272866267778280, guid: f251a6cfbb513c64abb222588dcdf14b, type: 3}
+  - {fileID: 2683970242854663803, guid: c7e9a9ca139160e458ff613669894082, type: 3}
+  - {fileID: 1827370793001695660, guid: e09b15f8896f5d1438b7ba898df884cd, type: 3}
+  - {fileID: 711543342545725848, guid: ad0080f5f04a21e479ba578ef9bfa9a0, type: 3}
+  category: 1
   allowRepeatedCars: 1
   derbyManager: {fileID: 27386396}
 --- !u!4 &1065992790
@@ -3638,99 +3644,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1088262876}
   m_CullTransparentMesh: 1
---- !u!1 &1108151899
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1108151902}
-  - component: {fileID: 1108151901}
-  - component: {fileID: 1108151900}
-  m_Layer: 3
-  m_Name: Terrain (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
---- !u!154 &1108151900
-TerrainCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108151899}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_TerrainData: {fileID: 15600000, guid: 519af934e97c95f4c8a81e0862ef9a07, type: 2}
-  m_EnableTreeColliders: 1
---- !u!218 &1108151901
-Terrain:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108151899}
-  m_Enabled: 1
-  serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 519af934e97c95f4c8a81e0862ef9a07, type: 2}
-  m_TreeDistance: 5000
-  m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
-  m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
-  m_DetailObjectDensity: 1
-  m_HeightmapPixelError: 5
-  m_SplatMapDistance: 1000
-  m_HeightmapMinimumLODSimplification: 0
-  m_HeightmapMaximumLOD: 0
-  m_ShadowCastingMode: 2
-  m_DrawHeightmap: 1
-  m_DrawInstanced: 0
-  m_DrawTreesAndFoliage: 1
-  m_StaticShadowCaster: 0
-  m_IgnoreQualitySettings: 0
-  m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
-  m_BakeLightProbesForTrees: 1
-  m_PreserveTreePrototypeLayers: 0
-  m_DeringLightProbesForTrees: 1
-  m_ReceiveGI: 1
-  m_ScaleInLightmap: 0.0256
-  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
-  m_GroupingID: 0
-  m_RenderingLayerMask: 1
-  m_AllowAutoConnect: 1
-  m_EnableHeightmapRayTracing: 1
-  m_EnableTreesAndDetailsRayTracing: 0
-  m_TreeMotionVectorModeOverride: 3
---- !u!4 &1108151902
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108151899}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -400, y: 0, z: -400}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1149230745
 GameObject:
   m_ObjectHideFlags: 0
@@ -5761,7 +5674,6 @@ SceneRoots:
   - {fileID: 197795968}
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 1108151902}
   - {fileID: 27386393}
   - {fileID: 584399312}
   - {fileID: 1065992790}
