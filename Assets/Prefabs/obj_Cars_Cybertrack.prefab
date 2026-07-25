@@ -41,12 +41,12 @@ WheelCollider:
   m_GameObject: {fileID: 127819310563056476}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 0.3
+  m_Radius: 0.38
   m_SuspensionSpring:
     spring: 43000
     damper: 5000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.25
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 30
   m_WheelDampingRate: 0.3
@@ -88,6 +88,8 @@ GameObject:
   - component: {fileID: 6066436616699156613}
   - component: {fileID: 5286448318590428997}
   - component: {fileID: 2216247425129028870}
+  - component: {fileID: 5724025579720165840}
+  - component: {fileID: 1275756829718595769}
   m_Layer: 6
   m_Name: obj_Cars_Cybertrack
   m_TagString: Untagged
@@ -186,11 +188,13 @@ MonoBehaviour:
     brake: 1
   handbrakeKey: 51
   handbrakeKeyAlt: 0
-  maxRollPitchAngularVelocity: 3
   enableAirControl: 1
   airPitchTorque: 4
   airRollTorque: 5
   airYawTorque: 2
+  maxAirAngularVelocity: 180
+  airAngularDamping: 1.5
+  airborneConfirmTime: 0.15
   enableFlipRecovery: 1
   roofCheckBox: {fileID: 2216247425129028870}
   groundLayerForFlipCheck:
@@ -355,6 +359,36 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.64, z: 3.04}
   m_Center: {x: 0, y: 1.67, z: 0}
+--- !u!114 &5724025579720165840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078272866267778280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 857a63b8326bbd24ab458d10542aca3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AntiRollBar
+  wheelLeft: {fileID: 5023722916817255345}
+  wheelRight: {fileID: 324380667141014983}
+  antiRollForce: 5000
+--- !u!114 &1275756829718595769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078272866267778280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 857a63b8326bbd24ab458d10542aca3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AntiRollBar
+  wheelLeft: {fileID: 5253379306314065974}
+  wheelRight: {fileID: 526123200383429196}
+  antiRollForce: 5000
 --- !u!1 &1368021315827810221
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,12 +959,12 @@ WheelCollider:
   m_GameObject: {fileID: 4790314615903132930}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 0.3
+  m_Radius: 0.38
   m_SuspensionSpring:
     spring: 43000
     damper: 5000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.25
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 30
   m_WheelDampingRate: 0.3
@@ -1118,12 +1152,12 @@ WheelCollider:
   m_GameObject: {fileID: 6602186797514672754}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 0.3
+  m_Radius: 0.38
   m_SuspensionSpring:
     spring: 43000
     damper: 5000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.25
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 30
   m_WheelDampingRate: 0.3
@@ -1472,12 +1506,12 @@ WheelCollider:
   m_GameObject: {fileID: 7839396653144418988}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 0.3
+  m_Radius: 0.38
   m_SuspensionSpring:
     spring: 43000
     damper: 5000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.25
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 30
   m_WheelDampingRate: 0.3

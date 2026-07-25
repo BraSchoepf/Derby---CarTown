@@ -149,7 +149,7 @@ WheelCollider:
     spring: 43000
     damper: 5000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.25
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 30
   m_WheelDampingRate: 0.3
@@ -222,6 +222,8 @@ GameObject:
   - component: {fileID: 3064553445696009987}
   - component: {fileID: -4609101458744971238}
   - component: {fileID: -6449682058575494176}
+  - component: {fileID: 1179834777206081731}
+  - component: {fileID: 8294705647400726319}
   m_Layer: 6
   m_Name: obj_Cars_FordGT40
   m_TagString: Untagged
@@ -318,13 +320,15 @@ MonoBehaviour:
     motor: 1
     steering: 0
     brake: 1
-  handbrakeKey: 27
-  handbrakeKeyAlt: 0
-  maxRollPitchAngularVelocity: 3
+  handbrakeKey: 51
+  handbrakeKeyAlt: 27
   enableAirControl: 1
   airPitchTorque: 4
   airRollTorque: 5
   airYawTorque: 2
+  maxAirAngularVelocity: 180
+  airAngularDamping: 1.5
+  airborneConfirmTime: 0.15
   enableFlipRecovery: 1
   roofCheckBox: {fileID: -6449682058575494176}
   groundLayerForFlipCheck:
@@ -489,6 +493,36 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.64, z: 2.29}
   m_Center: {x: 0, y: 1.06, z: 0}
+--- !u!114 &1179834777206081731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827370793001695660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 857a63b8326bbd24ab458d10542aca3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AntiRollBar
+  wheelLeft: {fileID: 1055291173742841553}
+  wheelRight: {fileID: 1843397230111696204}
+  antiRollForce: 5000
+--- !u!114 &8294705647400726319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827370793001695660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 857a63b8326bbd24ab458d10542aca3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AntiRollBar
+  wheelLeft: {fileID: 4580234614583539896}
+  wheelRight: {fileID: 6275530189172896670}
+  antiRollForce: 5000
 --- !u!1 &1890126199645032049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,7 +1237,7 @@ WheelCollider:
     spring: 43000
     damper: 5000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.25
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 30
   m_WheelDampingRate: 0.3
@@ -1342,7 +1376,7 @@ WheelCollider:
     spring: 43000
     damper: 5000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.25
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 30
   m_WheelDampingRate: 0.3
@@ -1732,7 +1766,7 @@ WheelCollider:
     spring: 43000
     damper: 5000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.25
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 30
   m_WheelDampingRate: 0.3

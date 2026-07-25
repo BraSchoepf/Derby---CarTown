@@ -20,4 +20,4 @@ MonoBehaviour:
   - stats: {fileID: 11400000, guid: 36d46e2c998c26b49a10c3764be9a147, type: 2}
     prefab: {fileID: 1078272866267778280, guid: eab1b160024cd0049a5a56d97c4a2b43, type: 3}
   - stats: {fileID: 11400000, guid: 50876908db3c12341b54bc14695f6ef3, type: 2}
-    prefab: {fileID: 3316808279603120959, guid: c6eecd7eda91b094d8528e51837f65c2, type: 3}
+    prefab: {fileID: 2683970242854663803, guid: c52a832e685a2e043b51a63ef954517b, type: 3}
