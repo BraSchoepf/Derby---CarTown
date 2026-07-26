@@ -114,8 +114,19 @@ public class VehicleHealth : MonoBehaviour
         if (currentHealth <= 0f) DestroyVehicle();
     }
 
+    public void ForceEliminateNoKillCredit()
+    {
+        if (isDestroyed) return;
+        isDestroyed = true;
+        OnVehicleDestroyed?.Invoke();
+        OnVehicleDestroyedByAttacker?.Invoke(null); // null = sin atacante, DerbyGameManager ya maneja esto como "Choque"
+        var controller = GetComponent<CarController>();
+        if (controller != null) controller.StopAllInputs();
+    }
+
     public void DestroyVehicle()
     {
+        if (isDestroyed) return;
         isDestroyed = true;
         OnVehicleDestroyed?.Invoke();
         OnVehicleDestroyedByAttacker?.Invoke(lastAttacker);

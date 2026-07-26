@@ -90,8 +90,20 @@ public class AISpawner : MonoBehaviour
                 carController.SetSpawnPoint(aiSpawnPoints[i].position, aiSpawnPoints[i].rotation);
             }
 
-            CarAIController aiController = instance.GetComponent<CarAIController>();
-            if (aiController == null) aiController = instance.AddComponent<CarAIController>();
+            if (GameSession.Instance != null && GameSession.Instance.chosenGameMode != null
+            && GameSession.Instance.chosenGameMode.usesBombMechanic)
+            {
+                BombAIController bombAI = instance.GetComponent<BombAIController>();
+                if (bombAI == null) bombAI = instance.AddComponent<BombAIController>();
+
+                BombCarrier bombCarrier = instance.GetComponent<BombCarrier>();
+                if (bombCarrier == null) bombCarrier = instance.AddComponent<BombCarrier>();
+            }
+            else
+            {
+                CarAIController aiController = instance.GetComponent<CarAIController>();
+                if (aiController == null) aiController = instance.AddComponent<CarAIController>();
+            }
 
             VehicleHealth health = instance.GetComponent<VehicleHealth>();
             if (health != null)

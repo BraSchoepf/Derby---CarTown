@@ -16,6 +16,7 @@ public class GameModeSO : ScriptableObject
     public bool enableDamage = true;
     public bool requiresCheckpoints = false;
     public int lapsDefault = 1;
+    public bool usesBombMechanic = false;
 
     [Header("Equipos")]
     public bool supportsTeams = false;

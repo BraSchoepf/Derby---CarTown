@@ -19,8 +19,20 @@ public class GameSetup : MonoBehaviour
     public Color teamAColor = Color.blue;
     public Color teamBColor = Color.red;
 
+    [Header("Bomb Direction Indicators (Papá Caliente)")]
+    public BombDirectionIndicator bombIndicatorP1;
+    public BombDirectionIndicator bombIndicatorP2;
+    [Header("Bomb Timer UI")]
+    public BombTimerUI bombTimerUI;
+
     [Header("Sumo")]
     public LayerMask groundLayer;
+
+    [Header("Reglas generales")]
+    public bool enableDamage = true;
+    public bool requiresCheckpoints = false;
+    public int lapsDefault = 1;
+    public bool usesBombMechanic = false;
 
     [System.Serializable]
     public class PlayerSlotConfig
@@ -67,6 +79,12 @@ public class GameSetup : MonoBehaviour
 
         if (teamsActive)
             SpawnTeamFillBots();
+
+        if (session.chosenGameMode.usesBombMechanic)
+            StartCoroutine(StartBombRoundNextFrame());
+
+        if (bombTimerUI != null)
+            bombTimerUI.gameObject.SetActive(session.chosenGameMode.usesBombMechanic);
     }
 
     void ConfigureCameraLayout(bool isMultiplayer)
@@ -176,6 +194,18 @@ public class GameSetup : MonoBehaviour
             }
             colorApplier.SetColor(chosenColor);
         }
+
+        BombDirectionIndicator indicator = slotIndex == 0 ? bombIndicatorP1 : bombIndicatorP2;
+        if (indicator != null && session.chosenGameMode.usesBombMechanic)
+        {
+            indicator.ownCarTransform = carInstance.transform;
+            indicator.playerCamera = config.splitScreenCamera;
+            indicator.gameObject.SetActive(true);
+        }
+        else if (indicator != null)
+        {
+            indicator.gameObject.SetActive(false); // en otros modos, el indicador queda oculto
+        }
     }
 
     void SpawnTeamFillBots()
@@ -205,8 +235,19 @@ public class GameSetup : MonoBehaviour
                 carController.SetSpawnPoint(aiSpawnPoints[i].position, aiSpawnPoints[i].rotation);
             }
 
-            CarAIController aiController = instance.GetComponent<CarAIController>();
-            if (aiController == null) aiController = instance.AddComponent<CarAIController>();
+            if (session.chosenGameMode.usesBombMechanic)
+            {
+                BombAIController bombAI = instance.GetComponent<BombAIController>();
+                if (bombAI == null) bombAI = instance.AddComponent<BombAIController>();
+
+                BombCarrier bombCarrier = instance.GetComponent<BombCarrier>();
+                if (bombCarrier == null) bombCarrier = instance.AddComponent<BombCarrier>();
+            }
+            else
+            {
+                CarAIController aiController = instance.GetComponent<CarAIController>();
+                if (aiController == null) aiController = instance.AddComponent<CarAIController>();
+            }
 
 
             VehicleHealth health = instance.GetComponent<VehicleHealth>();
@@ -282,5 +323,10 @@ public class GameSetup : MonoBehaviour
         survivingCam.rect = new Rect(0f, 0f, 1f, 1f);
 
         playerSlotConfigs[eliminatedSlotIndex].splitScreenCamera.gameObject.SetActive(false);
+    }
+    System.Collections.IEnumerator StartBombRoundNextFrame()
+    {
+        yield return null; // espera un frame, para que otros listeners de OnMapReady (como AISpawner) ya hayan corrido
+        BombCarrierManager.Instance.StartBombRound();
     }
 }

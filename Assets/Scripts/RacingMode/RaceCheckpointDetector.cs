@@ -14,11 +14,16 @@ public class RaceCheckpointDetector : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (checkpointIndex < 0) return; // todavía no inicializado por RaceManager
+        if (checkpointIndex < 0) return;
 
         RaceCarIdentity identity = other.GetComponentInParent<RaceCarIdentity>();
         if (identity == null) return;
 
         RaceManager.Instance?.OnCheckpointReached(identity.Progress, checkpointIndex);
+
+        // Actualiza el punto de respawn de ESTE auto al checkpoint recién tocado
+        CarController controller = other.GetComponentInParent<CarController>();
+        if (controller != null)
+            controller.SetSpawnPoint(transform.position, transform.rotation);
     }
 }

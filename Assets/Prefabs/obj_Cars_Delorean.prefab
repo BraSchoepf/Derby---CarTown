@@ -698,6 +698,7 @@ GameObject:
   - component: {fileID: 823476088256454969}
   - component: {fileID: -8251522423475480650}
   - component: {fileID: 6329332761452684126}
+  - component: {fileID: 6603595463287256776}
   m_Layer: 6
   m_Name: obj_Cars_Delorean
   m_TagString: Untagged
@@ -796,11 +797,13 @@ MonoBehaviour:
     brake: 1
   handbrakeKey: 51
   handbrakeKeyAlt: 0
-  maxRollPitchAngularVelocity: 3
   enableAirControl: 1
   airPitchTorque: 4
   airRollTorque: 5
   airYawTorque: 2
+  maxAirAngularVelocity: 180
+  airAngularDamping: 1.5
+  airborneConfirmTime: 0.15
   enableFlipRecovery: 1
   roofCheckBox: {fileID: 6329332761452684126}
   groundLayerForFlipCheck:
@@ -862,6 +865,9 @@ MonoBehaviour:
   forceToDamageRatio: 4
   attackerWeightFactor: 0.1
   fallbackMultiplier: 5
+  team: 0
+  friendlyFireEnabled: 0
+  teamsActive: 0
   carLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -965,6 +971,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.64, z: 2.45}
   m_Center: {x: 0, y: 1.13, z: 0}
+--- !u!114 &6603595463287256776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3316808279603120959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3689898bc60758d4287e682f5e5a8189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombCarrier
+  bombVisual: {fileID: 595097218179189742, guid: 57118f7f5c047964ba66939870fbca96, type: 3}
 --- !u!1 &4656262414772341800
 GameObject:
   m_ObjectHideFlags: 0

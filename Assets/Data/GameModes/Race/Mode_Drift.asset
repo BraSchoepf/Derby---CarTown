@@ -15,9 +15,11 @@ MonoBehaviour:
   modeName: Derrape
   icon: {fileID: 21300000, guid: fdfc7d40e2f6edc409e0329a8b47a4f2, type: 3}
   category: 0
-  drivingProfile: {fileID: 0}
+  drivingProfile: {fileID: 11400000, guid: fd2e9b67e0d8a284b8739e748ed43790, type: 2}
   enableDamage: 0
   requiresCheckpoints: 1
   lapsDefault: 1
+  usesBombMechanic: 0
   supportsTeams: 0
   teamSizeOptions: 
+  enableEdgeDetection: 0
