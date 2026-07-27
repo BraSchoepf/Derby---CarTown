@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CarStatsSO
   category: 0
   carName: DeLorean
-  previewImage: {fileID: 21300000, guid: caaf8c8e34ebdc143bfce8327a68d438, type: 3}
+  previewImage: {fileID: 21300000, guid: 147cac0973deb6548b3fedcc2dc7d2c1, type: 3}
   previewPrefab: {fileID: 2683970242854663803, guid: c52a832e685a2e043b51a63ef954517b, type: 3}
   displaySpeedStat: 0.8
   displayWeightStat: 0.7

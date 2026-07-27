@@ -1,41 +1,88 @@
 using UnityEngine;
+using System;
 
+[RequireComponent(typeof(CarController))]
 public class DriftScoreTracker : MonoBehaviour
 {
-    public CarController carController; // lee ángulo/velocidad actuales
-    public float minDriftAngleForScoring = 8f; // mismo umbral que ya usás internamente para "está driftando"
+    [Header("Puntaje")]
+    public float minDriftAngleForScoring = 8f;
+    public float minSpeedForScoring = 3f;
+    public float pointsPerAngleSpeedUnit = 1f;
 
-    float currentDriftScore;
-    float multiplier = 1f;
-    float multiplierIncreasePerSecond = 0.5f;
-    bool isDrifting;
+    [Header("Multiplicador")]
+    public float multiplierIncreasePerSecond = 0.5f;
+    public float maxMultiplier = 5f;
+
+    public float TotalScore { get; private set; }
+    public float CurrentMultiplier { get; private set; } = 1f;
+    public float CurrentRunPoints { get; private set; } // puntos del drift actual, aún no "cargados"
+    public bool IsDrifting { get; private set; }
+
+    public event Action<float> OnScoreChanged; // TotalScore actualizado
+    public event Action<float> OnRunPointsChanged; // puntos del drift en curso (para feedback en vivo)
+    public event Action<float> OnDriftEnded; // cuántos puntos se "cargaron" al terminar un drift
+
+    CarController carController;
+    VehicleHealth vehicleHealth;
+
+    void Awake()
+    {
+        carController = GetComponent<CarController>();
+        vehicleHealth = GetComponent<VehicleHealth>();
+        if (vehicleHealth != null)
+            vehicleHealth.OnCollisionDetected += HandleCollision;
+    }
 
     void FixedUpdate()
     {
-        float driftAngle = carController.CurrentDriftAngle; // exponer este getter en CarController
+        float driftAngle = carController.CurrentDriftAngle;
         float speed = carController.CurrentSpeed;
 
-        bool driftingNow = Mathf.Abs(driftAngle) > minDriftAngleForScoring && speed > 3f;
+        bool driftingNow = Mathf.Abs(driftAngle) > minDriftAngleForScoring && speed > minSpeedForScoring;
 
         if (driftingNow)
         {
-            if (!isDrifting) { isDrifting = true; }
+            IsDrifting = true;
 
-            float pointsThisFrame = Mathf.Abs(driftAngle) * speed * Time.fixedDeltaTime * multiplier;
-            currentDriftScore += pointsThisFrame;
-            multiplier += multiplierIncreasePerSecond * Time.fixedDeltaTime;
+            float pointsThisFrame = Mathf.Abs(driftAngle) * speed * pointsPerAngleSpeedUnit * Time.fixedDeltaTime * CurrentMultiplier;
+            CurrentRunPoints += pointsThisFrame;
+
+            CurrentMultiplier = Mathf.Min(maxMultiplier, CurrentMultiplier + multiplierIncreasePerSecond * Time.fixedDeltaTime);
+
+            OnRunPointsChanged?.Invoke(CurrentRunPoints);
         }
-        else if (isDrifting)
+        else if (IsDrifting)
         {
-            // Dejó de driftear: "carga" los puntos acumulados (ya sumados arriba), resetea multiplicador
-            isDrifting = false;
-            multiplier = 1f;
+            // Se cortó el drift (no por choque, simplemente dejó de resbalar): carga los puntos
+            EndDriftRun();
         }
     }
 
-    // Llamado desde VehicleHealth.OnCollisionEnter (o un evento nuevo) cuando hay choque
-    public void OnCollisionPenalty()
+    void HandleCollision(Collision collision)
     {
-        multiplier = 1f; // el choque resetea multiplicador, pero NO borra puntos ya acumulados
+        if (!IsDrifting) return;
+
+        // Choque durante un drift: se pierden los puntos del run actual (no se cargan) y resetea multiplicador
+        CurrentRunPoints = 0f;
+        CurrentMultiplier = 1f;
+        IsDrifting = false;
+        OnRunPointsChanged?.Invoke(0f);
+    }
+
+    void EndDriftRun()
+    {
+        TotalScore += CurrentRunPoints;
+        OnScoreChanged?.Invoke(TotalScore);
+        OnDriftEnded?.Invoke(CurrentRunPoints);
+
+        CurrentRunPoints = 0f;
+        CurrentMultiplier = 1f;
+        IsDrifting = false;
+    }
+
+    void OnDestroy()
+    {
+        if (vehicleHealth != null)
+            vehicleHealth.OnCollisionDetected -= HandleCollision;
     }
 }

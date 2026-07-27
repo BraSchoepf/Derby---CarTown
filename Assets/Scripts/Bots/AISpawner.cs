@@ -27,6 +27,12 @@ public class AISpawner : MonoBehaviour
             return;
         }
 
+        if (session != null && session.chosenGameMode != null && !session.chosenGameMode.allowBots)
+        {
+            Debug.Log("[AISpawner] El modo actual no permite bots — no actúa.");
+            return;
+        }
+
         bool teamsActive = session != null && session.chosenGameMode != null
                             && session.chosenGameMode.supportsTeams && session.teamSize > 0;
 
@@ -59,6 +65,9 @@ public class AISpawner : MonoBehaviour
             Debug.LogError("[AISpawner] El mapa actual no tiene puntos de spawn de IA.", this);
             return;
         }
+
+        int maxBots = GameSession.Instance.chosenGameMode.maxBots;
+        int spawnCount = maxBots > 0 ? Mathf.Min(maxBots, aiSpawnPoints.Length) : aiSpawnPoints.Length;
 
         List<GameObject> pool = allowRepeatedCars ? null : new List<GameObject>(aiCarPrefabs);
 

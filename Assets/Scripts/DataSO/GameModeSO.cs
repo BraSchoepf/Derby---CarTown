@@ -22,5 +22,11 @@ public class GameModeSO : ScriptableObject
     public bool supportsTeams = false;
     public int[] teamSizeOptions;
 
+    [Header("Bots")]
+    public bool allowBots = true;
+    [Tooltip("Si allowBots es true, cuántos bots como máximo puede spawnear este modo (0 = ilimitado, usa todos los spawn points disponibles)")]
+    public int maxBots = 0;
+
     public bool enableEdgeDetection = false;
+    public bool isDriftScoringMode = false;
 }

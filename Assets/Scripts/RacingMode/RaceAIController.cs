@@ -15,7 +15,7 @@ public class RaceAIController : MonoBehaviour
 
     [Header("Frenado en curvas")]
     [Tooltip("Ángulo (grados) entre el segmento actual y el próximo a partir del cual se considera 'curva cerrada'")]
-    public float sharpCornerAngle = 52f;
+    public float sharpCornerAngle = 45f;
     [Tooltip("Velocidad objetivo al tomar una curva cerrada")]
     public float corneringSpeedLimit = 12f;
     [Tooltip("Distancia antes del checkpoint donde empieza a frenar para una curva cerrada")]

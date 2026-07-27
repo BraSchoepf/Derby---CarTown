@@ -2774,6 +2774,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f05232df6f41c5849b61025bfb33950c, type: 2}
   - {fileID: 11400000, guid: 655046bf014ce2244b0c94dfaa9928d8, type: 2}
   - {fileID: 11400000, guid: 6753374c819b114438523167743b6b89, type: 2}
+  - {fileID: 11400000, guid: bc88f6a0b150f3846a1bbdbc616e0d8e, type: 2}
   slotPrefab: {fileID: 7129750296032569092, guid: 1e28af3d9b6180d4d8f124649b4c4464, type: 3}
   carouselContainer: {fileID: 674283137}
   spacingX: 300

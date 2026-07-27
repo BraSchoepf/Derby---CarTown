@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using System.Linq;
+using System.Collections.Generic;
 public class RaceSetup : MonoBehaviour
 {
     [Header("Race")]
@@ -9,6 +10,10 @@ public class RaceSetup : MonoBehaviour
     [Header("Bots (relleno de parrilla)")]
     public GameObject[] aiCarPrefabs;
     public int botsToFillGrid = 4;
+
+    [Header("Drift Score UI (opcional, solo si el modo lo requiere)")]
+    public DriftScoreUI driftScoreUIP1;
+    public DriftScoreUI driftScoreUIP2;
 
     [System.Serializable]
     public class PlayerSlotConfig
@@ -37,6 +42,12 @@ public class RaceSetup : MonoBehaviour
 
         session = GameSession.Instance;
         isMultiplayer = session != null && session.selectedMode == GameMode.MultiplayerSplitScreen;
+
+        if (!session.chosenGameMode.isDriftScoringMode)
+        {
+            if (driftScoreUIP1 != null) driftScoreUIP1.gameObject.SetActive(false);
+            if (driftScoreUIP2 != null) driftScoreUIP2.gameObject.SetActive(false);
+        }
 
         RaceCourseSet courseSet = MapLoader.Instance.GetRaceCourseSet();
         if (courseSet == null)
@@ -109,7 +120,8 @@ public class RaceSetup : MonoBehaviour
             DrivingProfileSO profile = session.chosenGameMode != null ? session.chosenGameMode.drivingProfile : null;
             CarStatsSO effectiveStats = CarStatsFactory.BuildEffectiveStats(baseCarStats, profile);
 
-            carController.Initialize(effectiveStats);
+            if (effectiveStats != null)
+                carController.Initialize(effectiveStats);
             carController.playerIndex = slotIndex + 1;
             carController.SetSpawnPoint(spawnPoint.position, spawnPoint.rotation);
         }
@@ -136,8 +148,18 @@ public class RaceSetup : MonoBehaviour
         if (identity == null) identity = carInstance.AddComponent<RaceCarIdentity>();
         identity.Initialize(progress);
 
+        if (session.chosenGameMode.isDriftScoringMode)
+        {
+            DriftScoreTracker scoreTracker = carInstance.GetComponent<DriftScoreTracker>();
+            if (scoreTracker == null) scoreTracker = carInstance.AddComponent<DriftScoreTracker>();
+
+            // Guardamos la referencia para que el HUD del jugador pueda leer el puntaje en vivo
+            StorePlayerDriftTracker(slotIndex, scoreTracker);
+        }
+
         CarColorApplier colorApplier = carInstance.GetComponentInChildren<CarColorApplier>();
         if (colorApplier != null) colorApplier.SetColor(color);
+
     }
     void AssignCameraChannel(GameObject carInstance, int slotIndex)
     {
@@ -152,6 +174,12 @@ public class RaceSetup : MonoBehaviour
 
     void SpawnGridBots()
     {
+        if (!session.chosenGameMode.allowBots)
+        {
+            Debug.Log("[RaceSetup] El modo actual no permite bots — no se spawnean rivales de IA.");
+            return;
+        }
+
         Transform[] aiSpawnPoints = MapLoader.Instance.GetAISpawnPoints(GameModeCategory.Racing);
         int count = Mathf.Min(botsToFillGrid, aiSpawnPoints.Length);
 
@@ -187,14 +215,36 @@ public class RaceSetup : MonoBehaviour
             identity.Initialize(progress);
 
             // Nuevo: le damos el "cerebro" de carrera en vez de dejarlo sin control
-            RaceAIController aiController = instance.GetComponent<RaceAIController>();
-            if (aiController == null) aiController = instance.AddComponent<RaceAIController>();
-            aiController.progress = progress;
-            aiController.raceManager = raceManager;
+            if (session.chosenGameMode.isDriftScoringMode) // o mejor, otro flag dedicado en GameModeSO
+            {
+                DriftAIController driftAI = instance.GetComponent<DriftAIController>();
+                if (driftAI == null) driftAI = instance.AddComponent<DriftAIController>();
+                driftAI.progress = progress;
+                driftAI.raceManager = raceManager;
+
+                DriftScoreTracker scoreTracker = instance.GetComponent<DriftScoreTracker>();
+                if (scoreTracker == null) scoreTracker = instance.AddComponent<DriftScoreTracker>();
+            }
+            else
+            {
+                RaceAIController raceAI = instance.GetComponent<RaceAIController>();
+                if (raceAI == null) raceAI = instance.AddComponent<RaceAIController>();
+                raceAI.progress = progress;
+                raceAI.raceManager = raceManager;
+            }
 
             CarColorApplier colorApplier = instance.GetComponentInChildren<CarColorApplier>();
             if (colorApplier != null)
                 colorApplier.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.6f, 1f));
+        }
+    }
+    void StorePlayerDriftTracker(int slotIndex, DriftScoreTracker tracker)
+    {
+        DriftScoreUI ui = slotIndex == 0 ? driftScoreUIP1 : driftScoreUIP2;
+        if (ui != null)
+        {
+            ui.gameObject.SetActive(true);
+            ui.SetTracker(tracker);
         }
     }
 }

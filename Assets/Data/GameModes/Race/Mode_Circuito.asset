@@ -15,9 +15,14 @@ MonoBehaviour:
   modeName: Circuito
   icon: {fileID: 21300000, guid: fdfc7d40e2f6edc409e0329a8b47a4f2, type: 3}
   category: 0
-  drivingProfile: {fileID: 0}
+  drivingProfile: {fileID: 11400000, guid: 3aee3d47997ba8541b7347ed4eab27aa, type: 2}
   enableDamage: 0
   requiresCheckpoints: 1
   lapsDefault: 3
+  usesBombMechanic: 0
   supportsTeams: 0
   teamSizeOptions: 
+  allowBots: 0
+  maxBots: 0
+  enableEdgeDetection: 0
+  isDriftScoringMode: 0

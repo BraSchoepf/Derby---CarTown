@@ -22,4 +22,7 @@ MonoBehaviour:
   usesBombMechanic: 0
   supportsTeams: 0
   teamSizeOptions: 
+  allowBots: 0
+  maxBots: 0
   enableEdgeDetection: 0
+  isDriftScoringMode: 1

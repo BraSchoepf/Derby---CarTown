@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/map_SumoElDohyo.unity
     guid: ba7e6d169940b07438566879e1624efa
+  - enabled: 1
+    path: Assets/Scenes/map_circuito23.unity
+    guid: 955237f89370b2c419c037133a68aa1c
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 8bdbc1eef9400504687d796beaded8ee, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
