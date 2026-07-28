@@ -145,6 +145,8 @@ public class GameSetup : MonoBehaviour
         playerInput.camera = config.splitScreenCamera;
         playerInput.SwitchCurrentControlScheme(config.controlScheme, Keyboard.current);
 
+        carController.SetupInputActions();
+
         AssignCameraChannel(carInstance, slotIndex);
 
         VehicleHealth health = carInstance.GetComponent<VehicleHealth>();

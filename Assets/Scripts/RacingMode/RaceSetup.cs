@@ -15,6 +15,10 @@ public class RaceSetup : MonoBehaviour
     public DriftScoreUI driftScoreUIP1;
     public DriftScoreUI driftScoreUIP2;
 
+    [Header("Speedometer UI")]
+    public SpeedometerUI speedometerP1;
+    public SpeedometerUI speedometerP2;
+
     [System.Serializable]
     public class PlayerSlotConfig
     {
@@ -48,6 +52,8 @@ public class RaceSetup : MonoBehaviour
             if (driftScoreUIP1 != null) driftScoreUIP1.gameObject.SetActive(false);
             if (driftScoreUIP2 != null) driftScoreUIP2.gameObject.SetActive(false);
         }
+
+        ConfigureSpeedometers(isMultiplayer);
 
         RaceCourseSet courseSet = MapLoader.Instance.GetRaceCourseSet();
         if (courseSet == null)
@@ -135,6 +141,8 @@ public class RaceSetup : MonoBehaviour
         playerInput.camera = config.splitScreenCamera;
         playerInput.SwitchCurrentControlScheme(config.controlScheme, Keyboard.current);
 
+        carController.SetupInputActions();
+
         AssignCameraChannel(carInstance, slotIndex);
 
         var progress = new RaceManager.RacerProgress
@@ -143,6 +151,11 @@ public class RaceSetup : MonoBehaviour
             humanSlotIndex = slotIndex
         };
         raceManager.RegisterRacer(progress);
+
+        SpeedometerUI speedo = slotIndex == 0 ? speedometerP1 : speedometerP2;
+        if (speedo != null && carController != null)
+            speedo.SetTarget(carController);
+
 
         RaceCarIdentity identity = carInstance.GetComponent<RaceCarIdentity>();
         if (identity == null) identity = carInstance.AddComponent<RaceCarIdentity>();
@@ -246,5 +259,12 @@ public class RaceSetup : MonoBehaviour
             ui.gameObject.SetActive(true);
             ui.SetTracker(tracker);
         }
+    }
+    void ConfigureSpeedometers(bool multiplayer)
+    {
+        if (speedometerP1 != null) speedometerP1.gameObject.SetActive(true); // P1 siempre visible
+
+        if (speedometerP2 != null)
+            speedometerP2.gameObject.SetActive(multiplayer); // P2 solo si hay multiplayer
     }
 }

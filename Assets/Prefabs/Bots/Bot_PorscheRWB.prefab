@@ -394,7 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a55d99f8a10c8834ab1329bcd3aef628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EdgeAvoidance
-  edgeCheckDistance: 13
+  edgeCheckDistance: 18
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

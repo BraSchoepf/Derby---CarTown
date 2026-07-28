@@ -20,8 +20,8 @@ MonoBehaviour:
   forceDriftEnabled: 1
   forceDriftDisabled: 0
   driftSteerBoostMultiplier: 1
-  autoDriftSteerThresholdMultiplier: 1.2
+  autoDriftSteerThresholdMultiplier: 1.5
   sidewaysStiffnessMultiplier: 1.1
-  driftSustainForceMultiplier: 1
+  driftSustainForceMultiplier: 0.8
   driftKickForceMultiplier: 1
   driftAngularTorqueMultiplier: 0.6

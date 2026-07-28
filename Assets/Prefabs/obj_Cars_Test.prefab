@@ -191,21 +191,25 @@ MonoBehaviour:
     motor: 0
     steering: 1
     brake: 0
+    trail: {fileID: 0}
   - collider: {fileID: 2278483913117794186}
     visual: {fileID: 2577973887408212137}
     motor: 0
     steering: 1
     brake: 0
+    trail: {fileID: 0}
   - collider: {fileID: 7617525078474502543}
     visual: {fileID: 5775842612116197875}
     motor: 1
     steering: 0
     brake: 1
+    trail: {fileID: 0}
   - collider: {fileID: 1938750556248316119}
     visual: {fileID: 7345144873877274058}
     motor: 1
     steering: 0
     brake: 1
+    trail: {fileID: 0}
   handbrakeKey: 51
   handbrakeKeyAlt: 0
   enableAirControl: 1
@@ -253,7 +257,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 1
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: carMap
   m_SplitScreenIndex: -1
@@ -394,7 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3689898bc60758d4287e682f5e5a8189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombCarrier
-  transferCooldown: 0.6
+  transferCooldown: 1.2
 --- !u!114 &7301585734577009753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,6 +416,9 @@ MonoBehaviour:
   pointsPerAngleSpeedUnit: 1
   multiplierIncreasePerSecond: 0.5
   maxMultiplier: 5
+  chainGraceWindow: 0.6
+  minCollisionForceToReset: 4
+  redFlashDuration: 0.8
 --- !u!1 &1048758862022746729
 GameObject:
   m_ObjectHideFlags: 0

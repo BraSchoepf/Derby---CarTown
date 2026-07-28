@@ -248,8 +248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombCarrierManager
   explosionTimer: 15
-  minTransferForce: 3
-  timeAddedOnTransfer: 1
+  minTransferForce: 5
+  timeAddedOnTransfer: 2
   bombPrefab: {fileID: 595097218179189742, guid: 57118f7f5c047964ba66939870fbca96, type: 3}
   bombLocalOffset: {x: 0, y: 1.4, z: -0.1}
 --- !u!1 &67404326
@@ -3222,7 +3222,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 2
-  m_Spacing: -213
+  m_Spacing: -500
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0

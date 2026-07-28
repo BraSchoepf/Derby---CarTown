@@ -86,4 +86,8 @@ public class CarStatsSO : ScriptableObject
     [Header("Offroad (opcional)")]
     public bool enableOffroadGrip = false;
     public float offroadStiffnessMultiplier = 1.3f;
+
+    [Header("VFX de Trail (marcas de neumático)")]
+    public float lateralSlipThreshold = 0.3f;  // a partir de qué deslizamiento lateral emite trail
+    public float brakeSlipThreshold = 0.35f;
 }

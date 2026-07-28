@@ -12,6 +12,7 @@ public class CarController : MonoBehaviour
         public bool motor;
         public bool steering;
         public bool brake;
+        public TrailRenderer trail;
     }
 
     [Header("Config")]
@@ -67,6 +68,7 @@ public class CarController : MonoBehaviour
 
     public float CurrentDriftAngle => currentDriftAngle;
     public float CurrentSpeed => rb != null ? rb.linearVelocity.magnitude : 0f;
+    public bool IsGrounded { get; private set; }
 
     Vector3 spawnPosition;
     Quaternion spawnRotation;
@@ -86,9 +88,18 @@ public class CarController : MonoBehaviour
     bool wasHandbrakePressed = false;
     float handbrakeResetTimer = 0f;
 
+    PlayerInput playerInput; // referencia cacheada
+    InputAction handbrakeAction;
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        playerInput = GetComponent<PlayerInput>();
+
+        // NO buscar handbrakeAction acá — playerInput.actions todavía no es la copia final
+        // ni tiene el Control Scheme asignado en este punto del ciclo de vida
+
         if (!initialized) Initialize(stats);
     }
     public void Initialize(CarStatsSO statsToUse)
@@ -99,6 +110,11 @@ public class CarController : MonoBehaviour
         rb.sleepThreshold = 0f;
         ConfigureWheelFriction();
         initialized = true;
+    }
+    public void SetupInputActions()
+    {
+        if (playerInput != null)
+            handbrakeAction = playerInput.actions.FindAction("Handbrake");
     }
 
     void ConfigureWheelFriction()
@@ -176,6 +192,7 @@ public class CarController : MonoBehaviour
         }
 
         bool isAirborne = confirmedAirborne;
+        IsGrounded = !isAirborne;
 
         if (isAirborne && enableAirControl)
         {
@@ -205,6 +222,8 @@ public class CarController : MonoBehaviour
         bool isDrifting = wantsHandbrakeDrift || autoDrifting;
 
         HandleDriftKickAndEntry(wantsHandbrakeDrift, forwardSpeed);
+
+        UpdateWheelTrails();
 
         float speedMultiplier = CalculateSpeedSensitiveSteerMultiplier(rb.linearVelocity.magnitude);
         float effectiveSteerAngle = steerInput * stats.maxSteerAngle * speedMultiplier;
@@ -251,13 +270,12 @@ public class CarController : MonoBehaviour
         if (isAIControlled) return;
 
         handbrakeInput = false;
-        if (Keyboard.current != null)
-        {
-            if (handbrakeKey != Key.None && Keyboard.current[handbrakeKey].isPressed)
-                handbrakeInput = true;
-            if (handbrakeKeyAlt != Key.None && Keyboard.current[handbrakeKeyAlt].isPressed)
-                handbrakeInput = true;
-        }
+
+        // Polling directo del ESTADO ACTUAL de la acción — no depende de que el evento
+        // de "soltar" llegue bien, se pregunta cada frame cuál es el valor real ahora mismo
+        if (handbrakeAction != null)
+            handbrakeInput = handbrakeAction.IsPressed();
+
         if (Gamepad.current != null)
             handbrakeInput |= Gamepad.current.rightTrigger.isPressed;
     }
@@ -553,5 +571,29 @@ public class CarController : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         transform.SetPositionAndRotation(spawnPosition, spawnRotation);
         stuckRespawnTimer = 0f;
+    }
+
+    //===================== VFX ===========================
+    void UpdateWheelTrails()
+    {
+        foreach (var w in wheels)
+        {
+            if (w.trail == null) continue;
+
+            bool shouldEmit = false;
+
+            if (w.collider.GetGroundHit(out WheelHit hit))
+            {
+                float lateralSlip = Mathf.Abs(hit.sidewaysSlip);
+                float forwardSlip = Mathf.Abs(hit.forwardSlip);
+
+                // Cualquiera de las 2 condiciones enciende el trail:
+                // deslizamiento lateral (drift, giro brusco) o deslizamiento longitudinal (frenada bloqueando)
+                shouldEmit = lateralSlip > stats.lateralSlipThreshold
+                           || forwardSlip > stats.brakeSlipThreshold;
+            }
+
+            w.trail.emitting = shouldEmit;
+        }
     }
 }
