@@ -24,6 +24,7 @@ public class ResultPanelUI : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log($"[ResultPanelUI] Awake en {gameObject.name}. backToMenuButton asignado: {backToMenuButton != null}");
         if (backToMenuButton != null)
             backToMenuButton.onClick.AddListener(BackToMenu);
         gameObject.SetActive(false); // arranca oculto, lo prende DerbyGameManager al eliminar/ganar
@@ -73,6 +74,7 @@ public class ResultPanelUI : MonoBehaviour
 
     void BackToMenu()
     {
+        Debug.Log("[ResultPanelUI] BackToMenu() llamado");
         Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenuSceneName);
     }

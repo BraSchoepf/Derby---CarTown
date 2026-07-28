@@ -168,6 +168,9 @@ public class MainMenuUI : MonoBehaviour
         carSelectionPanel.SetActive(false);
         mapSelectionPanel.SetActive(true);
 
+        player1Cursor.gameObject.SetActive(false);
+        if (multiplayer) player2Cursor.gameObject.SetActive(false);
+
         mapCarousel.SetAvailableMaps(chosenGameMode);
 
         if (mapNameText != null)
@@ -192,6 +195,9 @@ public class MainMenuUI : MonoBehaviour
     {
         mapSelectionPanel.SetActive(false);
         carSelectionPanel.SetActive(true);
+
+        player1Cursor.gameObject.SetActive(true);
+        if (multiplayer) player2Cursor.gameObject.SetActive(true);
     }
 
     // Llamado por el botón final "Empezar partida" dentro de selección de mapa
