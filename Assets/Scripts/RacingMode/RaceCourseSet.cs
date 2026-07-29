@@ -8,6 +8,7 @@ public class RaceCourseSet : MonoBehaviour
         public GameModeSO gameMode;       // referencia al SO de Sprint, Circuito, etc.
         public Transform[] checkpoints;   // orden de paso
         public int laps = 1;              // 1 para Sprint, 3+ para Circuito
+        public AIWaypointPath aiPath;
     }
 
     public CourseVariant[] courses;

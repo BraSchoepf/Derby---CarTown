@@ -500,6 +500,7 @@ GameObject:
   - component: {fileID: -8333409320161583934}
   - component: {fileID: -3991608055372489963}
   - component: {fileID: 1856641451729829959}
+  - component: {fileID: 1877084721007990215}
   m_Layer: 6
   m_Name: Bot_DeLorean
   m_TagString: Untagged
@@ -580,21 +581,25 @@ MonoBehaviour:
     motor: 0
     steering: 1
     brake: 0
+    trail: {fileID: 0}
   - collider: {fileID: 276242178404912656}
     visual: {fileID: 8866960769411258715}
     motor: 0
     steering: 1
     brake: 0
+    trail: {fileID: 0}
   - collider: {fileID: 5304509125020537772}
     visual: {fileID: 4026693515308183030}
     motor: 1
     steering: 0
     brake: 1
+    trail: {fileID: 0}
   - collider: {fileID: 7267741831258881297}
     visual: {fileID: 5333322829798719735}
     motor: 1
     steering: 0
     brake: 1
+    trail: {fileID: 0}
   handbrakeKey: 51
   handbrakeKeyAlt: 0
   enableAirControl: 1
@@ -807,6 +812,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombCarrier
   transferCooldown: 0.6
+--- !u!114 &1877084721007990215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683970242854663803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fbe2d61835a34596c8b658f0c34b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrackBoundaryDetector
+  offTrackLayer:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!1 &3422750239316047253
 GameObject:
   m_ObjectHideFlags: 0

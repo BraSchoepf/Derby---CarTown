@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 1275756829718595769}
   - component: {fileID: -3545065456754364672}
   - component: {fileID: -3356671591284453327}
+  - component: {fileID: -8903481072585262485}
   m_Layer: 6
   m_Name: obj_Cars_Cybertrack
   m_TagString: Untagged
@@ -212,6 +213,7 @@ MonoBehaviour:
   maxSpeedForFlipRecovery: 1.5
   maxAngularSpeedForFlipRecovery: 1
   isAIControlled: 0
+  isDead: 0
   playerIndex: 0
   stuckCheckSpeedThreshold: 0.5
   stuckTimeBeforeRespawn: 4
@@ -433,6 +435,19 @@ MonoBehaviour:
   chainGraceWindow: 0.6
   minCollisionForceToReset: 4
   redFlashDuration: 0.8
+--- !u!114 &-8903481072585262485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078272866267778280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29496901287082446b5829dd3782428d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRaceRespawn
+  waypointPath: {fileID: 0}
 --- !u!1 &1368021315827810221
 GameObject:
   m_ObjectHideFlags: 0

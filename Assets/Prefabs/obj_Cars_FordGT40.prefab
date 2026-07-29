@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 8294705647400726319}
   - component: {fileID: 2169207290872425651}
   - component: {fileID: -7617421303333324132}
+  - component: {fileID: -8183320339342567736}
   m_Layer: 6
   m_Name: obj_Cars_FordGT40
   m_TagString: Untagged
@@ -346,6 +347,7 @@ MonoBehaviour:
   maxSpeedForFlipRecovery: 1.5
   maxAngularSpeedForFlipRecovery: 1
   isAIControlled: 0
+  isDead: 0
   playerIndex: 0
   stuckCheckSpeedThreshold: 0.5
   stuckTimeBeforeRespawn: 4
@@ -567,6 +569,19 @@ MonoBehaviour:
   chainGraceWindow: 0.6
   minCollisionForceToReset: 4
   redFlashDuration: 0.8
+--- !u!114 &-8183320339342567736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827370793001695660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29496901287082446b5829dd3782428d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRaceRespawn
+  waypointPath: {fileID: 0}
 --- !u!1 &1890126199645032049
 GameObject:
   m_ObjectHideFlags: 0

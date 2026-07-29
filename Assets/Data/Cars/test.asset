@@ -69,3 +69,5 @@ MonoBehaviour:
   autoDriftStiffness: 0.6
   enableOffroadGrip: 0
   offroadStiffnessMultiplier: 1.3
+  lateralSlipThreshold: 0.4
+  brakeSlipThreshold: 0.45

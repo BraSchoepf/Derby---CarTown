@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 [RequireComponent(typeof(VehicleHealth))]
 [RequireComponent(typeof(CarController))]
@@ -6,27 +6,28 @@ public class RaceAIController : MonoBehaviour
 {
     public RaceManager.RacerProgress progress;
     public RaceManager raceManager;
+    public AIWaypointPath waypointPath;
 
-    [Header("AnticipaciÛn de curva")]
-    [Tooltip("Cu·nto se adelanta el punto objetivo hacia el prÛximo checkpoint, para suavizar la trayectoria")]
+    [Header("Anticipaci√≥n de curva")]
+    [Tooltip("Cu√°nto se adelanta el punto objetivo hacia el pr√≥ximo checkpoint, para suavizar la trayectoria")]
     public float cornerCutFactor = 0.35f;
-    [Tooltip("Distancia mÌnima para empezar a mirar el checkpoint siguiente")]
-    public float lookAheadTriggerDistance = 12f;
+    [Tooltip("Distancia m√≠nima para empezar a mirar el checkpoint siguiente")]
+    public float lookAheadTriggerDistance = 16f;
 
     [Header("Frenado en curvas")]
-    [Tooltip("¡ngulo (grados) entre el segmento actual y el prÛximo a partir del cual se considera 'curva cerrada'")]
-    public float sharpCornerAngle = 45f;
+    [Tooltip("√Ångulo (grados) entre el segmento actual y el pr√≥ximo a partir del cual se considera 'curva cerrada'")]
+    public float sharpCornerAngle = 40f;
     [Tooltip("Velocidad objetivo al tomar una curva cerrada")]
-    public float corneringSpeedLimit = 12f;
+    public float corneringSpeedLimit = 8f;
     [Tooltip("Distancia antes del checkpoint donde empieza a frenar para una curva cerrada")]
-    public float brakingLookAhead = 18f;
+    public float brakingLookAhead = 20f;
 
     [Header("Drift asistido en curvas muy cerradas")]
     public float driftCornerAngleThreshold = 70f;
     public float driftMinSpeed = 10f;
 
     [Header("Mantenerse en pista")]
-    [Tooltip("Distancia perpendicular a la lÌnea de checkpoints por encima de la cual se corrige agresivamente")]
+    [Tooltip("Distancia perpendicular a la l√≠nea de checkpoints por encima de la cual se corrige agresivamente")]
     public float maxTrackDeviation = 8f;
 
     [Header("Anti-atasco")]
@@ -34,16 +35,20 @@ public class RaceAIController : MonoBehaviour
     public float stuckTimeToTrigger = 1.5f;
     public float reverseDuration = 1.5f;
     public float reverseThrottle = -0.8f;
+    public int maxReverseAttemptsBeforeRespawn = 2;
 
 
     float stuckTimer;
     float reverseTimer;
     bool isReversingOut;
     float reverseSteerDirection;
+    int reverseAttemptCount = 0;
 
     VehicleHealth ownHealth;
     CarController carController;
     Rigidbody rb;
+
+    int currentNodeIndex = 0;
 
     void Awake()
     {
@@ -51,7 +56,14 @@ public class RaceAIController : MonoBehaviour
         carController = GetComponent<CarController>();
         rb = GetComponent<Rigidbody>();
         carController.isAIControlled = true;
+        carController.autoRespawnWhenStuck = false;
         reverseSteerDirection = Random.value > 0.5f ? 1f : -1f;
+    }
+
+    void Start()
+    {
+        if (waypointPath != null)
+            currentNodeIndex = waypointPath.GetClosestNodeIndex(transform.position);
     }
 
     void Update()
@@ -63,89 +75,57 @@ public class RaceAIController : MonoBehaviour
         }
 
         UpdateStuckDetection();
+        if (isReversingOut) { HandleReverseOut(); return; }
 
-        if (isReversingOut)
-        {
-            HandleReverseOut();
-            return;
-        }
+        if (waypointPath == null || waypointPath.NodeCount == 0) return;
 
-        if (raceManager == null || raceManager.activeCourse == null) return;
+        AdvanceNodeIfClose();
 
-        var checkpoints = raceManager.activeCourse.checkpoints;
-        if (checkpoints == null || checkpoints.Length == 0) return;
+        Transform currentNode = waypointPath.GetNode(currentNodeIndex);
+        Transform nextNode = waypointPath.GetNode(currentNodeIndex + 1);
+        if (currentNode == null || nextNode == null) return;
 
-        int idx = progress.currentCheckpointIndex;
-        Transform currentCp = checkpoints[idx];
-        Transform nextCp = checkpoints[(idx + 1) % checkpoints.Length];
+        Vector3 targetPoint = GetLookAheadTarget(currentNode, nextNode);
+        float cornerAngle = GetUpcomingCornerAngle();
+        float distToNode = Vector3.Distance(transform.position, currentNode.position);
 
-        Vector3 targetPoint = GetLookAheadTarget(currentCp, nextCp);
-        float cornerAngle = GetUpcomingCornerAngle(idx, checkpoints);
-
-        DriveToward(targetPoint, currentCp.position, cornerAngle);
+        DriveToward(targetPoint, currentNode.position, cornerAngle, distToNode);
     }
 
-    void UpdateStuckDetection()
+    void AdvanceNodeIfClose()
     {
-        bool tryingToMove = rb.linearVelocity.magnitude < stuckSpeedThreshold;
+        Transform currentNode = waypointPath.GetNode(currentNodeIndex);
+        if (currentNode == null) return;
 
-        if (tryingToMove)
-        {
-            stuckTimer += Time.deltaTime;
-            if (stuckTimer >= stuckTimeToTrigger)
-            {
-                isReversingOut = true;
-                reverseTimer = reverseDuration;
-                reverseSteerDirection = Random.value > 0.5f ? 1f : -1f; // nuevo random cada vez, por si vuelve a trabarse en otro ·ngulo
-                stuckTimer = 0f;
-            }
-        }
-        else
-        {
-            stuckTimer = 0f;
-        }
+        float dist = Vector3.Distance(transform.position, currentNode.position);
+        if (dist < lookAheadTriggerDistance * 0.5f)
+            currentNodeIndex++;
     }
 
-    void HandleReverseOut()
+    Vector3 GetLookAheadTarget(Transform currentNode, Transform nextNode)
     {
-        reverseTimer -= Time.deltaTime;
-        carController.SetAIInput(reverseThrottle, reverseSteerDirection, false);
-
-        if (reverseTimer <= 0f)
-            isReversingOut = false;
-    }
-
-    // Punto objetivo: mezcla entre el checkpoint actual y el siguiente, seg˙n quÈ tan cerca
-    // est·s del actual ó asÌ el auto empieza a girar ANTES de llegar al punto exacto,
-    // en vez de apuntar directo al checkpoint y girar de golpe al pasar por encima.
-    Vector3 GetLookAheadTarget(Transform currentCp, Transform nextCp)
-    {
-        float distToCurrent = Vector3.Distance(transform.position, currentCp.position);
-
-        if (distToCurrent > lookAheadTriggerDistance)
-            return currentCp.position; // todavÌa lejos, apunt· directo al checkpoint actual
+        float distToCurrent = Vector3.Distance(transform.position, currentNode.position);
+        if (distToCurrent > lookAheadTriggerDistance) return currentNode.position;
 
         float t = Mathf.Clamp01(1f - (distToCurrent / lookAheadTriggerDistance)) * cornerCutFactor;
-        return Vector3.Lerp(currentCp.position, nextCp.position, t);
+        return Vector3.Lerp(currentNode.position, nextNode.position, t);
     }
 
-    // ¡ngulo entre el segmento (checkpoint actual -> siguiente) y (siguiente -> el de despuÈs) ó
-    // cuanto m·s grande, m·s cerrada es la curva que se viene.
-    float GetUpcomingCornerAngle(int idx, Transform[] checkpoints)
+    float GetUpcomingCornerAngle()
     {
-        int nextIdx = (idx + 1) % checkpoints.Length;
-        int nextNextIdx = (idx + 2) % checkpoints.Length;
+        Transform a = waypointPath.GetNode(currentNodeIndex);
+        Transform b = waypointPath.GetNode(currentNodeIndex + 1);
+        Transform c = waypointPath.GetNode(currentNodeIndex + 2);
+        if (a == null || b == null || c == null) return 0f;
 
-        Vector3 dirA = (checkpoints[nextIdx].position - checkpoints[idx].position);
-        Vector3 dirB = (checkpoints[nextNextIdx].position - checkpoints[nextIdx].position);
-        dirA.y = 0f; dirB.y = 0f;
-
+        Vector3 dirA = b.position - a.position; dirA.y = 0f;
+        Vector3 dirB = c.position - b.position; dirB.y = 0f;
         if (dirA.sqrMagnitude < 0.01f || dirB.sqrMagnitude < 0.01f) return 0f;
 
         return Vector3.Angle(dirA.normalized, dirB.normalized);
     }
 
-    void DriveToward(Vector3 targetPoint, Vector3 currentCheckpointPos, float upcomingCornerAngle)
+    void DriveToward(Vector3 targetPoint, Vector3 currentNodePos, float upcomingCornerAngle, float distToNode)
     {
         Vector3 toTarget = targetPoint - transform.position;
         toTarget.y = 0f;
@@ -154,18 +134,15 @@ public class RaceAIController : MonoBehaviour
         float steer = Mathf.Clamp(angleToTarget / 45f, -1f, 1f);
 
         float currentSpeed = carController.CurrentSpeed;
-        float distToCheckpoint = Vector3.Distance(transform.position, currentCheckpointPos);
 
-        // --- Frenado anticipado en curvas cerradas ---
-        bool approachingSharpCorner = upcomingCornerAngle > sharpCornerAngle
-                                       && distToCheckpoint < brakingLookAhead;
+        bool approachingSharpCorner = upcomingCornerAngle > sharpCornerAngle && distToNode < brakingLookAhead;
 
         float throttle;
         bool handbrake = false;
 
         if (approachingSharpCorner && currentSpeed > corneringSpeedLimit)
         {
-            throttle = -0.4f; // frena activamente, no solo suelta el acelerador
+            throttle = -0.4f;
         }
         else
         {
@@ -173,35 +150,67 @@ public class RaceAIController : MonoBehaviour
             throttle = absAngle > 150f ? 0.3f : 1f;
         }
 
-        // --- Drift asistido en curvas muy cerradas, a velocidad alta ---
         if (upcomingCornerAngle > driftCornerAngleThreshold
             && currentSpeed > driftMinSpeed
-            && distToCheckpoint < brakingLookAhead * 0.6f)
+            && distToNode < brakingLookAhead * 0.6f)
         {
             handbrake = true;
-        }
-
-        // --- CorrecciÛn si se alejÛ demasiado de la lÌnea de carrera ---
-        float perpendicularDeviation = GetPerpendicularDeviation(currentCheckpointPos, targetPoint);
-        if (Mathf.Abs(perpendicularDeviation) > maxTrackDeviation)
-        {
-            steer = Mathf.Clamp(steer * 1.5f, -1f, 1f); // correcciÛn m·s agresiva
         }
 
         carController.SetAIInput(throttle, steer, handbrake);
     }
 
-    float GetPerpendicularDeviation(Vector3 checkpointPos, Vector3 lookAheadPos)
+    public void RespawnAtCurrentNode()
     {
-        Vector3 trackDir = (lookAheadPos - checkpointPos);
-        trackDir.y = 0f;
-        if (trackDir.sqrMagnitude < 0.01f) return 0f;
-        trackDir.Normalize();
+        Transform node = waypointPath.GetNode(currentNodeIndex);
+        Transform nextNode = waypointPath.GetNode(currentNodeIndex + 1);
+        if (node == null) return;
 
-        Vector3 toCar = transform.position - checkpointPos;
-        toCar.y = 0f;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
 
-        Vector3 trackRight = Vector3.Cross(Vector3.up, trackDir);
-        return Vector3.Dot(toCar, trackRight);
+        Quaternion facing = nextNode != null
+            ? Quaternion.LookRotation((nextNode.position - node.position).normalized, Vector3.up)
+            : node.rotation;
+
+        transform.SetPositionAndRotation(node.position, facing);
+    }
+    void UpdateStuckDetection()
+    {
+        bool tryingToMove = rb.linearVelocity.magnitude < stuckSpeedThreshold;
+        if (tryingToMove)
+        {
+            stuckTimer += Time.deltaTime;
+            if (stuckTimer >= stuckTimeToTrigger)
+            {
+                reverseAttemptCount++;
+
+                if (reverseAttemptCount > maxReverseAttemptsBeforeRespawn)
+                {
+                    reverseAttemptCount = 0;
+                    RespawnAtCurrentNode(); // ‚Üê antes era carController.ForceRespawnAtLastPoint()
+                    stuckTimer = 0f;
+                    return;
+                }
+
+                isReversingOut = true;
+                reverseTimer = reverseDuration;
+                reverseSteerDirection = Random.value > 0.5f ? 1f : -1f;
+                stuckTimer = 0f;
+            }
+        }
+        else
+        {
+            stuckTimer = 0f;
+            reverseAttemptCount = 0;
+        }
+    }
+
+    void HandleReverseOut()
+    {
+        reverseTimer -= Time.deltaTime;
+        carController.SetAIInput(reverseThrottle, reverseSteerDirection, false);
+        if (reverseTimer <= 0f) isReversingOut = false;
     }
 }

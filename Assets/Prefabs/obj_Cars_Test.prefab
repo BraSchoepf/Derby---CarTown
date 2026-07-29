@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 5203017054435290033}
   - component: {fileID: -4452265738964888542}
   - component: {fileID: 7301585734577009753}
+  - component: {fileID: -2559490725739318150}
   m_Layer: 6
   m_Name: obj_Cars_Test
   m_TagString: Untagged
@@ -228,6 +229,7 @@ MonoBehaviour:
   maxSpeedForFlipRecovery: 1.5
   maxAngularSpeedForFlipRecovery: 1
   isAIControlled: 0
+  isDead: 0
   playerIndex: 0
   stuckCheckSpeedThreshold: 0.5
   stuckTimeBeforeRespawn: 4
@@ -419,6 +421,19 @@ MonoBehaviour:
   chainGraceWindow: 0.6
   minCollisionForceToReset: 4
   redFlashDuration: 0.8
+--- !u!114 &-2559490725739318150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711543342545725848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29496901287082446b5829dd3782428d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRaceRespawn
+  waypointPath: {fileID: 0}
 --- !u!1 &1048758862022746729
 GameObject:
   m_ObjectHideFlags: 0

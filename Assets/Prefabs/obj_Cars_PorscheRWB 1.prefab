@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 671044280197357844}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.654, y: 0.17400002, z: 0.7979999}
+  m_LocalPosition: {x: -0.677, y: 0.17400002, z: 0.7979999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -66,8 +66,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4903059823493961414, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
-  - {fileID: 2100000, guid: dbccc1b39bea0874280f7543468620c5, type: 2}
+  - {fileID: 2222949936760928058, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
+  - {fileID: 2100000, guid: 4ab1392c03e1e904daa847633a98e00a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 8130686061292975608}
   - component: {fileID: -1476202388651166547}
   - component: {fileID: -128190043211530460}
+  - component: {fileID: 7456345024395321911}
   m_Layer: 6
   m_Name: obj_Cars_PorscheRWB 1
   m_TagString: Untagged
@@ -232,6 +233,7 @@ MonoBehaviour:
   maxSpeedForFlipRecovery: 1.5
   maxAngularSpeedForFlipRecovery: 1
   isAIControlled: 0
+  isDead: 0
   playerIndex: 0
   stuckCheckSpeedThreshold: 0.5
   stuckTimeBeforeRespawn: 4
@@ -453,6 +455,19 @@ MonoBehaviour:
   chainGraceWindow: 0.6
   minCollisionForceToReset: 4
   redFlashDuration: 0.8
+--- !u!114 &7456345024395321911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711543342545725848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29496901287082446b5829dd3782428d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRaceRespawn
+  waypointPath: {fileID: 0}
 --- !u!1 &1048758862022746729
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,8 +534,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4903059823493961414, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
-  - {fileID: 2100000, guid: dbccc1b39bea0874280f7543468620c5, type: 2}
+  - {fileID: 2222949936760928058, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
+  - {fileID: 2100000, guid: 4ab1392c03e1e904daa847633a98e00a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -638,7 +653,7 @@ Transform:
   m_GameObject: {fileID: 2052741696581374093}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.65803164, y: 0.18190151, z: 0.80902076}
+  m_LocalPosition: {x: 0.61903155, y: 0.18190151, z: 0.80902076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -709,7 +724,7 @@ Transform:
   m_GameObject: {fileID: 2304574685166865986}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.654, y: 0.174, z: 0.798}
+  m_LocalPosition: {x: -0.677, y: 0.174, z: 0.798}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1096,7 +1111,7 @@ Transform:
   m_GameObject: {fileID: 3024483598958326567}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.65803164, y: 0.1723116, z: 0.80902076}
+  m_LocalPosition: {x: 0.61903155, y: 0.1723116, z: 0.80902076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1135,8 +1150,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4903059823493961414, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
-  - {fileID: 2100000, guid: dbccc1b39bea0874280f7543468620c5, type: 2}
+  - {fileID: 2222949936760928058, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
+  - {fileID: 2100000, guid: 4ab1392c03e1e904daa847633a98e00a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1258,7 +1273,7 @@ Transform:
   m_GameObject: {fileID: 4636835896936932009}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.702, y: 0.182, z: -0.809361}
+  m_LocalPosition: {x: 0.6629999, y: 0.182, z: -0.844}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1297,8 +1312,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dbccc1b39bea0874280f7543468620c5, type: 2}
-  - {fileID: 4903059823493961414, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
+  - {fileID: 2222949936760928058, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
+  - {fileID: 2100000, guid: 4ab1392c03e1e904daa847633a98e00a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1495,9 +1510,12 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 602992d6b6dfed3498cc7758a102d37c, type: 2}
-  - {fileID: 4903059823493961414, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
-  - {fileID: 6175515917529801181, guid: 115b9fb3b1b3b784197095216c123dcc, type: 3}
   - {fileID: 2100000, guid: dce58b5f8b3172643acc2f917eb04d49, type: 2}
+  - {fileID: 2100000, guid: 733dfaf27f4564746b4a189266b6426b, type: 2}
+  - {fileID: 2100000, guid: e78cab453d1870f40b0bbda76f6b67c8, type: 2}
+  - {fileID: 2100000, guid: 0aca87e6313e56e4e81669d3c364ae2f, type: 2}
+  - {fileID: -6986674100860359560, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
+  - {fileID: 7683578321718416531, guid: be740547a4b0e9443a0abea69f069b78, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1616,7 +1634,7 @@ Transform:
   m_GameObject: {fileID: 5927770957696405763}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7020001, y: 0.18199986, z: -0.809361}
+  m_LocalPosition: {x: 0.663, y: 0.18199986, z: -0.844}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1904,7 +1922,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3333999181306045812, guid: 7a123b0b8703d434498790a987faca90, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.643
+      value: 0.627
       objectReference: {fileID: 0}
     - target: {fileID: 6413163513445204805, guid: 7a123b0b8703d434498790a987faca90, type: 3}
       propertyPath: m_Name

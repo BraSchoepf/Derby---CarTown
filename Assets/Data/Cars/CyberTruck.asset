@@ -31,7 +31,7 @@ MonoBehaviour:
   fullSteerSpeedThreshold: 6
   highSpeedSteerReduction: 0.8
   highSpeedThreshold: 38
-  centerOfMassOffset: {x: 0, y: -0.3, z: 0.1}
+  centerOfMassOffset: {x: 0, y: 0.1, z: 0.2}
   suspensionSpring: 43000
   suspensionDamper: 5000
   suspensionDistance: 0.28
@@ -69,3 +69,5 @@ MonoBehaviour:
   autoDriftStiffness: 0.6
   enableOffroadGrip: 0
   offroadStiffnessMultiplier: 1.3
+  lateralSlipThreshold: 0.4
+  brakeSlipThreshold: 0.45

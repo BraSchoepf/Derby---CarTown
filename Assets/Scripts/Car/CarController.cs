@@ -55,7 +55,7 @@ public class CarController : MonoBehaviour
 
     [Header("IA")]
     public bool isAIControlled = false;
-    bool isDead = false;
+    public bool isDead = false;
 
     [Header("Identidad")]
     [Tooltip("0 = bot/IA, 1 = P1, 2 = P2. Lo setea GameSetup/AISpawner al spawnear.")]
@@ -542,7 +542,13 @@ public class CarController : MonoBehaviour
             ? Keyboard.current.rKey.wasPressedThisFrame
             : playerIndex == 2 && Keyboard.current.nKey.wasPressedThisFrame;
 
-        if (respawnPressed) RespawnAtSpawnPoint();
+        if (!respawnPressed) return;
+
+        PlayerRaceRespawn raceRespawn = GetComponent<PlayerRaceRespawn>();
+        if (raceRespawn != null)
+            raceRespawn.RespawnAtCurrentNode();
+        else
+            RespawnAtSpawnPoint();
     }
 
     void UpdateStuckRespawnTimer()
@@ -565,12 +571,17 @@ public class CarController : MonoBehaviour
         }
     }
 
-    void RespawnAtSpawnPoint()
+    public void RespawnAtSpawnPoint()
     {
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         transform.SetPositionAndRotation(spawnPosition, spawnRotation);
         stuckRespawnTimer = 0f;
+    }
+
+    public void ForceRespawnAtLastPoint()
+    {
+        RespawnAtSpawnPoint();
     }
 
     //===================== VFX ===========================

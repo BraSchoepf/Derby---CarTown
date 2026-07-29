@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(VehicleHealth))]
 [RequireComponent(typeof(CarController))]
@@ -6,31 +6,36 @@ public class DriftAIController : MonoBehaviour
 {
     public RaceManager.RacerProgress progress;
     public RaceManager raceManager;
+    public AIWaypointPath waypointPath; // ← nuevo, asignado por RaceSetup
 
-    [Header("Anticipaci�n")]
+    [Header("Anticipación")]
     public float cornerCutFactor = 0.3f;
-    public float lookAheadTriggerDistance = 14f;
+    public float lookAheadTriggerDistance = 8f; // más chico, los nodos ya están más densos que los checkpoints
 
     [Header("Drift activo")]
-    [Tooltip("�ngulo de curva a partir del cual la IA intenta driftear en vez de solo girar")]
+    [Tooltip("Ángulo de curva a partir del cual la IA intenta driftear en vez de solo girar")]
     public float driftTriggerCornerAngle = 30f;
-    public float driftEntrySpeed = 12f; // velocidad m�nima para intentar entrar en drift
-    public float driftLookAhead = 20f;
+    public float driftEntrySpeed = 12f;
+    public float driftLookAhead = 14f;
 
     [Header("Anti-atasco")]
     public float stuckSpeedThreshold = 1.5f;
     public float stuckTimeToTrigger = 1.5f;
     public float reverseDuration = 1f;
     public float reverseThrottle = -0.8f;
+    public int maxReverseAttemptsBeforeRespawn = 2;
 
     VehicleHealth ownHealth;
     CarController carController;
     Rigidbody rb;
 
+    int currentNodeIndex = 0;
+
     float stuckTimer;
     float reverseTimer;
     bool isReversingOut;
     float reverseSteerDirection;
+    int reverseAttemptCount = 0;
 
     void Awake()
     {
@@ -38,7 +43,14 @@ public class DriftAIController : MonoBehaviour
         carController = GetComponent<CarController>();
         rb = GetComponent<Rigidbody>();
         carController.isAIControlled = true;
+        carController.autoRespawnWhenStuck = false;
         reverseSteerDirection = Random.value > 0.5f ? 1f : -1f;
+    }
+
+    void Start()
+    {
+        if (waypointPath != null)
+            currentNodeIndex = waypointPath.GetClosestNodeIndex(transform.position);
     }
 
     void Update()
@@ -52,44 +64,55 @@ public class DriftAIController : MonoBehaviour
         UpdateStuckDetection();
         if (isReversingOut) { HandleReverseOut(); return; }
 
-        if (raceManager == null || raceManager.activeCourse == null) return;
-        var checkpoints = raceManager.activeCourse.checkpoints;
-        if (checkpoints == null || checkpoints.Length == 0) return;
+        if (waypointPath == null || waypointPath.NodeCount == 0) return;
 
-        int idx = progress.currentCheckpointIndex;
-        Transform currentCp = checkpoints[idx];
-        Transform nextCp = checkpoints[(idx + 1) % checkpoints.Length];
+        AdvanceNodeIfClose();
 
-        Vector3 targetPoint = GetLookAheadTarget(currentCp, nextCp);
-        float cornerAngle = GetUpcomingCornerAngle(idx, checkpoints);
-        float distToCheckpoint = Vector3.Distance(transform.position, currentCp.position);
+        Transform currentNode = waypointPath.GetNode(currentNodeIndex);
+        Transform nextNode = waypointPath.GetNode(currentNodeIndex + 1);
+        if (currentNode == null || nextNode == null) return;
 
-        DriveWithDriftIntent(targetPoint, cornerAngle, distToCheckpoint);
+        Vector3 targetPoint = GetLookAheadTarget(currentNode, nextNode);
+        float cornerAngle = GetUpcomingCornerAngle();
+        float distToNode = Vector3.Distance(transform.position, currentNode.position);
+
+        DriveWithDriftIntent(targetPoint, cornerAngle, distToNode);
     }
 
-    Vector3 GetLookAheadTarget(Transform currentCp, Transform nextCp)
+    void AdvanceNodeIfClose()
     {
-        float distToCurrent = Vector3.Distance(transform.position, currentCp.position);
-        if (distToCurrent > lookAheadTriggerDistance) return currentCp.position;
+        Transform currentNode = waypointPath.GetNode(currentNodeIndex);
+        if (currentNode == null) return;
+
+        float dist = Vector3.Distance(transform.position, currentNode.position);
+        if (dist < lookAheadTriggerDistance * 0.5f)
+            currentNodeIndex++;
+    }
+
+    Vector3 GetLookAheadTarget(Transform currentNode, Transform nextNode)
+    {
+        float distToCurrent = Vector3.Distance(transform.position, currentNode.position);
+        if (distToCurrent > lookAheadTriggerDistance) return currentNode.position;
 
         float t = Mathf.Clamp01(1f - (distToCurrent / lookAheadTriggerDistance)) * cornerCutFactor;
-        return Vector3.Lerp(currentCp.position, nextCp.position, t);
+        return Vector3.Lerp(currentNode.position, nextNode.position, t);
     }
 
-    float GetUpcomingCornerAngle(int idx, Transform[] checkpoints)
+    float GetUpcomingCornerAngle()
     {
-        int nextIdx = (idx + 1) % checkpoints.Length;
-        int nextNextIdx = (idx + 2) % checkpoints.Length;
+        Transform a = waypointPath.GetNode(currentNodeIndex);
+        Transform b = waypointPath.GetNode(currentNodeIndex + 1);
+        Transform c = waypointPath.GetNode(currentNodeIndex + 2);
+        if (a == null || b == null || c == null) return 0f;
 
-        Vector3 dirA = checkpoints[nextIdx].position - checkpoints[idx].position;
-        Vector3 dirB = checkpoints[nextNextIdx].position - checkpoints[nextIdx].position;
-        dirA.y = 0f; dirB.y = 0f;
+        Vector3 dirA = b.position - a.position; dirA.y = 0f;
+        Vector3 dirB = c.position - b.position; dirB.y = 0f;
         if (dirA.sqrMagnitude < 0.01f || dirB.sqrMagnitude < 0.01f) return 0f;
 
         return Vector3.Angle(dirA.normalized, dirB.normalized);
     }
 
-    void DriveWithDriftIntent(Vector3 targetPoint, float cornerAngle, float distToCheckpoint)
+    void DriveWithDriftIntent(Vector3 targetPoint, float cornerAngle, float distToNode)
     {
         Vector3 toTarget = targetPoint - transform.position;
         toTarget.y = 0f;
@@ -99,10 +122,9 @@ public class DriftAIController : MonoBehaviour
 
         float currentSpeed = carController.CurrentSpeed;
 
-        // A diferencia de RaceAIController: NO frena en curvas, busca ENTRAR en drift
         bool wantsToDrift = cornerAngle > driftTriggerCornerAngle
                              && currentSpeed > driftEntrySpeed
-                             && distToCheckpoint < driftLookAhead;
+                             && distToNode < driftLookAhead;
 
         float throttle = Mathf.Abs(angleToTarget) > 150f ? 0.3f : 1f;
         bool handbrake = wantsToDrift;
@@ -118,13 +140,44 @@ public class DriftAIController : MonoBehaviour
             stuckTimer += Time.deltaTime;
             if (stuckTimer >= stuckTimeToTrigger)
             {
+                reverseAttemptCount++;
+
+                if (reverseAttemptCount > maxReverseAttemptsBeforeRespawn)
+                {
+                    reverseAttemptCount = 0;
+                    RespawnAtCurrentNode(); // ← antes era carController.ForceRespawnAtLastPoint()
+                    stuckTimer = 0f;
+                    return;
+                }
+
                 isReversingOut = true;
                 reverseTimer = reverseDuration;
                 reverseSteerDirection = Random.value > 0.5f ? 1f : -1f;
                 stuckTimer = 0f;
             }
         }
-        else stuckTimer = 0f;
+        else
+        {
+            stuckTimer = 0f;
+            reverseAttemptCount = 0;
+        }
+    }
+
+    public void RespawnAtCurrentNode()
+    {
+        Transform node = waypointPath.GetNode(currentNodeIndex);
+        Transform nextNode = waypointPath.GetNode(currentNodeIndex + 1);
+        if (node == null) return;
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        Quaternion facing = nextNode != null
+            ? Quaternion.LookRotation((nextNode.position - node.position).normalized, Vector3.up)
+            : node.rotation;
+
+        transform.SetPositionAndRotation(node.position, facing);
     }
 
     void HandleReverseOut()

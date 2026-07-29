@@ -19,14 +19,10 @@ public class ResultPanelUI : MonoBehaviour
     public TMPro.TextMeshProUGUI racePlacementText;
 
     [Header("Navegación")]
-    public Button backToMenuButton;
-    public string mainMenuSceneName = "MainMenu";
+    public SharedBackToMenuButton sharedButton;
 
     void Awake()
     {
-        Debug.Log($"[ResultPanelUI] Awake en {gameObject.name}. backToMenuButton asignado: {backToMenuButton != null}");
-        if (backToMenuButton != null)
-            backToMenuButton.onClick.AddListener(BackToMenu);
         gameObject.SetActive(false); // arranca oculto, lo prende DerbyGameManager al eliminar/ganar
     }
 
@@ -49,6 +45,8 @@ public class ResultPanelUI : MonoBehaviour
         defeatHeader.SetActive(false);
         killedByText.gameObject.SetActive(false);
         FillSummary(entry);
+
+        sharedButton?.Show();
     }
 
     public void ShowDefeat(DerbyGameManager.PlayerEntry entry)
@@ -59,6 +57,8 @@ public class ResultPanelUI : MonoBehaviour
         killedByText.gameObject.SetActive(true);
         killedByText.text = $"Eliminado por: {entry.killedByName}";
         FillSummary(entry);
+
+        sharedButton?.Show();
     }
 
     void FillSummary(DerbyGameManager.PlayerEntry entry)
@@ -70,12 +70,5 @@ public class ResultPanelUI : MonoBehaviour
         int minutes = Mathf.FloorToInt(survived / 60f);
         int seconds = Mathf.FloorToInt(survived % 60f);
         survivalTimeText.text = $"Tiempo en pie: {minutes:00}:{seconds:00}";
-    }
-
-    void BackToMenu()
-    {
-        Debug.Log("[ResultPanelUI] BackToMenu() llamado");
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(mainMenuSceneName);
     }
 }

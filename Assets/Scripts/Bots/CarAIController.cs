@@ -18,12 +18,15 @@ public class CarAIController : MonoBehaviour
     public float stuckTimeToTrigger = 1.2f;    // cuánto tiempo tolerar antes de reaccionar
     public float reverseDuration = 1f;         // cuánto dura la maniobra de reversa
     public float reverseStuckThrottle = -1f;
+    public int maxReverseAttemptsBeforeRespawn = 2;
 
     Transform currentTarget;
     NavMeshPath path;
     int currentCornerIndex;
     float pathTimer;
     float targetTimer;
+
+    int reverseAttemptCount = 0;
 
     float stuckTimer;
     float reverseTimer;
@@ -155,23 +158,33 @@ public class CarAIController : MonoBehaviour
 
     void UpdateStuckDetection()
     {
-        bool tryingToMove = rb.linearVelocity.magnitude < stuckSpeedThreshold; // auto casi quieto...
-                                                                               // ...pero el controller SÍ está pidiendo acelerar (sino, "quieto porque decidió frenar" no cuenta como atasco)
-        bool wantsToMove = true; // el AI siempre pide throttle salvo cuando no hay target
-
-        if (tryingToMove && wantsToMove && currentTarget != null)
+        bool tryingToMove = rb.linearVelocity.magnitude < stuckSpeedThreshold;
+        if (tryingToMove)
         {
             stuckTimer += Time.deltaTime;
             if (stuckTimer >= stuckTimeToTrigger)
             {
+                reverseAttemptCount++;
+
+                if (reverseAttemptCount > maxReverseAttemptsBeforeRespawn)
+                {
+                    // Ya intentamos reversear varias veces sin éxito — mejor respawnear directo
+                    reverseAttemptCount = 0;
+                    carController.ForceRespawnAtLastPoint();
+                    stuckTimer = 0f;
+                    return;
+                }
+
                 isReversingOut = true;
                 reverseTimer = reverseDuration;
+                reverseSteerDirection = Random.value > 0.5f ? 1f : -1f;
                 stuckTimer = 0f;
             }
         }
         else
         {
             stuckTimer = 0f;
+            reverseAttemptCount = 0; // se movió bien, reseteamos el contador de intentos fallidos
         }
     }
 

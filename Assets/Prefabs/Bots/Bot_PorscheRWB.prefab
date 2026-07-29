@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 8130686061292975608}
   - component: {fileID: 6254806032608643648}
   - component: {fileID: 4280400626856743072}
+  - component: {fileID: 6543006654781697222}
   m_Layer: 6
   m_Name: Bot_PorscheRWB
   m_TagString: Untagged
@@ -191,21 +192,25 @@ MonoBehaviour:
     motor: 0
     steering: 1
     brake: 0
+    trail: {fileID: 0}
   - collider: {fileID: 2278483913117794186}
     visual: {fileID: 2577973887408212137}
     motor: 0
     steering: 1
     brake: 0
+    trail: {fileID: 0}
   - collider: {fileID: 7617525078474502543}
     visual: {fileID: 5775842612116197875}
     motor: 1
     steering: 0
     brake: 1
+    trail: {fileID: 0}
   - collider: {fileID: 1938750556248316119}
     visual: {fileID: 7345144873877274058}
     motor: 1
     steering: 0
     brake: 1
+    trail: {fileID: 0}
   handbrakeKey: 51
   handbrakeKeyAlt: 0
   enableAirControl: 1
@@ -416,6 +421,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombCarrier
   transferCooldown: 0.6
+--- !u!114 &6543006654781697222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711543342545725848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fbe2d61835a34596c8b658f0c34b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrackBoundaryDetector
+  offTrackLayer:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!1 &1048758862022746729
 GameObject:
   m_ObjectHideFlags: 0

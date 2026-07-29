@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 8294705647400726319}
   - component: {fileID: 3939604137348973897}
   - component: {fileID: -4525493079483543427}
+  - component: {fileID: -3632010282276754837}
   m_Layer: 6
   m_Name: Bot_FordGT40
   m_TagString: Untagged
@@ -274,21 +275,25 @@ MonoBehaviour:
     motor: 0
     steering: 1
     brake: 0
+    trail: {fileID: 0}
   - collider: {fileID: 1843397230111696204}
     visual: {fileID: 1179494660209926203}
     motor: 0
     steering: 1
     brake: 0
+    trail: {fileID: 0}
   - collider: {fileID: 4580234614583539896}
     visual: {fileID: 3274378765589480241}
     motor: 1
     steering: 0
     brake: 1
+    trail: {fileID: 0}
   - collider: {fileID: 6275530189172896670}
     visual: {fileID: 1163829668385865410}
     motor: 1
     steering: 0
     brake: 1
+    trail: {fileID: 0}
   handbrakeKey: 51
   handbrakeKeyAlt: 27
   enableAirControl: 1
@@ -499,6 +504,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombCarrier
   transferCooldown: 0.6
+--- !u!114 &-3632010282276754837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827370793001695660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fbe2d61835a34596c8b658f0c34b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrackBoundaryDetector
+  offTrackLayer:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!1 &1890126199645032049
 GameObject:
   m_ObjectHideFlags: 0

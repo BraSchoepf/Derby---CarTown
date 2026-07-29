@@ -16,11 +16,11 @@ MonoBehaviour:
   maxSpeedMultiplier: 1
   accelerationRateMultiplier: 1
   brakeForceMultiplier: 1.2
-  maxSteerAngleMultiplier: 0.7
+  maxSteerAngleMultiplier: 1
   forceDriftEnabled: 1
   forceDriftDisabled: 0
   driftSteerBoostMultiplier: 1
-  autoDriftSteerThresholdMultiplier: 1.5
+  autoDriftSteerThresholdMultiplier: 2
   sidewaysStiffnessMultiplier: 1.1
   driftSustainForceMultiplier: 0.8
   driftKickForceMultiplier: 1

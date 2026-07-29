@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 1275756829718595769}
   - component: {fileID: 8231795226736966015}
   - component: {fileID: -7836252591434829222}
+  - component: {fileID: 2639323199510440548}
   m_Layer: 6
   m_Name: Bot_Cybertrack
   m_TagString: Untagged
@@ -171,21 +172,25 @@ MonoBehaviour:
     motor: 0
     steering: 1
     brake: 0
+    trail: {fileID: 0}
   - collider: {fileID: 324380667141014983}
     visual: {fileID: 3780209254920975653}
     motor: 0
     steering: 1
     brake: 0
+    trail: {fileID: 0}
   - collider: {fileID: 5253379306314065974}
     visual: {fileID: 3608676576220835400}
     motor: 1
     steering: 0
     brake: 1
+    trail: {fileID: 0}
   - collider: {fileID: 526123200383429196}
     visual: {fileID: 8641387159630653689}
     motor: 1
     steering: 0
     brake: 1
+    trail: {fileID: 0}
   handbrakeKey: 51
   handbrakeKeyAlt: 0
   enableAirControl: 1
@@ -396,6 +401,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombCarrier
   transferCooldown: 0.6
+--- !u!114 &2639323199510440548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078272866267778280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fbe2d61835a34596c8b658f0c34b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrackBoundaryDetector
+  offTrackLayer:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!1 &1368021315827810221
 GameObject:
   m_ObjectHideFlags: 0

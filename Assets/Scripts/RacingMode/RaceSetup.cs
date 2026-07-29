@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
 using System.Collections.Generic;
@@ -173,13 +173,19 @@ public class RaceSetup : MonoBehaviour
         CarColorApplier colorApplier = carInstance.GetComponentInChildren<CarColorApplier>();
         if (colorApplier != null) colorApplier.SetColor(color);
 
+        PlayerRaceRespawn playerRespawn = carInstance.GetComponent<PlayerRaceRespawn>();
+        if (playerRespawn == null) playerRespawn = carInstance.AddComponent<PlayerRaceRespawn>();
+        playerRespawn.waypointPath = raceManager.activeCourse.aiPath;
+
+        carController.autoRespawnWhenStuck = false;
+
     }
     void AssignCameraChannel(GameObject carInstance, int slotIndex)
     {
         var vcam = carInstance.GetComponentInChildren<Unity.Cinemachine.CinemachineCamera>();
         if (vcam == null)
         {
-            Debug.LogWarning($"No se encontró CinemachineCamera en {carInstance.name}");
+            Debug.LogWarning($"No se encontrÃ³ CinemachineCamera en {carInstance.name}");
             return;
         }
         vcam.OutputChannel = (Unity.Cinemachine.OutputChannels)(1 << (slotIndex + 1));
@@ -189,7 +195,7 @@ public class RaceSetup : MonoBehaviour
     {
         if (!session.chosenGameMode.allowBots)
         {
-            Debug.Log("[RaceSetup] El modo actual no permite bots — no se spawnean rivales de IA.");
+            Debug.Log("[RaceSetup] El modo actual no permite bots â€” no se spawnean rivales de IA.");
             return;
         }
 
@@ -228,12 +234,13 @@ public class RaceSetup : MonoBehaviour
             identity.Initialize(progress);
 
             // Nuevo: le damos el "cerebro" de carrera en vez de dejarlo sin control
-            if (session.chosenGameMode.isDriftScoringMode) // o mejor, otro flag dedicado en GameModeSO
+            if (session.chosenGameMode.isDriftScoringMode)
             {
                 DriftAIController driftAI = instance.GetComponent<DriftAIController>();
                 if (driftAI == null) driftAI = instance.AddComponent<DriftAIController>();
                 driftAI.progress = progress;
                 driftAI.raceManager = raceManager;
+                driftAI.waypointPath = raceManager.activeCourse.aiPath;
 
                 DriftScoreTracker scoreTracker = instance.GetComponent<DriftScoreTracker>();
                 if (scoreTracker == null) scoreTracker = instance.AddComponent<DriftScoreTracker>();
@@ -244,6 +251,7 @@ public class RaceSetup : MonoBehaviour
                 if (raceAI == null) raceAI = instance.AddComponent<RaceAIController>();
                 raceAI.progress = progress;
                 raceAI.raceManager = raceManager;
+                raceAI.waypointPath = raceManager.activeCourse.aiPath;
             }
 
             CarColorApplier colorApplier = instance.GetComponentInChildren<CarColorApplier>();
