@@ -41,6 +41,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Nitro",
+                    "type": "Button",
+                    "id": "ca0cbb4d-5c15-49da-afb5-b12d70b8586f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -206,6 +215,28 @@
                     "processors": "",
                     "groups": ";KeyboardP2",
                     "action": "Handbrake",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eedb2e19-4c15-49bb-a11f-08337b356620",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyboardP1",
+                    "action": "Nitro",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec9a0652-fd7f-4e8b-8f34-90290863d294",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyboardP2",
+                    "action": "Nitro",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

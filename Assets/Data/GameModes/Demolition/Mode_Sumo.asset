@@ -13,12 +13,16 @@ MonoBehaviour:
   m_Name: Mode_Sumo
   m_EditorClassIdentifier: Assembly-CSharp::GameModeSO
   modeName: Sumo
-  icon: {fileID: 21300000, guid: fdfc7d40e2f6edc409e0329a8b47a4f2, type: 3}
+  icon: {fileID: 21300000, guid: 4d52a9076455077419240329b00f46b1, type: 3}
   category: 1
   drivingProfile: {fileID: 0}
   enableDamage: 0
   requiresCheckpoints: 0
   lapsDefault: 0
+  usesBombMechanic: 0
   supportsTeams: 1
   teamSizeOptions: 0200000003000000
+  allowBots: 1
+  maxBots: 0
   enableEdgeDetection: 1
+  isDriftScoringMode: 0

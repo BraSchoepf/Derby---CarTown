@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: Mode_Sprint
   m_EditorClassIdentifier: Assembly-CSharp::GameModeSO
   modeName: Carrera
-  icon: {fileID: 21300000, guid: fdfc7d40e2f6edc409e0329a8b47a4f2, type: 3}
+  icon: {fileID: 21300000, guid: c321f239d0c503e43a7b427ddd3e243c, type: 3}
   category: 0
   drivingProfile: {fileID: 0}
   enableDamage: 0
   requiresCheckpoints: 1
   lapsDefault: 1
+  usesBombMechanic: 0
   supportsTeams: 0
   teamSizeOptions: 
+  allowBots: 1
+  maxBots: 0
+  enableEdgeDetection: 0
+  isDriftScoringMode: 0

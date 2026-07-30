@@ -127,6 +127,15 @@ public partial class @Car: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Nitro"",
+                    ""type"": ""Button"",
+                    ""id"": ""ca0cbb4d-5c15-49da-afb5-b12d70b8586f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -294,6 +303,28 @@ public partial class @Car: IInputActionCollection2, IDisposable
                     ""action"": ""Handbrake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eedb2e19-4c15-49bb-a11f-08337b356620"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardP1"",
+                    ""action"": ""Nitro"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec9a0652-fd7f-4e8b-8f34-90290863d294"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardP2"",
+                    ""action"": ""Nitro"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -317,6 +348,7 @@ public partial class @Car: IInputActionCollection2, IDisposable
         m_carMap_Throttle = m_carMap.FindAction("Throttle", throwIfNotFound: true);
         m_carMap_Brake = m_carMap.FindAction("Brake", throwIfNotFound: true);
         m_carMap_Handbrake = m_carMap.FindAction("Handbrake", throwIfNotFound: true);
+        m_carMap_Nitro = m_carMap.FindAction("Nitro", throwIfNotFound: true);
     }
 
     ~@Car()
@@ -401,6 +433,7 @@ public partial class @Car: IInputActionCollection2, IDisposable
     private readonly InputAction m_carMap_Throttle;
     private readonly InputAction m_carMap_Brake;
     private readonly InputAction m_carMap_Handbrake;
+    private readonly InputAction m_carMap_Nitro;
     /// <summary>
     /// Provides access to input actions defined in input action map "carMap".
     /// </summary>
@@ -428,6 +461,10 @@ public partial class @Car: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "carMap/Handbrake".
         /// </summary>
         public InputAction @Handbrake => m_Wrapper.m_carMap_Handbrake;
+        /// <summary>
+        /// Provides access to the underlying input action "carMap/Nitro".
+        /// </summary>
+        public InputAction @Nitro => m_Wrapper.m_carMap_Nitro;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -466,6 +503,9 @@ public partial class @Car: IInputActionCollection2, IDisposable
             @Handbrake.started += instance.OnHandbrake;
             @Handbrake.performed += instance.OnHandbrake;
             @Handbrake.canceled += instance.OnHandbrake;
+            @Nitro.started += instance.OnNitro;
+            @Nitro.performed += instance.OnNitro;
+            @Nitro.canceled += instance.OnNitro;
         }
 
         /// <summary>
@@ -489,6 +529,9 @@ public partial class @Car: IInputActionCollection2, IDisposable
             @Handbrake.started -= instance.OnHandbrake;
             @Handbrake.performed -= instance.OnHandbrake;
             @Handbrake.canceled -= instance.OnHandbrake;
+            @Nitro.started -= instance.OnNitro;
+            @Nitro.performed -= instance.OnNitro;
+            @Nitro.canceled -= instance.OnNitro;
         }
 
         /// <summary>
@@ -583,5 +626,12 @@ public partial class @Car: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnHandbrake(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Nitro" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnNitro(InputAction.CallbackContext context);
     }
 }

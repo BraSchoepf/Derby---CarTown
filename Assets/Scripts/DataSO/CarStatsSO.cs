@@ -83,6 +83,13 @@ public class CarStatsSO : ScriptableObject
     public float autoDriftSteerThreshold = 0.6f;
     public float autoDriftStiffness = 0.5f;
 
+    [Header("Nitro")]
+    public float nitroMaxCapacity = 100f;
+    public float nitroChargeRate = 10f;      // unidades por segundo, carga pasiva
+    public float nitroDrainRate = 30f;       // unidades por segundo, mientras se usa
+    public float nitroSpeedBoost = 15f;      // se suma a maxSpeed mientras está activo
+    public float nitroTorqueBoost = 500f;
+
     [Header("Offroad (opcional)")]
     public bool enableOffroadGrip = false;
     public float offroadStiffnessMultiplier = 1.3f;

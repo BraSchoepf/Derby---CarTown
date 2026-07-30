@@ -69,6 +69,9 @@ public class CarController : MonoBehaviour
     public float CurrentDriftAngle => currentDriftAngle;
     public float CurrentSpeed => rb != null ? rb.linearVelocity.magnitude : 0f;
     public bool IsGrounded { get; private set; }
+    public float NitroCurrent => nitroCurrent;
+    public float NitroMaxCapacity => stats.nitroMaxCapacity;
+    public float NitroPercent => stats.nitroMaxCapacity > 0f ? nitroCurrent / stats.nitroMaxCapacity : 0f;
 
     Vector3 spawnPosition;
     Quaternion spawnRotation;
@@ -80,6 +83,10 @@ public class CarController : MonoBehaviour
     float throttleInput;
     bool handbrakeInput;
 
+    float nitroCurrent = 0f;
+    bool nitroInput = false;
+    bool isNitroActive = false;
+
     float currentTorqueFactor = 0f;
     bool wasDrifting = false;
     float driftEntrySpeed = 0f;
@@ -90,7 +97,7 @@ public class CarController : MonoBehaviour
 
     PlayerInput playerInput; // referencia cacheada
     InputAction handbrakeAction;
-
+    public void SetNitroInputAI(bool pressed) => nitroInput = pressed;
 
     void Awake()
     {
@@ -168,8 +175,10 @@ public class CarController : MonoBehaviour
             return;
         }
 
+        ReadNitroInput();
         ReadHandbrakeInput();
         UpdateHandbrakeResetTimer();
+        UpdateNitro();
 
         if (rb.IsSleeping() && (Mathf.Abs(throttleInput) > 0.01f || Mathf.Abs(steerInput) > 0.01f))
             rb.WakeUp();
@@ -316,12 +325,15 @@ public class CarController : MonoBehaviour
     {
         float currentSpeed = rb.linearVelocity.magnitude;
 
+        float effectiveMaxSpeed = stats.maxSpeed + (isNitroActive ? stats.nitroSpeedBoost : 0f);
+        float effectiveMaxTorque = stats.maxMotorTorque + (isNitroActive ? stats.nitroTorqueBoost : 0f);
+
         if (w.motor && !handbrakeActive)
         {
-            if (throttleInput > 0.01f && currentSpeed < stats.maxSpeed)
-                w.collider.motorTorque = currentTorqueFactor * stats.maxMotorTorque;
+            if (throttleInput > 0.01f && currentSpeed < effectiveMaxSpeed)
+                w.collider.motorTorque = currentTorqueFactor * effectiveMaxTorque;
             else if (throttleInput < -0.01f && forwardSpeed <= 0.5f)
-                w.collider.motorTorque = -currentTorqueFactor * stats.maxMotorTorque;
+                w.collider.motorTorque = -currentTorqueFactor * effectiveMaxTorque;
             else
                 w.collider.motorTorque = 0f;
         }
@@ -404,6 +416,31 @@ public class CarController : MonoBehaviour
                 float newSpeed = Mathf.MoveTowards(currentSpeed, driftEntrySpeed, stats.driftSustainForce * 0.001f * Time.fixedDeltaTime);
                 rb.linearVelocity = dir * newSpeed;
             }
+        }
+    }
+    void UpdateNitro()
+    {
+        isNitroActive = nitroInput && nitroCurrent > 0f;
+
+        if (isNitroActive)
+        {
+            nitroCurrent = Mathf.Max(0f, nitroCurrent - stats.nitroDrainRate * Time.fixedDeltaTime);
+        }
+        else
+        {
+            nitroCurrent = Mathf.Min(stats.nitroMaxCapacity, nitroCurrent + stats.nitroChargeRate * Time.fixedDeltaTime);
+        }
+    }
+
+    void ReadNitroInput()
+    {
+        if (playerIndex == -1) return;
+
+        nitroInput = false;
+        if (Keyboard.current != null)
+        {
+            if (playerIndex == 1) nitroInput = Keyboard.current.cKey.isPressed;
+            else if (playerIndex == 2) nitroInput = Keyboard.current.kKey.isPressed;
         }
     }
 

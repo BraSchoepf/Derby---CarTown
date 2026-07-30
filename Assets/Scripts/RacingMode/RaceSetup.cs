@@ -15,9 +15,17 @@ public class RaceSetup : MonoBehaviour
     public DriftScoreUI driftScoreUIP1;
     public DriftScoreUI driftScoreUIP2;
 
+    [Header("UI de vida")]
+    public HealthBarUI healthBarP1;
+    public HealthBarUI healthBarP2;
+
     [Header("Speedometer UI")]
     public SpeedometerUI speedometerP1;
     public SpeedometerUI speedometerP2;
+
+    [Header("Nitro UI")]
+    public NitroSliderUI nitroSliderP1;
+    public NitroSliderUI nitroSliderP2;
 
     [System.Serializable]
     public class PlayerSlotConfig
@@ -53,7 +61,9 @@ public class RaceSetup : MonoBehaviour
             if (driftScoreUIP2 != null) driftScoreUIP2.gameObject.SetActive(false);
         }
 
+        ConfigureHealthBars(isMultiplayer);
         ConfigureSpeedometers(isMultiplayer);
+        ConfigureNitro(isMultiplayer);
 
         RaceCourseSet courseSet = MapLoader.Instance.GetRaceCourseSet();
         if (courseSet == null)
@@ -152,10 +162,17 @@ public class RaceSetup : MonoBehaviour
         };
         raceManager.RegisterRacer(progress);
 
+        HealthBarUI bar = slotIndex == 0 ? healthBarP1 : healthBarP2;
+        if (bar != null && health != null)
+            bar.SetTarget(health);
+
         SpeedometerUI speedo = slotIndex == 0 ? speedometerP1 : speedometerP2;
         if (speedo != null && carController != null)
             speedo.SetTarget(carController);
 
+        NitroSliderUI nitroUI = slotIndex == 0 ? nitroSliderP1 : nitroSliderP2;
+        if (nitroUI != null && carController != null)
+            nitroUI.SetTarget(carController);
 
         RaceCarIdentity identity = carInstance.GetComponent<RaceCarIdentity>();
         if (identity == null) identity = carInstance.AddComponent<RaceCarIdentity>();
@@ -268,11 +285,24 @@ public class RaceSetup : MonoBehaviour
             ui.SetTracker(tracker);
         }
     }
+    void ConfigureHealthBars(bool isMultiplayer)
+    {
+        if (healthBarP2 != null)
+            healthBarP2.gameObject.SetActive(isMultiplayer);
+    }
     void ConfigureSpeedometers(bool multiplayer)
     {
         if (speedometerP1 != null) speedometerP1.gameObject.SetActive(true); // P1 siempre visible
 
         if (speedometerP2 != null)
             speedometerP2.gameObject.SetActive(multiplayer); // P2 solo si hay multiplayer
+    }
+
+    void ConfigureNitro(bool multiplayer)
+    {
+        if (nitroSliderP1 != null) nitroSliderP1.gameObject.SetActive(true); // P1 siempre visible
+
+        if (nitroSliderP2 != null)
+            nitroSliderP2.gameObject.SetActive(multiplayer); // P2 solo si hay multiplayer
     }
 }

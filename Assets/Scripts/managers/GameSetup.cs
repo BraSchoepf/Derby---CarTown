@@ -16,6 +16,10 @@ public class GameSetup : MonoBehaviour
     public SpeedometerUI speedometerP1;
     public SpeedometerUI speedometerP2;
 
+    [Header("Nitro UI")]
+    public NitroSliderUI nitroSliderP1;
+    public NitroSliderUI nitroSliderP2;
+
     [Header("Bots de equipo (Demolición con teams)")]
     public GameObject[] teamFillBotPrefabs;
 
@@ -74,6 +78,7 @@ public class GameSetup : MonoBehaviour
         ConfigureCameraLayout(isMultiplayer);
         ConfigureHealthBars(isMultiplayer);
         ConfigureSpeedometers(isMultiplayer);
+        ConfigureNitro(isMultiplayer);
 
         SpawnPlayer(0, session != null ? session.player1Car : null);
 
@@ -170,6 +175,10 @@ public class GameSetup : MonoBehaviour
         SpeedometerUI speedo = slotIndex == 0 ? speedometerP1 : speedometerP2;
         if (speedo != null && carController != null)
             speedo.SetTarget(carController);
+
+        NitroSliderUI nitroUI = slotIndex == 0 ? nitroSliderP1 : nitroSliderP2;
+        if (nitroUI != null && carController != null)
+            nitroUI.SetTarget(carController);
 
         EdgeAvoidance edgeAvoidance = carInstance.GetComponent<EdgeAvoidance>();
         if (edgeAvoidance == null) edgeAvoidance = carInstance.AddComponent<EdgeAvoidance>();
@@ -341,6 +350,13 @@ public class GameSetup : MonoBehaviour
 
         if (speedometerP2 != null)
             speedometerP2.gameObject.SetActive(multiplayer); // P2 solo si hay multiplayer
+    }
+    void ConfigureNitro(bool multiplayer)
+    {
+        if (nitroSliderP1 != null) nitroSliderP1.gameObject.SetActive(true); // P1 siempre visible
+
+        if (nitroSliderP2 != null)
+            nitroSliderP2.gameObject.SetActive(multiplayer); // P2 solo si hay multiplayer
     }
     System.Collections.IEnumerator StartBombRoundNextFrame()
     {

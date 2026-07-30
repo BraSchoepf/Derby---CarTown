@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: Mode_CFF
   m_EditorClassIdentifier: Assembly-CSharp::GameModeSO
   modeName: CFF
-  icon: {fileID: 21300000, guid: fdfc7d40e2f6edc409e0329a8b47a4f2, type: 3}
+  icon: {fileID: 21300000, guid: c9cece0950456cd41a6c9b591517e4d2, type: 3}
   category: 1
   drivingProfile: {fileID: 0}
   enableDamage: 1
   requiresCheckpoints: 0
   lapsDefault: 0
+  usesBombMechanic: 0
   supportsTeams: 0
   teamSizeOptions: 0200000003000000
+  allowBots: 1
+  maxBots: 0
+  enableEdgeDetection: 0
+  isDriftScoringMode: 0

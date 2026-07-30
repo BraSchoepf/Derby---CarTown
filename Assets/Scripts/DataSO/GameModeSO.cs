@@ -29,4 +29,9 @@ public class GameModeSO : ScriptableObject
 
     public bool enableEdgeDetection = false;
     public bool isDriftScoringMode = false;
+
+    [Header("Badge opcional (ej: 'NUEVO', ícono especial)")]
+    public bool hasBadge = false;
+    public Sprite badgeSprite;
+    public string badgeText;
 }
