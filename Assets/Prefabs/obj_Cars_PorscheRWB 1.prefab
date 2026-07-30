@@ -110,8 +110,8 @@ GameObject:
   - component: {fileID: 5203017054435290033}
   - component: {fileID: 2892522314515909961}
   - component: {fileID: 8130686061292975608}
-  - component: {fileID: -1476202388651166547}
   - component: {fileID: -128190043211530460}
+  - component: {fileID: -4620995129773254549}
   m_Layer: 6
   m_Name: obj_Cars_PorscheRWB 1
   m_TagString: Untagged
@@ -350,6 +350,7 @@ MonoBehaviour:
   p2IconPrefab: {fileID: 8378919720397427414, guid: 3a2d7158861e67a48b86cadfdc4c1ded, type: 3}
   botIconPrefab: {fileID: 8378919720397427414, guid: 51165e305ecdd7e428fd7dc9896efbac, type: 3}
   deadIconPrefab: {fileID: 8378919720397427414, guid: 59f8f96ee84d7e047b842ab678af48c8, type: 3}
+  clamper: {fileID: 0}
   ownerType: 0
   fixedHeight: 50
   rotateWithCar: 1
@@ -421,19 +422,6 @@ MonoBehaviour:
   wheelLeft: {fileID: 1938750556248316119}
   wheelRight: {fileID: 7617525078474502543}
   antiRollForce: 5000
---- !u!114 &-1476202388651166547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711543342545725848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3689898bc60758d4287e682f5e5a8189, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BombCarrier
-  transferCooldown: 1.2
 --- !u!114 &-128190043211530460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,6 +442,19 @@ MonoBehaviour:
   chainGraceWindow: 0.6
   minCollisionForceToReset: 4
   redFlashDuration: 0.8
+--- !u!114 &-4620995129773254549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711543342545725848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3689898bc60758d4287e682f5e5a8189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombCarrier
+  transferCooldown: 0.6
 --- !u!1 &1048758862022746729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,6 +1845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'BombTransferZone '
       objectReference: {fileID: 0}
+    - target: {fileID: 3650419553351389617, guid: eb536826a3570274bbedfaf85584e434, type: 3}
+      propertyPath: owner
+      value: 
+      objectReference: {fileID: -4620995129773254549}
     - target: {fileID: 7234732249699875351, guid: eb536826a3570274bbedfaf85584e434, type: 3}
       propertyPath: m_Size.z
       value: 3

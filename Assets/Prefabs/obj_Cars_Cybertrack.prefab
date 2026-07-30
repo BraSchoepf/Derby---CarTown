@@ -90,8 +90,8 @@ GameObject:
   - component: {fileID: 2216247425129028870}
   - component: {fileID: 5724025579720165840}
   - component: {fileID: 1275756829718595769}
-  - component: {fileID: -3545065456754364672}
   - component: {fileID: -3356671591284453327}
+  - component: {fileID: -2045996759507132265}
   m_Layer: 6
   m_Name: obj_Cars_Cybertrack
   m_TagString: Untagged
@@ -330,6 +330,7 @@ MonoBehaviour:
   p2IconPrefab: {fileID: 8378919720397427414, guid: 3a2d7158861e67a48b86cadfdc4c1ded, type: 3}
   botIconPrefab: {fileID: 8378919720397427414, guid: 51165e305ecdd7e428fd7dc9896efbac, type: 3}
   deadIconPrefab: {fileID: 8378919720397427414, guid: 59f8f96ee84d7e047b842ab678af48c8, type: 3}
+  clamper: {fileID: 0}
   ownerType: 0
   fixedHeight: 50
   rotateWithCar: 1
@@ -401,19 +402,6 @@ MonoBehaviour:
   wheelLeft: {fileID: 5253379306314065974}
   wheelRight: {fileID: 526123200383429196}
   antiRollForce: 5000
---- !u!114 &-3545065456754364672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078272866267778280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3689898bc60758d4287e682f5e5a8189, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BombCarrier
-  transferCooldown: 1.2
 --- !u!114 &-3356671591284453327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,6 +422,19 @@ MonoBehaviour:
   chainGraceWindow: 0.6
   minCollisionForceToReset: 4
   redFlashDuration: 0.8
+--- !u!114 &-2045996759507132265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078272866267778280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3689898bc60758d4287e682f5e5a8189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombCarrier
+  transferCooldown: 0.6
 --- !u!1 &1368021315827810221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1926,7 +1927,7 @@ PrefabInstance:
     - target: {fileID: 3650419553351389617, guid: eb536826a3570274bbedfaf85584e434, type: 3}
       propertyPath: owner
       value: 
-      objectReference: {fileID: -3545065456754364672}
+      objectReference: {fileID: -2045996759507132265}
     - target: {fileID: 8106097987233965969, guid: eb536826a3570274bbedfaf85584e434, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

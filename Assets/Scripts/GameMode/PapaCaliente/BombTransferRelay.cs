@@ -6,11 +6,13 @@ public class BombTransferRelay : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (BombCarrierManager.Instance == null) return;
         owner.HandleTransferTrigger(other);
     }
 
     void OnTriggerStay(Collider other)
     {
+        if (BombCarrierManager.Instance == null) return;
         owner.HandleTransferTrigger(other);
     }
 }

@@ -499,8 +499,8 @@ GameObject:
   - component: {fileID: 4398312451851501662}
   - component: {fileID: 3752097331017245052}
   - component: {fileID: -8333409320161583934}
-  - component: {fileID: 6297748644858875354}
   - component: {fileID: -5303979507554678790}
+  - component: {fileID: 1809839693696496791}
   m_Layer: 6
   m_Name: obj_Cars_Delorean_Remake
   m_TagString: Untagged
@@ -739,6 +739,7 @@ MonoBehaviour:
   p2IconPrefab: {fileID: 8378919720397427414, guid: 3a2d7158861e67a48b86cadfdc4c1ded, type: 3}
   botIconPrefab: {fileID: 8378919720397427414, guid: 51165e305ecdd7e428fd7dc9896efbac, type: 3}
   deadIconPrefab: {fileID: 8378919720397427414, guid: 59f8f96ee84d7e047b842ab678af48c8, type: 3}
+  clamper: {fileID: 0}
   ownerType: 0
   fixedHeight: 50
   rotateWithCar: 1
@@ -812,19 +813,6 @@ MonoBehaviour:
   wheelLeft: {fileID: 5304509125020537772}
   wheelRight: {fileID: 7267741831258881297}
   antiRollForce: 5000
---- !u!114 &6297748644858875354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2683970242854663803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3689898bc60758d4287e682f5e5a8189, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BombCarrier
-  transferCooldown: 1.2
 --- !u!114 &-5303979507554678790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,6 +833,19 @@ MonoBehaviour:
   chainGraceWindow: 0.6
   minCollisionForceToReset: 4
   redFlashDuration: 0.8
+--- !u!114 &1809839693696496791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683970242854663803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3689898bc60758d4287e682f5e5a8189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombCarrier
+  transferCooldown: 0.6
 --- !u!1 &3422750239316047253
 GameObject:
   m_ObjectHideFlags: 0
@@ -1849,7 +1850,7 @@ PrefabInstance:
     - target: {fileID: 3650419553351389617, guid: eb536826a3570274bbedfaf85584e434, type: 3}
       propertyPath: owner
       value: 
-      objectReference: {fileID: 6297748644858875354}
+      objectReference: {fileID: 1809839693696496791}
     - target: {fileID: 7234732249699875351, guid: eb536826a3570274bbedfaf85584e434, type: 3}
       propertyPath: m_Size.z
       value: 2.63

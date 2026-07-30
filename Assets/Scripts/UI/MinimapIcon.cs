@@ -8,6 +8,9 @@ public class MinimapIcon : MonoBehaviour
     public GameObject botIconPrefab;
     public GameObject deadIconPrefab; // uno solo, para cualquier tipo
 
+    [Header("Racing (opcional)")]
+    public MinimapIconClamper clamper;
+
     public MinimapOwnerType ownerType = MinimapOwnerType.Player1;
 
     public float fixedHeight = 15f;
@@ -78,6 +81,9 @@ public class MinimapIcon : MonoBehaviour
     void LateUpdate()
     {
         if (iconInstance == null) return;
+
+        Vector3 basePosition = clamper != null ? clamper.GetIconWorldPosition() : transform.position;
+
         iconInstance.position = new Vector3(transform.position.x, fixedHeight, transform.position.z);
 
         if (!rotateWithCar)

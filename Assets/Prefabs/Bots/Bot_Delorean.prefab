@@ -618,6 +618,7 @@ MonoBehaviour:
   maxSpeedForFlipRecovery: 1.5
   maxAngularSpeedForFlipRecovery: 1
   isAIControlled: 1
+  isDead: 0
   playerIndex: 0
   stuckCheckSpeedThreshold: 0.5
   stuckTimeBeforeRespawn: 4
@@ -1333,12 +1334,12 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: e78cab453d1870f40b0bbda76f6b67c8, type: 2}
-  - {fileID: -9068088150899048613, guid: 1c534001a736ed749994577a3f42d474, type: 3}
+  - {fileID: 2100000, guid: c2fea3c1c20e8c34facfcc691921effc, type: 2}
   - {fileID: -3151199074049404204, guid: 1c534001a736ed749994577a3f42d474, type: 3}
-  - {fileID: 4073711871298953553, guid: 4ad34f0e2d1ffed47999dac650a229e3, type: 3}
-  - {fileID: 2100000, guid: 446c7a077a904a74a930c525dfa540e4, type: 2}
+  - {fileID: 2100000, guid: e78cab453d1870f40b0bbda76f6b67c8, type: 2}
+  - {fileID: 2100000, guid: e78cab453d1870f40b0bbda76f6b67c8, type: 2}
   - {fileID: 2100000, guid: 11763d893c35ec84a9da923d9e41b4a4, type: 2}
-  - {fileID: 2100000, guid: 8a274f5d188559347bbd2c5ef493c3ff, type: 2}
+  - {fileID: 2100000, guid: 0aca87e6313e56e4e81669d3c364ae2f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
