@@ -92,7 +92,6 @@ GameObject:
   - component: {fileID: 1275756829718595769}
   - component: {fileID: -3545065456754364672}
   - component: {fileID: -3356671591284453327}
-  - component: {fileID: -8903481072585262485}
   m_Layer: 6
   m_Name: obj_Cars_Cybertrack
   m_TagString: Untagged
@@ -435,19 +434,6 @@ MonoBehaviour:
   chainGraceWindow: 0.6
   minCollisionForceToReset: 4
   redFlashDuration: 0.8
---- !u!114 &-8903481072585262485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078272866267778280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29496901287082446b5829dd3782428d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerRaceRespawn
-  waypointPath: {fileID: 0}
 --- !u!1 &1368021315827810221
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,10 +571,10 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 9d32ff616a5491849ae70d99d7648a57, type: 2}
-  - {fileID: 2100000, guid: dce58b5f8b3172643acc2f917eb04d49, type: 2}
+  - {fileID: 2100000, guid: 6f98a6eeea2832540bc7c1ba6ae71ff6, type: 2}
   - {fileID: 2100000, guid: 8a274f5d188559347bbd2c5ef493c3ff, type: 2}
-  - {fileID: 2100000, guid: 9ac1388aa1ab8634ab21a2de14226da3, type: 2}
-  - {fileID: 2100000, guid: 95e256e70d37b9241b6ec06b09530f56, type: 2}
+  - {fileID: 2100000, guid: 5b088ff8f18eeec49a217586d6591296, type: 2}
+  - {fileID: 2100000, guid: 733dfaf27f4564746b4a189266b6426b, type: 2}
   - {fileID: 2100000, guid: 964b2dcc169342144be25117d3836f46, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -952,8 +938,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dbccc1b39bea0874280f7543468620c5, type: 2}
-  - {fileID: 2100000, guid: 63d1907b22f0ad64893954fe687fccf6, type: 2}
+  - {fileID: 2100000, guid: c2fea3c1c20e8c34facfcc691921effc, type: 2}
+  - {fileID: 2100000, guid: 6f98a6eeea2832540bc7c1ba6ae71ff6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1145,8 +1131,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dbccc1b39bea0874280f7543468620c5, type: 2}
-  - {fileID: 2100000, guid: 63d1907b22f0ad64893954fe687fccf6, type: 2}
+  - {fileID: 2100000, guid: c2fea3c1c20e8c34facfcc691921effc, type: 2}
+  - {fileID: 2100000, guid: 6f98a6eeea2832540bc7c1ba6ae71ff6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1661,8 +1647,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dbccc1b39bea0874280f7543468620c5, type: 2}
-  - {fileID: 2100000, guid: 63d1907b22f0ad64893954fe687fccf6, type: 2}
+  - {fileID: 2100000, guid: c2fea3c1c20e8c34facfcc691921effc, type: 2}
+  - {fileID: 2100000, guid: 6f98a6eeea2832540bc7c1ba6ae71ff6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1820,8 +1806,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dbccc1b39bea0874280f7543468620c5, type: 2}
-  - {fileID: 2100000, guid: 63d1907b22f0ad64893954fe687fccf6, type: 2}
+  - {fileID: 2100000, guid: c2fea3c1c20e8c34facfcc691921effc, type: 2}
+  - {fileID: 2100000, guid: 6f98a6eeea2832540bc7c1ba6ae71ff6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

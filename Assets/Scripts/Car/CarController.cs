@@ -544,6 +544,8 @@ public class CarController : MonoBehaviour
 
         if (!respawnPressed) return;
 
+        Debug.Log($"[{gameObject.name}] Respawn manual disparado. playerIndex={playerIndex}, spawnPosition={spawnPosition}");
+
         PlayerRaceRespawn raceRespawn = GetComponent<PlayerRaceRespawn>();
         if (raceRespawn != null)
             raceRespawn.RespawnAtCurrentNode();

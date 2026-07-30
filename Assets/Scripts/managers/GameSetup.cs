@@ -12,6 +12,10 @@ public class GameSetup : MonoBehaviour
     public HealthBarUI healthBarP1;
     public HealthBarUI healthBarP2;
 
+    [Header("Speedometer UI")]
+    public SpeedometerUI speedometerP1;
+    public SpeedometerUI speedometerP2;
+
     [Header("Bots de equipo (Demolición con teams)")]
     public GameObject[] teamFillBotPrefabs;
 
@@ -69,6 +73,7 @@ public class GameSetup : MonoBehaviour
 
         ConfigureCameraLayout(isMultiplayer);
         ConfigureHealthBars(isMultiplayer);
+        ConfigureSpeedometers(isMultiplayer);
 
         SpawnPlayer(0, session != null ? session.player1Car : null);
 
@@ -161,6 +166,10 @@ public class GameSetup : MonoBehaviour
 
             derbyManager.RegisterPlayer($"Player {slotIndex + 1}", health, slotIndex, team);
         }
+
+        SpeedometerUI speedo = slotIndex == 0 ? speedometerP1 : speedometerP2;
+        if (speedo != null && carController != null)
+            speedo.SetTarget(carController);
 
         EdgeAvoidance edgeAvoidance = carInstance.GetComponent<EdgeAvoidance>();
         if (edgeAvoidance == null) edgeAvoidance = carInstance.AddComponent<EdgeAvoidance>();
@@ -325,6 +334,13 @@ public class GameSetup : MonoBehaviour
         survivingCam.rect = new Rect(0f, 0f, 1f, 1f);
 
         playerSlotConfigs[eliminatedSlotIndex].splitScreenCamera.gameObject.SetActive(false);
+    }
+    void ConfigureSpeedometers(bool multiplayer)
+    {
+        if (speedometerP1 != null) speedometerP1.gameObject.SetActive(true); // P1 siempre visible
+
+        if (speedometerP2 != null)
+            speedometerP2.gameObject.SetActive(multiplayer); // P2 solo si hay multiplayer
     }
     System.Collections.IEnumerator StartBombRoundNextFrame()
     {

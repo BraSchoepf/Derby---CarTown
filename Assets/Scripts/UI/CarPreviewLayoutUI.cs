@@ -6,8 +6,8 @@ public class CarPreviewLayoutUI : MonoBehaviour
     public RectTransform previewPanelP2;
 
     [Header("Tamaño del panel de preview")]
-    public float panelSize = 380f;
-
+    public float panelSizeWidth = 380f;
+    public float panelSizeHeight = 380f;
     [Header("Posición en Multiplayer (offset desde el centro)")]
     public float multiplayerOffsetX = 320f;
     public float multiplayerOffsetY = -175f;
@@ -43,7 +43,7 @@ public class CarPreviewLayoutUI : MonoBehaviour
         rt.anchorMin = new Vector2(0.5f, 0.5f);
         rt.anchorMax = new Vector2(0.5f, 0.5f);
         rt.pivot = new Vector2(0.5f, 0.5f);
-        rt.sizeDelta = new Vector2(panelSize, panelSize);
+        rt.sizeDelta = new Vector2(panelSizeWidth, panelSizeHeight);
         rt.anchoredPosition = offsetFromCenter;
         rt.localScale = Vector3.one;
     }

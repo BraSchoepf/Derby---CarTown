@@ -36,6 +36,8 @@ public class ResultPanelUI : MonoBehaviour
         if (raceResultHeader != null) raceResultHeader.SetActive(true);
         if (racePlacementText != null)
             racePlacementText.text = $"{placement}° de {totalRacers}";
+
+        sharedButton?.Show();
     }
 
     public void ShowVictory(DerbyGameManager.PlayerEntry entry)

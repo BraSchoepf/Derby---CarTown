@@ -69,11 +69,11 @@ public class AIWaypointPath : MonoBehaviour
 
             Gizmos.DrawLine(a.position, b.position);
 
-            // Flecha de dirección en el medio del segmento
             Vector3 mid = (a.position + b.position) * 0.5f;
             Vector3 dir = (b.position - a.position).normalized;
-            Vector3 right = Quaternion.Euler(0, 150, 0) * -dir;
-            Vector3 left = Quaternion.Euler(0, -150, 0) * -dir;
+            Vector3 right = Quaternion.Euler(0, 150, 0) * dir; 
+            Vector3 left = Quaternion.Euler(0, -150, 0) * dir;
+
             Gizmos.DrawLine(mid, mid + right * 1.5f);
             Gizmos.DrawLine(mid, mid + left * 1.5f);
         }

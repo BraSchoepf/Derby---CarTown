@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 671044280197357844}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.677, y: 0.17400002, z: 0.7979999}
+  m_LocalPosition: {x: -0.677, y: 0.29400003, z: 0.7979999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -112,7 +112,6 @@ GameObject:
   - component: {fileID: 8130686061292975608}
   - component: {fileID: -1476202388651166547}
   - component: {fileID: -128190043211530460}
-  - component: {fileID: 7456345024395321911}
   m_Layer: 6
   m_Name: obj_Cars_PorscheRWB 1
   m_TagString: Untagged
@@ -455,19 +454,6 @@ MonoBehaviour:
   chainGraceWindow: 0.6
   minCollisionForceToReset: 4
   redFlashDuration: 0.8
---- !u!114 &7456345024395321911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711543342545725848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29496901287082446b5829dd3782428d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerRaceRespawn
-  waypointPath: {fileID: 0}
 --- !u!1 &1048758862022746729
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,7 +481,7 @@ Transform:
   m_GameObject: {fileID: 1048758862022746729}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6939549, y: 0.178, z: -0.837}
+  m_LocalPosition: {x: -0.6939549, y: 0.298, z: -0.837}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -653,7 +639,7 @@ Transform:
   m_GameObject: {fileID: 2052741696581374093}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.61903155, y: 0.18190151, z: 0.80902076}
+  m_LocalPosition: {x: 0.61903155, y: 0.30190152, z: 0.80902076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -724,7 +710,7 @@ Transform:
   m_GameObject: {fileID: 2304574685166865986}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.677, y: 0.174, z: 0.798}
+  m_LocalPosition: {x: -0.677, y: 0.294, z: 0.798}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1111,7 +1097,7 @@ Transform:
   m_GameObject: {fileID: 3024483598958326567}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.61903155, y: 0.1723116, z: 0.80902076}
+  m_LocalPosition: {x: 0.61903155, y: 0.2923116, z: 0.80902076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1201,7 +1187,7 @@ Transform:
   m_GameObject: {fileID: 3415367345646026181}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6939549, y: 0.17799997, z: -0.837}
+  m_LocalPosition: {x: -0.6939549, y: 0.29799998, z: -0.837}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1273,7 +1259,7 @@ Transform:
   m_GameObject: {fileID: 4636835896936932009}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6629999, y: 0.182, z: -0.844}
+  m_LocalPosition: {x: 0.6629999, y: 0.302, z: -0.844}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1634,7 +1620,7 @@ Transform:
   m_GameObject: {fileID: 5927770957696405763}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.663, y: 0.18199986, z: -0.844}
+  m_LocalPosition: {x: 0.663, y: 0.30199987, z: -0.844}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1934,7 +1920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6440905656259656053, guid: 7a123b0b8703d434498790a987faca90, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.115
+      value: -0.026
       objectReference: {fileID: 0}
     - target: {fileID: 6440905656259656053, guid: 7a123b0b8703d434498790a987faca90, type: 3}
       propertyPath: m_LocalPosition.z
