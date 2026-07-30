@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mode_HotPotato
   m_EditorClassIdentifier: Assembly-CSharp::GameModeSO
   modeName: Papa Caliente
-  icon: {fileID: 21300000, guid: 0feca452791f81748a0880d9b2200b43, type: 3}
+  icon: {fileID: 21300000, guid: 6549b32373a628847ae46ae23140f008, type: 3}
   category: 1
   drivingProfile: {fileID: 0}
   enableDamage: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   maxBots: 0
   enableEdgeDetection: 0
   isDriftScoringMode: 0
+  hasBadge: 0
+  badgeSprite: {fileID: 0}
+  badgeText: 

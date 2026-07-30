@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mode_Sumo
   m_EditorClassIdentifier: Assembly-CSharp::GameModeSO
   modeName: Sumo
-  icon: {fileID: 21300000, guid: 4d52a9076455077419240329b00f46b1, type: 3}
+  icon: {fileID: 21300000, guid: a5c47da9216c82249904eecb88223c92, type: 3}
   category: 1
   drivingProfile: {fileID: 0}
   enableDamage: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   maxBots: 0
   enableEdgeDetection: 1
   isDriftScoringMode: 0
+  hasBadge: 0
+  badgeSprite: {fileID: 0}
+  badgeText: 

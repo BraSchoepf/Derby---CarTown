@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mode_CFF
   m_EditorClassIdentifier: Assembly-CSharp::GameModeSO
   modeName: CFF
-  icon: {fileID: 21300000, guid: c9cece0950456cd41a6c9b591517e4d2, type: 3}
+  icon: {fileID: 21300000, guid: 4bcc8e61093f7f84eb0df914b25dc93e, type: 3}
   category: 1
   drivingProfile: {fileID: 0}
   enableDamage: 1
@@ -26,3 +26,6 @@ MonoBehaviour:
   maxBots: 0
   enableEdgeDetection: 0
   isDriftScoringMode: 0
+  hasBadge: 0
+  badgeSprite: {fileID: 0}
+  badgeText: 

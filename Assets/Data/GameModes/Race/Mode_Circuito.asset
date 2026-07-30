@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mode_Circuito
   m_EditorClassIdentifier: Assembly-CSharp::GameModeSO
   modeName: Circuito
-  icon: {fileID: 21300000, guid: 02321f7dee30ff04c9eeb77f1e4724c9, type: 3}
+  icon: {fileID: 21300000, guid: 17aeab3500679514cbee1404452fdaa9, type: 3}
   category: 0
   drivingProfile: {fileID: 11400000, guid: 3aee3d47997ba8541b7347ed4eab27aa, type: 2}
   enableDamage: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   maxBots: 0
   enableEdgeDetection: 0
   isDriftScoringMode: 0
+  hasBadge: 0
+  badgeSprite: {fileID: 0}
+  badgeText: 
