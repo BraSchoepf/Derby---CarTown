@@ -97,4 +97,7 @@ public class CarStatsSO : ScriptableObject
     [Header("VFX de Trail (marcas de neumático)")]
     public float lateralSlipThreshold = 0.3f;  // a partir de qué deslizamiento lateral emite trail
     public float brakeSlipThreshold = 0.35f;
+
+    [Header("VFX")]
+    public CarVFXDataSO vfxData;
 }

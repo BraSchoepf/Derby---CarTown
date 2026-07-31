@@ -13,46 +13,32 @@ public class GameModeSlotUI : MonoBehaviour
     public Image iconImage;
 
     [Header("Badge opcional")]
-    public GameObject badgeContainer; // el objeto que agrupa imagen + texto del badge
+    public GameObject badgeContainer;
     public Image badgeImage;
     public TextMeshProUGUI badgeText;
+    public GameObject lockedOverlay;
 
-    [Header("Team config inline (solo si mode.supportsTeams)")]
-    public GameObject teamConfigContainer;
-    public TeamConfigUI teamConfigUI;
+    System.Action<GameModeSO> onSelected;
 
-    System.Action<GameModeSO, GameModeSlotUI> onConfirmed;
-    bool isExpanded = false;
-
-    public void Setup(GameModeSO gameMode, System.Action<GameModeSO, GameModeSlotUI> onModeConfirmed)
+    public void Setup(GameModeSO gameMode, System.Action<GameModeSO> onModeSelected)
     {
         mode = gameMode;
-        onConfirmed = onModeConfirmed;
+        onSelected = onModeSelected;
 
         if (modeNameText != null) modeNameText.text = mode.modeName;
         if (iconImage != null && mode.icon != null) iconImage.sprite = mode.icon;
 
         SetupBadge();
-
-        if (teamConfigContainer != null)
-            teamConfigContainer.SetActive(false);
-
-        if (teamConfigUI != null)
-        {
-            teamConfigUI.currentMode = mode;
-            teamConfigUI.parentSlot = this;
-        }
+        SetupLocked();
 
         selectButton.onClick.RemoveAllListeners();
-        selectButton.onClick.AddListener(OnSlotClicked);
+        selectButton.onClick.AddListener(() => onSelected?.Invoke(mode));
     }
 
     void SetupBadge()
     {
         if (badgeContainer == null) return;
-
         badgeContainer.SetActive(mode.hasBadge);
-
         if (!mode.hasBadge) return;
 
         if (badgeImage != null)
@@ -60,28 +46,15 @@ public class GameModeSlotUI : MonoBehaviour
             badgeImage.sprite = mode.badgeSprite;
             badgeImage.gameObject.SetActive(mode.badgeSprite != null);
         }
-
         if (badgeText != null)
         {
             badgeText.text = mode.badgeText;
             badgeText.gameObject.SetActive(!string.IsNullOrEmpty(mode.badgeText));
         }
     }
-
-    void OnSlotClicked()
+    void SetupLocked()
     {
-        if (!mode.supportsTeams)
-        {
-            onConfirmed?.Invoke(mode, this);
-            return;
-        }
-
-        isExpanded = !isExpanded;
-        teamConfigContainer.SetActive(isExpanded);
-    }
-
-    public void OnTeamConfigConfirmed()
-    {
-        onConfirmed?.Invoke(mode, this);
+        if (lockedOverlay != null)
+            lockedOverlay.SetActive(mode.isLocked);
     }
 }

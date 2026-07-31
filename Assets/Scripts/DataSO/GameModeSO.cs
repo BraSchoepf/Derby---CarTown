@@ -34,4 +34,5 @@ public class GameModeSO : ScriptableObject
     public bool hasBadge = false;
     public Sprite badgeSprite;
     public string badgeText;
+    public bool isLocked = false;
 }

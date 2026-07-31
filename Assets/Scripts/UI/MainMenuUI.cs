@@ -16,11 +16,8 @@ public class MainMenuUI : MonoBehaviour
     [Header("Datos de modos")]
     public GameModeSO[] allGameModes;
 
-    [Header("Team Config UI")]
-    public TeamConfigUI teamConfig;
-
-    [Header("Mode Type UI")]
-    public GameModeTypeListUI modeTypeList;
+    [Header("Mode Type + Team Config UI (mismo panel)")]
+    public GameModeTypeSelectionPanel modeTypeSelectionPanelUI;
 
     [Header("Car Selection UI")]
     public CarSelectionGridUI grid;
@@ -60,15 +57,22 @@ public class MainMenuUI : MonoBehaviour
         ShowCategorySelection();
     }
 
-    void OnSelectCategory(int categoryIndex)
+    public void OnSelectCategory(int categoryIndex)
     {
         GameModeCategory category = (GameModeCategory)categoryIndex;
         var filteredModes = System.Array.FindAll(allGameModes, m => m.category == category);
 
-        modeTypeList.PopulateModes(filteredModes, OnModeReadyToProceed);
+        modeTypeSelectionPanelUI.PopulateModes(filteredModes, OnGameModeFullyConfirmed);
 
         categorySelectionPanel.SetActive(false);
         modeTypeSelectionPanel.SetActive(true);
+    }
+
+    void OnGameModeFullyConfirmed(GameModeSO mode)
+    {
+        chosenGameMode = mode;
+        modeTypeSelectionPanel.SetActive(false);
+        ShowCarSelection();
     }
 
     GameModeSlotUI chosenSlot;
@@ -85,23 +89,6 @@ public class MainMenuUI : MonoBehaviour
     {
         modeSelectionPanel.SetActive(false);
         categorySelectionPanel.SetActive(true);
-    }
-
-    void OnSelectGameModeType(GameModeSO mode)
-    {
-        Debug.Log($"[MainMenuUI] Modo elegido: {mode.modeName}, supportsTeams: {mode.supportsTeams}, multiplayer: {multiplayer}");
-        chosenGameMode = mode;
-        modeTypeSelectionPanel.SetActive(false);
-
-        if (mode.supportsTeams)
-        {
-            teamConfig.currentMode = mode;
-            teamConfigPanel.SetActive(true);
-        }
-        else
-        {
-            ShowCarSelection();
-        }
     }
 
     public void OnConfirmTeamConfig()
@@ -178,6 +165,7 @@ public class MainMenuUI : MonoBehaviour
     }
 
     // Llamado por el botón "Volver a elegir modo" dentro de selección de auto
+    // Llamado por el botón "Volver a elegir modo" dentro de selección de auto
     public void OnBackToModeSelection()
     {
         player1Cursor.ForceUnlock();
@@ -186,10 +174,31 @@ public class MainMenuUI : MonoBehaviour
         player1Cursor.gameObject.SetActive(false);
         player2Cursor.gameObject.SetActive(false);
 
-        carSelectionPanel.SetActive(false);
+        categorySelectionPanel.SetActive(false);
         modeSelectionPanel.SetActive(true);
     }
+    public void OnBackToModeTypeSelection()
+    {
+        player1Cursor.ForceUnlock();
+        if (multiplayer) player2Cursor.ForceUnlock();
 
+        player1Cursor.gameObject.SetActive(false);
+        player2Cursor.gameObject.SetActive(false);
+
+        carSelectionPanel.SetActive(false);
+        modeTypeSelectionPanel.SetActive(true);
+    }
+    public void OnBackToCategorySelection()
+    {
+        player1Cursor.ForceUnlock();
+        if (multiplayer) player2Cursor.ForceUnlock();
+
+        player1Cursor.gameObject.SetActive(false);
+        player2Cursor.gameObject.SetActive(false);
+
+        modeTypeSelectionPanel.SetActive(false);
+        categorySelectionPanel.SetActive(true);
+    }
     // Llamado por el botón "Volver a elegir auto" dentro de selección de mapa
     public void OnBackToCarSelection()
     {
@@ -213,11 +222,11 @@ public class MainMenuUI : MonoBehaviour
         session.player2Color = multiplayer ? player2Cursor.SelectedColor : Color.white;
         session.selectedMapSceneName = mapCarousel.CurrentMap.sceneName;
 
-        if (chosenGameMode.supportsTeams && chosenSlot != null && chosenSlot.teamConfigUI != null)
+        if (chosenGameMode.supportsTeams)
         {
-            session.player1Team = chosenSlot.teamConfigUI.player1Team;
-            session.player2Team = chosenSlot.teamConfigUI.player2Team;
-            session.teamSize = chosenSlot.teamConfigUI.selectedTeamSize;
+            session.player1Team = modeTypeSelectionPanelUI.teamConfigUI.player1Team;
+            session.player2Team = modeTypeSelectionPanelUI.teamConfigUI.player2Team;
+            session.teamSize = modeTypeSelectionPanelUI.teamConfigUI.selectedTeamSize;
         }
 
         string targetScene = chosenGameMode.category == GameModeCategory.Racing

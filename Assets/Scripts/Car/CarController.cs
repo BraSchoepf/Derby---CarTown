@@ -72,6 +72,7 @@ public class CarController : MonoBehaviour
     public float NitroCurrent => nitroCurrent;
     public float NitroMaxCapacity => stats.nitroMaxCapacity;
     public float NitroPercent => stats.nitroMaxCapacity > 0f ? nitroCurrent / stats.nitroMaxCapacity : 0f;
+    public bool IsNitroActive => isNitroActive;
 
     Vector3 spawnPosition;
     Quaternion spawnRotation;
@@ -231,8 +232,6 @@ public class CarController : MonoBehaviour
         bool isDrifting = wantsHandbrakeDrift || autoDrifting;
 
         HandleDriftKickAndEntry(wantsHandbrakeDrift, forwardSpeed);
-
-        UpdateWheelTrails();
 
         float speedMultiplier = CalculateSpeedSensitiveSteerMultiplier(rb.linearVelocity.magnitude);
         float effectiveSteerAngle = steerInput * stats.maxSteerAngle * speedMultiplier;
@@ -621,29 +620,5 @@ public class CarController : MonoBehaviour
     public void ForceRespawnAtLastPoint()
     {
         RespawnAtSpawnPoint();
-    }
-
-    //===================== VFX ===========================
-    void UpdateWheelTrails()
-    {
-        foreach (var w in wheels)
-        {
-            if (w.trail == null) continue;
-
-            bool shouldEmit = false;
-
-            if (w.collider.GetGroundHit(out WheelHit hit))
-            {
-                float lateralSlip = Mathf.Abs(hit.sidewaysSlip);
-                float forwardSlip = Mathf.Abs(hit.forwardSlip);
-
-                // Cualquiera de las 2 condiciones enciende el trail:
-                // deslizamiento lateral (drift, giro brusco) o deslizamiento longitudinal (frenada bloqueando)
-                shouldEmit = lateralSlip > stats.lateralSlipThreshold
-                           || forwardSlip > stats.brakeSlipThreshold;
-            }
-
-            w.trail.emitting = shouldEmit;
-        }
     }
 }
