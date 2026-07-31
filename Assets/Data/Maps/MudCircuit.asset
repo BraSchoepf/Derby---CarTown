@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebd7f68e98e5b646b186505949e6553, type: 3}
   m_Name: MudCircuit
   m_EditorClassIdentifier: Assembly-CSharp::MapDataSO
-  mapName: Mud Circuit
+  mapName: Barroloma
   previewImage: {fileID: 21300000, guid: f0e7e9104f50a7642bad461f2e9d8424, type: 3}
   sceneName: map_MudCircuit
   compatibleModes:

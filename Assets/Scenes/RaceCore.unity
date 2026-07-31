@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 27386395}
   - component: {fileID: 27386394}
   - component: {fileID: 27386396}
+  - component: {fileID: 27386397}
   m_Layer: 0
   m_Name: GameManger
   m_TagString: Untagged
@@ -274,6 +275,21 @@ MonoBehaviour:
     killedByName: 
     humanSlotIndex: 0
     team: 0
+--- !u!114 &27386397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27386391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 672e01e711891af40854a3d7e80d6121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RaceResultsUI
+  panelP1: {fileID: 171314991}
+  panelP2: {fileID: 1530602163}
+  sharedBackToMenuButton: {fileID: 825571210}
 --- !u!1 &57505369
 GameObject:
   m_ObjectHideFlags: 0
@@ -3208,14 +3224,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 631f73601b767aa4e8cfe2fb573fcf7c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e458d619ea4932646bd2ba438d58f6b8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7700,6 +7716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RaceResultsUI
   panelP1: {fileID: 171314991}
   panelP2: {fileID: 1530602163}
+  sharedBackToMenuButton: {fileID: 0}
 --- !u!1 &1950407151
 GameObject:
   m_ObjectHideFlags: 0

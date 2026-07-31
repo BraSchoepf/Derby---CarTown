@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FordGT40
   m_EditorClassIdentifier: Assembly-CSharp::CarStatsSO
   category: 0
-  carName: FordGT40
+  carName: Fordo GT40
   previewImage: {fileID: 21300000, guid: 1682d8b939b59ac48b8ea19e5047f35c, type: 3}
   previewPrefab: {fileID: 1827370793001695660, guid: 0e6606b71f7794a4fbf8beb660bb57b4, type: 3}
   displaySpeedStat: 0.8

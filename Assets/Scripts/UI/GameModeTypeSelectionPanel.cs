@@ -27,6 +27,8 @@ public class GameModeTypeSelectionPanel : MonoBehaviour
     {
         onModeFullyConfirmed = onConfirmed;
 
+        ShowModeList();
+
         foreach (Transform child in slotContainer)
             Destroy(child.gameObject);
 

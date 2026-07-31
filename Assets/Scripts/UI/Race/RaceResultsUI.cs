@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -6,6 +6,7 @@ public class RaceResultsUI : MonoBehaviour
 {
     public ResultPanelUI panelP1;
     public ResultPanelUI panelP2;
+    public SharedBackToMenuButton sharedBackToMenuButton;
 
     void Start()
     {
@@ -16,11 +17,14 @@ public class RaceResultsUI : MonoBehaviour
     {
         var p1Result = finalResults.Find(r => r.humanSlotIndex == 0);
         if (p1Result != null)
-            ShowResultFor(p1Result, finalResults.Count, panelP1);
+        {
+            panelP1.ShowRaceResult(p1Result.finishPlacement, finalResults.Count, p1Result.finishTime, 0f);
+            sharedBackToMenuButton.Show(); // ← mostrar acá, apenas P1 tiene resultado, sin esperar a P2
+        }
 
         var p2Result = finalResults.Find(r => r.humanSlotIndex == 1);
         if (p2Result != null)
-            ShowResultFor(p2Result, finalResults.Count, panelP2);
+            panelP2.ShowRaceResult(p2Result.finishPlacement, finalResults.Count, p2Result.finishTime, 0f);
     }
 
     void ShowResultFor(RaceManager.RacerProgress racer, int totalRacers, ResultPanelUI panel)

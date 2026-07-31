@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebd7f68e98e5b646b186505949e6553, type: 3}
   m_Name: BoulDerby
   m_EditorClassIdentifier: Assembly-CSharp::MapDataSO
-  mapName: Derby Boul
+  mapName: Chaperio
   previewImage: {fileID: 21300000, guid: c5b723b6dd45d984c979b13eeaf3e04e, type: 3}
   sceneName: map_bouldDemolition
   compatibleModes:
