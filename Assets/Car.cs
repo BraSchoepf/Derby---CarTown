@@ -296,7 +296,7 @@ public partial class @Car: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""732dc9c2-b777-4c91-aefd-d1a4f8d9d203"",
-                    ""path"": ""<Keyboard>/m"",
+                    ""path"": ""<Keyboard>/k"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";KeyboardP2"",
@@ -318,7 +318,7 @@ public partial class @Car: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ec9a0652-fd7f-4e8b-8f34-90290863d294"",
-                    ""path"": ""<Keyboard>/k"",
+                    ""path"": ""<Keyboard>/l"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";KeyboardP2"",

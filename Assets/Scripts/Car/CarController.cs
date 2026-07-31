@@ -439,7 +439,7 @@ public class CarController : MonoBehaviour
         if (Keyboard.current != null)
         {
             if (playerIndex == 1) nitroInput = Keyboard.current.cKey.isPressed;
-            else if (playerIndex == 2) nitroInput = Keyboard.current.kKey.isPressed;
+            else if (playerIndex == 2) nitroInput = Keyboard.current.lKey.isPressed;
         }
     }
 
@@ -576,7 +576,7 @@ public class CarController : MonoBehaviour
 
         bool respawnPressed = playerIndex == 1
             ? Keyboard.current.rKey.wasPressedThisFrame
-            : playerIndex == 2 && Keyboard.current.nKey.wasPressedThisFrame;
+            : playerIndex == 2 && Keyboard.current.jKey.wasPressedThisFrame;
 
         if (!respawnPressed) return;
 
