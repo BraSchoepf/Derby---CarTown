@@ -8,6 +8,7 @@ public class CarStatsPanelUI : MonoBehaviour
     public Slider velocidadBar; // configurar min=0, max=1 en el Inspector
     public Slider pesoBar;
     public Slider resistenciaBar;
+    public Slider turboBar;
 
     public void ShowStats(CarStatsSO car)
     {
@@ -18,5 +19,6 @@ public class CarStatsPanelUI : MonoBehaviour
         velocidadBar.value = car.displaySpeedStat;
         pesoBar.value = car.displayWeightStat;
         resistenciaBar.value = car.displayResistanceStat;
+        turboBar.value = car.displayTurboStat;
     }
 }

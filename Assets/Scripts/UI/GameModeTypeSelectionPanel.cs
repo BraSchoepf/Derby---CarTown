@@ -37,6 +37,8 @@ public class GameModeTypeSelectionPanel : MonoBehaviour
         }
 
         ShowModeList();
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(slotContainer.GetComponent<RectTransform>());
     }
 
     void OnModeSelected(GameModeSO mode)

@@ -26,6 +26,7 @@ MonoBehaviour:
   maxBots: 0
   enableEdgeDetection: 0
   isDriftScoringMode: 0
-  hasBadge: 0
-  badgeSprite: {fileID: 0}
-  badgeText: 
+  hasBadge: 1
+  badgeSprite: {fileID: 21300000, guid: e98155f49db62b7499f382a8417a1892, type: 3}
+  badgeText: Proximamente
+  isLocked: 1

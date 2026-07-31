@@ -14,9 +14,13 @@ public class RaceManager : MonoBehaviour
         public float finishTime;
         public int finishPlacement;
         public int humanSlotIndex = -1;
+
+        public Transform carTransform;
     }
     public void RegisterRacer(RacerProgress progress) => racers.Add(progress);
+    public IReadOnlyList<RacerProgress> Racers => racers;
 
+    public System.Action<RacerProgress> OnRacerFinishedIndividual;
     public System.Action<List<RacerProgress>> OnRaceEnded; // resultado final, para el panel de resumen
 
     bool IsHuman(RacerProgress racer) => racer.humanSlotIndex >= 0;
@@ -24,11 +28,13 @@ public class RaceManager : MonoBehaviour
     public RaceCourseSet.CourseVariant activeCourse;
     int totalCheckpointsInCourse => activeCourse != null ? activeCourse.checkpoints.Length : 0;
 
+    float raceStartTime;
     List<RacerProgress> racers = new();
     int totalLaps;
     bool raceEndTriggered = false;
     bool gracePeriodStarted = false; // evita lanzar la corrutina más de una vez
     float gracePeriodAfterFirstFinish = 15f;
+    bool rankingActive = true;
 
     public static RaceManager Instance;
 
@@ -81,6 +87,8 @@ public class RaceManager : MonoBehaviour
         racer.finished = true;
         racer.finishTime = Time.time;
         racer.finishPlacement = racers.Count(r => r.finished);
+
+        OnRacerFinishedIndividual?.Invoke(racer);
 
         bool anyHumanStillRacing = racers.Any(r => !r.finished && IsHuman(r));
 
@@ -150,10 +158,44 @@ public class RaceManager : MonoBehaviour
 
         OnRaceEnded?.Invoke(racers.OrderBy(r => r.finishPlacement).ToList());
     }
+    public int GetLivePosition(RacerProgress racer)
+    {
+        if (!rankingActive)
+            return racers.IndexOf(racer) + 1; // orden de registro como fallback momentáneo, sin cálculo geométrico
 
+        var ranked = racers.OrderByDescending(r => GetRankingScore(r)).ToList();
+        return ranked.IndexOf(racer) + 1;
+    }
+
+    float GetRankingScore(RacerProgress r)
+    {
+        if (r.finished)
+            return float.MaxValue - r.finishPlacement;
+
+        if (activeCourse == null || activeCourse.aiPath == null || r.carTransform == null)
+            return 0f;
+
+        float pathLength = activeCourse.aiPath.TotalLength;
+        float distAlongPath = activeCourse.aiPath.GetClosestPointInfo(r.carTransform.position).progress;
+
+        return r.currentLap * pathLength + distAlongPath;
+    }
     public void BeginRace()
     {
         raceEndTriggered = false;
         gracePeriodStarted = false;
+        raceStartTime = Time.time;
+        rankingActive = false;
+        StartCoroutine(EnableRankingNextFrame());
+    }
+    public float GetRaceTime(RacerProgress racer)
+    {
+        float endTime = racer.finished ? racer.finishTime : Time.time;
+        return endTime - raceStartTime;
+    }
+    IEnumerator EnableRankingNextFrame()
+    {
+        yield return null; // esperamos 1 frame a que todos los autos ya estén posicionados en su spawn real
+        rankingActive = true;
     }
 }

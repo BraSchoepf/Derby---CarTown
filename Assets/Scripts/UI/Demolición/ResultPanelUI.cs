@@ -1,7 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class ResultPanelUI : MonoBehaviour
 {
@@ -9,33 +7,50 @@ public class ResultPanelUI : MonoBehaviour
     public GameObject victoryHeader;
     public GameObject defeatHeader;
 
-    [Header("Resumen")]
+    [Header("Resumen - Demolición")]
     public TextMeshProUGUI placementText;
     public TextMeshProUGUI killsText;
     public TextMeshProUGUI survivalTimeText;
-    public TextMeshProUGUI killedByText; // solo visible en derrota
+    public TextMeshProUGUI killedByText;
 
-    public GameObject raceResultHeader; // "Terminaste 2º", por ejemplo
-    public TMPro.TextMeshProUGUI racePlacementText;
+    [Header("Resumen - Race")]
+    public GameObject raceResultHeader;
+    public TextMeshProUGUI racePlacementText;
+    public TextMeshProUGUI raceTimeText;
+    public GameObject driftScoreContainer;
+    public TextMeshProUGUI driftScoreText;
 
     [Header("Navegación")]
     public SharedBackToMenuButton sharedButton;
 
     void Awake()
     {
-        gameObject.SetActive(false); // arranca oculto, lo prende DerbyGameManager al eliminar/ganar
+        gameObject.SetActive(false);
     }
 
-    public void ShowRaceResult(int placement, int totalRacers)
+    public void ShowRaceResult(int placement, int totalRacers, float raceTime, float driftScore = -1f)
     {
         gameObject.SetActive(true);
         victoryHeader.SetActive(placement == 1);
         defeatHeader.SetActive(false);
         if (killedByText != null) killedByText.gameObject.SetActive(false);
-
         if (raceResultHeader != null) raceResultHeader.SetActive(true);
+
         if (racePlacementText != null)
             racePlacementText.text = $"{placement}° de {totalRacers}";
+
+        if (raceTimeText != null)
+        {
+            int minutes = Mathf.FloorToInt(raceTime / 60f);
+            int seconds = Mathf.FloorToInt(raceTime % 60f);
+            int millis = Mathf.FloorToInt((raceTime * 1000f) % 1000f);
+            raceTimeText.text = $"Tiempo: {minutes:00}:{seconds:00}.{millis:000}";
+        }
+
+        bool showDrift = driftScore >= 0f;
+        if (driftScoreContainer != null) driftScoreContainer.SetActive(showDrift);
+        if (showDrift && driftScoreText != null)
+            driftScoreText.text = $"Puntaje Drift: {Mathf.RoundToInt(driftScore)}";
 
         sharedButton?.Show();
     }
@@ -47,7 +62,6 @@ public class ResultPanelUI : MonoBehaviour
         defeatHeader.SetActive(false);
         killedByText.gameObject.SetActive(false);
         FillSummary(entry);
-
         sharedButton?.Show();
     }
 
@@ -59,7 +73,6 @@ public class ResultPanelUI : MonoBehaviour
         killedByText.gameObject.SetActive(true);
         killedByText.text = $"Eliminado por: {entry.killedByName}";
         FillSummary(entry);
-
         sharedButton?.Show();
     }
 
@@ -67,7 +80,6 @@ public class ResultPanelUI : MonoBehaviour
     {
         placementText.text = $"Puesto {entry.placement}°";
         killsText.text = $"Eliminaciones: {entry.killCount}";
-
         float survived = Time.time - entry.survivalStartTime;
         int minutes = Mathf.FloorToInt(survived / 60f);
         int seconds = Mathf.FloorToInt(survived % 60f);

@@ -16,9 +16,10 @@ MonoBehaviour:
   carName: CyberTruck
   previewImage: {fileID: 21300000, guid: 87de6bac71cff364fbda459193b4276a, type: 3}
   previewPrefab: {fileID: 1078272866267778280, guid: eab1b160024cd0049a5a56d97c4a2b43, type: 3}
-  displaySpeedStat: 0.8
-  displayWeightStat: 0.7
+  displaySpeedStat: 0.5
+  displayWeightStat: 0.95
   displayResistanceStat: 0.8
+  displayTurboStat: 0.9
   maxMotorTorque: 1800
   maxSpeed: 42
   accelerationRate: 7
@@ -67,11 +68,11 @@ MonoBehaviour:
   autoDriftSpeedThreshold: 20
   autoDriftSteerThreshold: 0.75
   autoDriftStiffness: 0.6
-  nitroMaxCapacity: 100
-  nitroChargeRate: 5
-  nitroDrainRate: 20
-  nitroSpeedBoost: 15
-  nitroTorqueBoost: 500
+  nitroMaxCapacity: 120
+  nitroChargeRate: 3
+  nitroDrainRate: 18
+  nitroSpeedBoost: 20
+  nitroTorqueBoost: 700
   enableOffroadGrip: 0
   offroadStiffnessMultiplier: 1.3
   lateralSlipThreshold: 0.4

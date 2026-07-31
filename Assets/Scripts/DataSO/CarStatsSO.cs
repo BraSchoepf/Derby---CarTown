@@ -16,6 +16,7 @@ public class CarStatsSO : ScriptableObject
     [Range(0f, 1f)] public float displaySpeedStat = 0.5f;
     [Range(0f, 1f)] public float displayWeightStat = 0.5f;
     [Range(0f, 1f)] public float displayResistanceStat = 0.5f;
+    [Range(0f, 1f)] public float displayTurboStat = 0.5f;
 
     [Header("Motor")]
     public float maxMotorTorque = 1500f;

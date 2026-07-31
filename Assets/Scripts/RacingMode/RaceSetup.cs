@@ -27,6 +27,14 @@ public class RaceSetup : MonoBehaviour
     public NitroSliderUI nitroSliderP1;
     public NitroSliderUI nitroSliderP2;
 
+    [Header("Race Position UI")]
+    public RacePositionUI racePositionP1;
+    public RacePositionUI racePositionP2;
+
+    [Header("Wrong Way UI")]
+    public WrongWayUI wrongWayUIP1;
+    public WrongWayUI wrongWayUIP2;
+
     [System.Serializable]
     public class PlayerSlotConfig
     {
@@ -64,6 +72,7 @@ public class RaceSetup : MonoBehaviour
         ConfigureHealthBars(isMultiplayer);
         ConfigureSpeedometers(isMultiplayer);
         ConfigureNitro(isMultiplayer);
+        ConfigureHUDVisibility(isMultiplayer);
 
         RaceCourseSet courseSet = MapLoader.Instance.GetRaceCourseSet();
         if (courseSet == null)
@@ -92,6 +101,7 @@ public class RaceSetup : MonoBehaviour
         SpawnGridBots();
 
         raceManager.BeginRace();
+        raceManager.OnRacerFinishedIndividual += HandleRacerFinishedIndividual;
     }
 
     void ConfigureCameraLayout(bool multiplayer)
@@ -158,7 +168,8 @@ public class RaceSetup : MonoBehaviour
         var progress = new RaceManager.RacerProgress
         {
             racerName = $"Player {slotIndex + 1}",
-            humanSlotIndex = slotIndex
+            humanSlotIndex = slotIndex,
+            carTransform = carInstance.transform
         };
         raceManager.RegisterRacer(progress);
 
@@ -177,6 +188,17 @@ public class RaceSetup : MonoBehaviour
         RaceCarIdentity identity = carInstance.GetComponent<RaceCarIdentity>();
         if (identity == null) identity = carInstance.AddComponent<RaceCarIdentity>();
         identity.Initialize(progress);
+
+        RacePositionUI positionUI = slotIndex == 0 ? racePositionP1 : racePositionP2;
+        if (positionUI != null) positionUI.SetTarget(progress);
+
+        WrongWayDetector wrongWay = carInstance.GetComponent<WrongWayDetector>();
+        if (wrongWay == null) wrongWay = carInstance.AddComponent<WrongWayDetector>();
+        wrongWay.Initialize(raceManager.activeCourse.aiPath);
+
+        WrongWayUI wrongWayUI = slotIndex == 0 ? wrongWayUIP1 : wrongWayUIP2;
+        if (wrongWayUI != null)
+            wrongWayUI.SetTarget(wrongWay);
 
         if (session.chosenGameMode.isDriftScoringMode)
         {
@@ -242,7 +264,8 @@ public class RaceSetup : MonoBehaviour
             var progress = new RaceManager.RacerProgress
             {
                 racerName = $"Bot {i + 1}",
-                humanSlotIndex = -1
+                humanSlotIndex = -1,
+                carTransform = instance.transform
             };
             raceManager.RegisterRacer(progress);
 
@@ -276,6 +299,29 @@ public class RaceSetup : MonoBehaviour
                 colorApplier.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.6f, 1f));
         }
     }
+
+    void HandleRacerFinishedIndividual(RaceManager.RacerProgress racer)
+    {
+        if (!isMultiplayer) return;
+        if (racer.humanSlotIndex < 0) return;
+
+        int stillRacingSlot = racer.humanSlotIndex == 0 ? 1 : 0;
+
+        // Usar raceManager.Racers en vez de "racers" directo
+        bool otherStillRacing = raceManager.Racers.Any(r => r.humanSlotIndex == stillRacingSlot && !r.finished);
+        if (!otherStillRacing) return;
+
+        ExpandToFullscreen(stillRacingSlot);
+    }
+    public void ExpandToFullscreen(int stillRacingSlotIndex)
+    {
+        int finishedSlotIndex = stillRacingSlotIndex == 0 ? 1 : 0;
+
+        Camera stillRacingCam = playerSlotConfigs[stillRacingSlotIndex].splitScreenCamera;
+        stillRacingCam.rect = new Rect(0f, 0f, 1f, 1f);
+
+        playerSlotConfigs[finishedSlotIndex].splitScreenCamera.gameObject.SetActive(false);
+    }
     void StorePlayerDriftTracker(int slotIndex, DriftScoreTracker tracker)
     {
         DriftScoreUI ui = slotIndex == 0 ? driftScoreUIP1 : driftScoreUIP2;
@@ -304,5 +350,26 @@ public class RaceSetup : MonoBehaviour
 
         if (nitroSliderP2 != null)
             nitroSliderP2.gameObject.SetActive(multiplayer); // P2 solo si hay multiplayer
+    }
+    void ConfigureHUDVisibility(bool multiplayer)
+    {
+        if (racePositionP1 != null) racePositionP1.gameObject.SetActive(true);
+        if (racePositionP2 != null) racePositionP2.gameObject.SetActive(multiplayer);
+
+        if (wrongWayUIP1 != null)
+        {
+            wrongWayUIP1.gameObject.SetActive(true);
+            wrongWayUIP1.ConfigureLayout(multiplayer, isLeftHalf: true);
+        }
+        if (wrongWayUIP2 != null)
+        {
+            wrongWayUIP2.gameObject.SetActive(multiplayer);
+            wrongWayUIP2.ConfigureLayout(multiplayer, isLeftHalf: false);
+        }
+    }
+    void OnDestroy()
+    {
+        if (raceManager != null)
+            raceManager.OnRacerFinishedIndividual -= HandleRacerFinishedIndividual;
     }
 }

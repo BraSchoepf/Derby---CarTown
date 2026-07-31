@@ -16,12 +16,13 @@ MonoBehaviour:
   carName: DeLorean
   previewImage: {fileID: 21300000, guid: 147cac0973deb6548b3fedcc2dc7d2c1, type: 3}
   previewPrefab: {fileID: 2683970242854663803, guid: c52a832e685a2e043b51a63ef954517b, type: 3}
-  displaySpeedStat: 0.8
+  displaySpeedStat: 0.62
   displayWeightStat: 0.7
-  displayResistanceStat: 0.8
-  maxMotorTorque: 1800
-  maxSpeed: 42
-  accelerationRate: 7
+  displayResistanceStat: 0.7
+  displayTurboStat: 0.5
+  maxMotorTorque: 1900
+  maxSpeed: 40
+  accelerationRate: 8
   decelerationRate: 9
   brakeForce: 6000
   brakeDecelStrength: 2
@@ -67,10 +68,10 @@ MonoBehaviour:
   autoDriftSpeedThreshold: 20
   autoDriftSteerThreshold: 0.75
   autoDriftStiffness: 0.6
-  nitroMaxCapacity: 100
+  nitroMaxCapacity: 130
   nitroChargeRate: 5
-  nitroDrainRate: 20
-  nitroSpeedBoost: 15
+  nitroDrainRate: 19
+  nitroSpeedBoost: 13
   nitroTorqueBoost: 500
   enableOffroadGrip: 0
   offroadStiffnessMultiplier: 1.3

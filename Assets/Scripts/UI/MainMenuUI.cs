@@ -62,10 +62,10 @@ public class MainMenuUI : MonoBehaviour
         GameModeCategory category = (GameModeCategory)categoryIndex;
         var filteredModes = System.Array.FindAll(allGameModes, m => m.category == category);
 
-        modeTypeSelectionPanelUI.PopulateModes(filteredModes, OnGameModeFullyConfirmed);
-
         categorySelectionPanel.SetActive(false);
         modeTypeSelectionPanel.SetActive(true);
+
+        modeTypeSelectionPanelUI.PopulateModes(filteredModes, OnGameModeFullyConfirmed);
     }
 
     void OnGameModeFullyConfirmed(GameModeSO mode)
