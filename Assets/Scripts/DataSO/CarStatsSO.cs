@@ -95,6 +95,11 @@ public class CarStatsSO : ScriptableObject
     public bool enableOffroadGrip = false;
     public float offroadStiffnessMultiplier = 1.3f;
 
+    [Header("Encaje de ruedas (personalización)")]
+    [Tooltip("Radio máximo que puede tener una rueda cosmética sin clipear con el guardabarros de ESTE auto")]
+    public float maxWheelRadiusFront = 0.38f;
+    public float maxWheelRadiusRear = 0.4f;
+
     [Header("VFX de Trail (marcas de neumático)")]
     public float lateralSlipThreshold = 0.3f;  // a partir de qué deslizamiento lateral emite trail
     public float brakeSlipThreshold = 0.35f;

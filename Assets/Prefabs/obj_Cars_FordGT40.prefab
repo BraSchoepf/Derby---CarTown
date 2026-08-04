@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 8634272622658574770}
   - component: {fileID: -4712920215864931360}
   - component: {fileID: 1103589260001987802}
+  - component: {fileID: 7624651542943809833}
   m_Layer: 6
   m_Name: obj_Cars_FordGT40
   m_TagString: Untagged
@@ -603,6 +604,36 @@ MonoBehaviour:
   gizmoRadius: 0.15
   gizmoColor: {r: 1, g: 0, b: 0, a: 1}
   showLabel: 1
+--- !u!114 &7624651542943809833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827370793001695660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 494d8e60a61f5df4f893a2bf8d5de7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WheelCustomizer
+  wheelSlots:
+  - meshFilter: {fileID: 4783865756930629185}
+    meshRenderer: {fileID: 4130837432397025380}
+    isFrontAxle: 1
+    isLeftSide: 1
+  - meshFilter: {fileID: 1095903880019964685}
+    meshRenderer: {fileID: 2878852325933668749}
+    isFrontAxle: 1
+    isLeftSide: 0
+  - meshFilter: {fileID: 2098906603558141067}
+    meshRenderer: {fileID: 6902402805883839197}
+    isFrontAxle: 0
+    isLeftSide: 0
+  - meshFilter: {fileID: 3544110673601542436}
+    meshRenderer: {fileID: 8798702056696103454}
+    isFrontAxle: 0
+    isLeftSide: 1
+  stats: {fileID: 11400000, guid: 8dfa0c7f2db4d4c42b8f7d6f10701882, type: 2}
 --- !u!1 &1890126199645032049
 GameObject:
   m_ObjectHideFlags: 0

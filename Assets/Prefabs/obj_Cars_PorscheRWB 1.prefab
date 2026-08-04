@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: -4620995129773254549}
   - component: {fileID: 4434439159300584609}
   - component: {fileID: 9030966858026942441}
+  - component: {fileID: 6454645625990239183}
   m_Layer: 6
   m_Name: obj_Cars_PorscheRWB 1
   m_TagString: Untagged
@@ -489,6 +490,36 @@ MonoBehaviour:
   gizmoRadius: 0.15
   gizmoColor: {r: 1, g: 0, b: 0, a: 1}
   showLabel: 1
+--- !u!114 &6454645625990239183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711543342545725848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 494d8e60a61f5df4f893a2bf8d5de7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WheelCustomizer
+  wheelSlots:
+  - meshFilter: {fileID: 5317535809288738441}
+    meshRenderer: {fileID: 2765982040134463558}
+    isFrontAxle: 1
+    isLeftSide: 1
+  - meshFilter: {fileID: 7373932901794369985}
+    meshRenderer: {fileID: 6645930977897097837}
+    isFrontAxle: 1
+    isLeftSide: 0
+  - meshFilter: {fileID: 1143541348859442804}
+    meshRenderer: {fileID: 2568855262201686606}
+    isFrontAxle: 0
+    isLeftSide: 0
+  - meshFilter: {fileID: 6221040627275700276}
+    meshRenderer: {fileID: 7956481613237185525}
+    isFrontAxle: 0
+    isLeftSide: 1
+  stats: {fileID: 11400000, guid: 65bc9cfb26bee0745a4dbe9b322ca830, type: 2}
 --- !u!1 &1048758862022746729
 GameObject:
   m_ObjectHideFlags: 0

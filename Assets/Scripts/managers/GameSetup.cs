@@ -199,6 +199,14 @@ public class GameSetup : MonoBehaviour
         else
             Debug.LogWarning($"[GameSetup] {carInstance.name} no tiene MinimapIcon.", this);
 
+        WheelCustomizer wheelCustomizer = carInstance.GetComponentInChildren<WheelCustomizer>();
+        if (wheelCustomizer != null)
+        {
+            WheelVisualSO chosenWheel = slotIndex == 0 ? session.player1WheelVisual : session.player2WheelVisual;
+            if (chosenWheel != null)
+                wheelCustomizer.ApplyWheel(chosenWheel);
+        }
+
         CarColorApplier colorApplier = carInstance.GetComponentInChildren<CarColorApplier>();
         if (colorApplier != null)
         {

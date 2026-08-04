@@ -4836,10 +4836,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AISpawner
   aiCarPrefabs:
-  - {fileID: 1078272866267778280, guid: f251a6cfbb513c64abb222588dcdf14b, type: 3}
-  - {fileID: 2683970242854663803, guid: c7e9a9ca139160e458ff613669894082, type: 3}
-  - {fileID: 1827370793001695660, guid: e09b15f8896f5d1438b7ba898df884cd, type: 3}
-  - {fileID: 711543342545725848, guid: ad0080f5f04a21e479ba578ef9bfa9a0, type: 3}
+  - {fileID: 1078272866267778280, guid: 7fc3fa8e2d8f3834db01524ef95abdc2, type: 3}
+  - {fileID: 2683970242854663803, guid: dd44348ed0cbfc84bbc14a439f48d010, type: 3}
+  - {fileID: 1827370793001695660, guid: 47a4d84ded96e6443b0af058898c6f17, type: 3}
+  - {fileID: 711543342545725848, guid: 2aae25390aab2954f8a1d734edfe651f, type: 3}
+  - {fileID: 6770943345239207863, guid: ef91ce2bd18fc2142b5ccdb52e19d68f, type: 3}
   category: 1
   allowRepeatedCars: 1
   derbyManager: {fileID: 27386396}

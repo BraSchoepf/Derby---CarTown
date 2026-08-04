@@ -55,4 +55,10 @@ public class CarPreviewRenderer : MonoBehaviour
         var applier = instance.GetComponentInChildren<CarColorApplier>();
         if (applier != null) applier.SetColor(color);
     }
+    public void SetWheel(WheelVisualSO wheel)
+    {
+        if (instance == null || wheel == null) return;
+        var customizer = instance.GetComponentInChildren<WheelCustomizer>();
+        if (customizer != null) customizer.ApplyWheel(wheel);
+    }
 }

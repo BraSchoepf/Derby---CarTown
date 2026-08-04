@@ -8,6 +8,10 @@ public class PlayerCarCursor : MonoBehaviour
     public CarPreviewRenderer preview;
     public CarStatsPanelUI statsPanel;
 
+    [Header("Customization Tabs")]
+    public CustomizationTabsUI tabs;
+    public WheelSelectionPanelUI wheelPanel;
+
     [Header("Color panel - repetición al mantener")]
     public float holdRepeatDelay = 0.4f;   // pausa inicial antes de empezar a repetir
     public float holdRepeatInterval = 0.12f;
@@ -16,7 +20,8 @@ public class PlayerCarCursor : MonoBehaviour
     float holdTimer;
     bool isFirstRepeat;
 
-
+    Vector2Int heldWheelDirection;
+    float wheelHoldTimer;
     public ColorSelectionPanelUI colorPanel;
 
     bool loggedGridWarning = false;
@@ -24,6 +29,7 @@ public class PlayerCarCursor : MonoBehaviour
     CarSlotUI current, locked;
     CarStatsSO lastRandomPick;
 
+    public WheelVisualSO SelectedWheelVisual => wheelPanel != null ? wheelPanel.CurrentWheel : null;
     public Color SelectedColor => colorPanel != null ? colorPanel.CurrentColor : Color.white;
     public bool IsLocked => locked != null;
     public CarStatsSO SelectedCar =>
@@ -32,6 +38,11 @@ public class PlayerCarCursor : MonoBehaviour
 
     void Start()
     {
+        if (tabs != null && tabs.ownerPlayerIndex != playerIndex)
+        {
+            Debug.LogError($"[PlayerCarCursor P{playerIndex}] El campo 'Tabs' apunta a un CustomizationTabsUI de P{tabs.ownerPlayerIndex} — están cruzados. Revisá el Inspector.", this);
+        }
+
         if (grid == null)
         {
             Debug.LogError($"[PlayerCarCursor P{playerIndex}] Falta asignar 'Grid' en el Inspector.", this);
@@ -44,6 +55,8 @@ public class PlayerCarCursor : MonoBehaviour
     void Update()
     {
         if (Keyboard.current == null) return;
+
+        Debug.Log($"[P{playerIndex}] current={current}, tabs={tabs}, IsLocked={IsLocked}");
 
         if (current == null)
         {
@@ -61,20 +74,72 @@ public class PlayerCarCursor : MonoBehaviour
             return;
         }
 
-        if (IsLocked)
+        if (IsLocked && !tabs.IsSubPanelOpen)
         {
-            if (GetConfirm()) { ForceUnlock(); return; } // misma tecla, ahora deselecciona
-            HandleColorNavigation();
+            Vector2Int tabDir = ReadDirection();
+            if (tabDir.x != 0) tabs.MoveTabHover(tabDir.x); // A/D o flechas Izq/Der navegan tabs
+
+            if (GetConfirm())
+            {
+                tabs.ConfirmHoveredTab();
+                return;
+            }
+
+            if (GetCancel())
+            {
+                ForceUnlock();
+                return;
+            }
+
             return;
         }
 
+        if (IsLocked)
+        {
+            HandleCustomizationMode();
+            return;
+        }
+
+        HandleCarGridNavigation();
+    }
+
+    void HandleCustomizationMode()
+    {
+        if (tabs.IsSubPanelOpen)
+        {
+            if (GetConfirm())
+            {
+                tabs.CloseCurrentPanel();
+                return;
+            }
+
+            if (tabs.CurrentTab == CustomizationTabsUI.Tab.Color)
+                HandleColorNavigation();
+            else if (tabs.CurrentTab == CustomizationTabsUI.Tab.Wheels)
+                HandleWheelNavigation();
+
+            // Tab.Car no tiene navegación propia por ahora — solo mostrar info, cerrar con confirm
+        }
+        else
+        {
+            // Estamos en la pantalla de botones de tabs — navegamos entre ellos
+            Vector2Int moveDir = ReadDirection();
+            if (moveDir.x != 0)
+                tabs.MoveTabHover(moveDir.x);
+
+            if (GetConfirm())
+                tabs.ConfirmHoveredTab();
+        }
+    }
+
+    void HandleCarGridNavigation()
+    {
         Vector2Int moveDir = ReadDirection();
         if (moveDir != Vector2Int.zero)
             MoveTo(grid.GetNextSlot(current.GridRow, current.GridCol, moveDir.y, moveDir.x));
 
-        if (GetConfirm()) Lock();
+        if (GetConfirm()) Lock(); // Space (P1) / Enter (P2) — confirma auto
     }
-
 
     Vector2Int ReadDirection()
     {
@@ -97,9 +162,12 @@ public class PlayerCarCursor : MonoBehaviour
     }
 
     bool GetConfirm() => playerIndex == 1
-    ? Keyboard.current.spaceKey.wasPressedThisFrame
-    : (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame);
+     ? Keyboard.current.spaceKey.wasPressedThisFrame
+     : (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame);
 
+    bool GetCancel() => playerIndex == 1
+    ? Keyboard.current.escapeKey.wasPressedThisFrame
+    : Keyboard.current.backspaceKey.wasPressedThisFrame;
 
     void MoveTo(CarSlotUI slot)
     {
@@ -112,6 +180,41 @@ public class PlayerCarCursor : MonoBehaviour
         if (preview != null) preview.ShowCar(carToShow);
         if (statsPanel != null) statsPanel.ShowStats(carToShow);
     }
+
+    void ApplyWheelMove(Vector2Int dir)
+    {
+        WheelVisualSO wheel = wheelPanel.Move(dir.x, -dir.y);
+        preview.SetWheel(wheel);
+    }
+    void HandleWheelNavigation()
+    {
+        if (wheelPanel == null) return;
+
+        Vector2Int dir = ReadDirectionRaw();
+
+        if (dir == Vector2Int.zero)
+        {
+            heldWheelDirection = Vector2Int.zero;
+            wheelHoldTimer = 0f;
+            return;
+        }
+
+        if (dir != heldWheelDirection)
+        {
+            heldWheelDirection = dir;
+            wheelHoldTimer = holdRepeatDelay;
+            ApplyWheelMove(dir);
+            return;
+        }
+
+        wheelHoldTimer -= Time.deltaTime;
+        if (wheelHoldTimer <= 0f)
+        {
+            ApplyWheelMove(dir);
+            wheelHoldTimer = holdRepeatInterval;
+        }
+    }
+
 
     void HandleColorNavigation()
     {
@@ -191,11 +294,7 @@ public class PlayerCarCursor : MonoBehaviour
         if (preview != null) preview.ShowCar(carToShow);
         if (statsPanel != null) statsPanel.ShowStats(carToShow);
 
-        if (colorPanel != null)
-        {
-            colorPanel.gameObject.SetActive(true);
-            preview.SetColor(colorPanel.CurrentColor); // aplica el color default apenas se ve el auto
-        }
+        if (tabs != null) tabs.gameObject.SetActive(true); // asegura que el panel de tabs esté visible
     }
 
     void Unlock()
@@ -214,9 +313,7 @@ public class PlayerCarCursor : MonoBehaviour
         if (current != null)
         {
             current.SetHover(playerIndex, false);
-            current = null; // fuerza que el próximo Update() vuelva a MoveTo(grid.FirstSlot())
+            current = null;
         }
-
-        if (colorPanel != null) colorPanel.gameObject.SetActive(false);
     }
 }

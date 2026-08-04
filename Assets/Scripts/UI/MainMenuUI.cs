@@ -117,15 +117,7 @@ public class MainMenuUI : MonoBehaviour
     {
         if (carSelectionPanel.activeSelf)
         {
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-            {
-                player1Cursor.ForceUnlock();
-                if (multiplayer) player2Cursor.ForceUnlock();
-                return;
-            }
-
             bool readyToStart = player1Cursor.IsLocked && (!multiplayer || player2Cursor.IsLocked);
-
             if (startPromptUI != null) startPromptUI.SetActive(readyToStart);
             if (startButton != null) startButton.interactable = readyToStart;
         }
@@ -221,6 +213,8 @@ public class MainMenuUI : MonoBehaviour
         session.player1Color = player1Cursor.SelectedColor;
         session.player2Color = multiplayer ? player2Cursor.SelectedColor : Color.white;
         session.selectedMapSceneName = mapCarousel.CurrentMap.sceneName;
+        session.player1WheelVisual = player1Cursor.SelectedWheelVisual;
+        session.player2WheelVisual = multiplayer ? player2Cursor.SelectedWheelVisual : null;
 
         if (chosenGameMode.supportsTeams)
         {

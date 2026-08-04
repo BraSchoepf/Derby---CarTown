@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: -2045996759507132265}
   - component: {fileID: 5492902713785329695}
   - component: {fileID: 8385714575132366010}
+  - component: {fileID: 2106356189029474406}
   m_Layer: 6
   m_Name: obj_Cars_Cybertrack
   m_TagString: Untagged
@@ -469,6 +470,36 @@ MonoBehaviour:
   gizmoRadius: 0.15
   gizmoColor: {r: 1, g: 0, b: 0, a: 1}
   showLabel: 1
+--- !u!114 &2106356189029474406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078272866267778280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 494d8e60a61f5df4f893a2bf8d5de7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WheelCustomizer
+  wheelSlots:
+  - meshFilter: {fileID: 6338576689529437811}
+    meshRenderer: {fileID: 3502092698304322702}
+    isFrontAxle: 1
+    isLeftSide: 1
+  - meshFilter: {fileID: 8026391437375345410}
+    meshRenderer: {fileID: 1193099432288153333}
+    isFrontAxle: 1
+    isLeftSide: 0
+  - meshFilter: {fileID: 1626648298812783709}
+    meshRenderer: {fileID: 8952395486223109341}
+    isFrontAxle: 0
+    isLeftSide: 0
+  - meshFilter: {fileID: 7426736960135273455}
+    meshRenderer: {fileID: 4279276314043791912}
+    isFrontAxle: 0
+    isLeftSide: 1
+  stats: {fileID: 11400000, guid: 36d46e2c998c26b49a10c3764be9a147, type: 2}
 --- !u!1 &1368021315827810221
 GameObject:
   m_ObjectHideFlags: 0

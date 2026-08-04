@@ -454,7 +454,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 43000
     damper: 5000
-    targetPosition: 0.75
+    targetPosition: 0.9
   m_SuspensionDistance: 0.21
   m_ForceAppPointDistance: 0
   m_Mass: 30
@@ -503,6 +503,7 @@ GameObject:
   - component: {fileID: 1809839693696496791}
   - component: {fileID: 4656495538300156765}
   - component: {fileID: 2848069749626268691}
+  - component: {fileID: 6025703674052340033}
   m_Layer: 6
   m_Name: obj_Cars_Delorean_Remake
   m_TagString: Untagged
@@ -880,6 +881,36 @@ MonoBehaviour:
   gizmoRadius: 0.15
   gizmoColor: {r: 1, g: 0, b: 0, a: 1}
   showLabel: 1
+--- !u!114 &6025703674052340033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683970242854663803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 494d8e60a61f5df4f893a2bf8d5de7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WheelCustomizer
+  wheelSlots:
+  - meshFilter: {fileID: 250101722735986046}
+    meshRenderer: {fileID: 6968950233120307823}
+    isFrontAxle: 1
+    isLeftSide: 1
+  - meshFilter: {fileID: 5571547779979995276}
+    meshRenderer: {fileID: 6333378824891378202}
+    isFrontAxle: 1
+    isLeftSide: 0
+  - meshFilter: {fileID: 2950318620101853261}
+    meshRenderer: {fileID: 1807474135276989963}
+    isFrontAxle: 0
+    isLeftSide: 0
+  - meshFilter: {fileID: 6688908286671878134}
+    meshRenderer: {fileID: 64987989665595468}
+    isFrontAxle: 0
+    isLeftSide: 1
+  stats: {fileID: 11400000, guid: 50876908db3c12341b54bc14695f6ef3, type: 2}
 --- !u!1 &3422750239316047253
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,7 +1091,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 43000
     damper: 5000
-    targetPosition: 0.75
+    targetPosition: 0.9
   m_SuspensionDistance: 0.21
   m_ForceAppPointDistance: 0
   m_Mass: 30
@@ -1290,7 +1321,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 43000
     damper: 5000
-    targetPosition: 0.75
+    targetPosition: 0.9
   m_SuspensionDistance: 0.21
   m_ForceAppPointDistance: 0
   m_Mass: 30
@@ -1843,7 +1874,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 43000
     damper: 5000
-    targetPosition: 0.75
+    targetPosition: 0.9
   m_SuspensionDistance: 0.21
   m_ForceAppPointDistance: 0
   m_Mass: 30

@@ -19,6 +19,9 @@ public class GameSession : MonoBehaviour
     public Color player1Color = Color.white;
     public Color player2Color = Color.white;
 
+    public WheelVisualSO player1WheelVisual;
+    public WheelVisualSO player2WheelVisual;
+
     void Awake()
     {
         if (Instance != null && Instance != this)

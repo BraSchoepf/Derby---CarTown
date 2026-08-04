@@ -209,6 +209,14 @@ public class RaceSetup : MonoBehaviour
             StorePlayerDriftTracker(slotIndex, scoreTracker);
         }
 
+        WheelCustomizer wheelCustomizer = carInstance.GetComponentInChildren<WheelCustomizer>();
+        if (wheelCustomizer != null)
+        {
+            WheelVisualSO chosenWheel = slotIndex == 0 ? session.player1WheelVisual : session.player2WheelVisual;
+            if (chosenWheel != null)
+                wheelCustomizer.ApplyWheel(chosenWheel);
+        }
+
         CarColorApplier colorApplier = carInstance.GetComponentInChildren<CarColorApplier>();
         if (colorApplier != null) colorApplier.SetColor(color);
 
