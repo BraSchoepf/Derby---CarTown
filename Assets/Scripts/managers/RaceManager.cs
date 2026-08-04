@@ -54,18 +54,28 @@ public class RaceManager : MonoBehaviour
 
         for (int i = 0; i < activeCourse.checkpoints.Length; i++)
         {
-            var detector = activeCourse.checkpoints[i].GetComponent<RaceCheckpointDetector>();
+            var checkpointGO = activeCourse.checkpoints[i].gameObject;
+
+            var detector = checkpointGO.GetComponent<RaceCheckpointDetector>();
             if (detector == null)
-                detector = activeCourse.checkpoints[i].gameObject.AddComponent<RaceCheckpointDetector>();
+                detector = checkpointGO.AddComponent<RaceCheckpointDetector>();
 
             detector.checkpointIndex = i;
+
+            // Si el checkpoint no tiene VFX asignado manualmente, lo buscamos/agregamos
+            if (detector.vfx == null)
+            {
+                detector.vfx = checkpointGO.GetComponent<CheckpointVFX>();
+                if (detector.vfx == null)
+                    Debug.LogWarning($"[RaceManager] Checkpoint {i} no tiene CheckpointVFX asignado — sin feedback visual.");
+            }
         }
     }
 
-    public void OnCheckpointReached(RacerProgress racer, int checkpointIndex)
+    public bool OnCheckpointReached(RacerProgress racer, int checkpointIndex)
     {
-        if (raceEndTriggered || racer.finished) return;
-        if (checkpointIndex != racer.currentCheckpointIndex) return;
+        if (raceEndTriggered || racer.finished) return false;
+        if (checkpointIndex != racer.currentCheckpointIndex) return false;
 
         racer.currentCheckpointIndex++;
 
@@ -78,6 +88,8 @@ public class RaceManager : MonoBehaviour
             if (racer.currentLap >= totalLaps)
                 HandleRacerFinished(racer);
         }
+
+        return true; // el paso fue válido
     }
 
     void HandleRacerFinished(RacerProgress racer)

@@ -185,7 +185,7 @@ public class PlayerCarCursor : MonoBehaviour
 
     void ApplyWheelMove(Vector2Int dir)
     {
-        WheelVisualSO wheel = wheelPanel.Move(dir.x, -dir.y);
+        WheelVisualSO wheel = wheelPanel.Move(dir.x, dir.y);
         preview.SetWheel(wheel);
     }
     void HandleWheelNavigation()

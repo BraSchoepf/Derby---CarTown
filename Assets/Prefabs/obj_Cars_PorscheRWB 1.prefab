@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 671044280197357844}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.649, y: 0.32800004, z: 0.87}
+  m_LocalPosition: {x: -0.649, y: 0.31800002, z: 0.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -235,9 +235,6 @@ MonoBehaviour:
   flipRecoveryTorque: 15
   maxSpeedForFlipRecovery: 1.5
   maxAngularSpeedForFlipRecovery: 1
-  highSpeedYawDamping: 2
-  yawDampingSpeedThreshold: 25
-  expectedYawRateMultiplier: 1
   isAIControlled: 0
   isDead: 0
   playerIndex: 0
@@ -447,7 +444,7 @@ MonoBehaviour:
   multiplierIncreasePerSecond: 0.5
   maxMultiplier: 5
   chainGraceWindow: 0.6
-  minCollisionForceToReset: 4
+  minCollisionForceToReset: 10
   redFlashDuration: 0.8
 --- !u!114 &-4620995129773254549
 MonoBehaviour:
@@ -550,7 +547,7 @@ Transform:
   m_GameObject: {fileID: 1048758862022746729}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.658, y: 0.33200002, z: -0.765}
+  m_LocalPosition: {x: -0.658, y: 0.322, z: -0.765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -660,7 +657,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 520
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -708,7 +705,7 @@ Transform:
   m_GameObject: {fileID: 2052741696581374093}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.649, y: 0.328, z: 0.87}
+  m_LocalPosition: {x: 0.649, y: 0.318, z: 0.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -779,7 +776,7 @@ Transform:
   m_GameObject: {fileID: 2304574685166865986}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.649, y: 0.328, z: 0.87}
+  m_LocalPosition: {x: -0.649, y: 0.318, z: 0.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -891,6 +888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RaceCheckpointDetector
   checkpointIndex: -1
+  vfx: {fileID: 0}
 --- !u!1 &2809239414971782660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,7 +1164,7 @@ Transform:
   m_GameObject: {fileID: 3024483598958326567}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.649, y: 0.328, z: 0.87}
+  m_LocalPosition: {x: 0.649, y: 0.318, z: 0.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1256,7 +1254,7 @@ Transform:
   m_GameObject: {fileID: 3415367345646026181}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.658, y: 0.332, z: -0.765}
+  m_LocalPosition: {x: -0.658, y: 0.32199997, z: -0.765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1328,7 +1326,7 @@ Transform:
   m_GameObject: {fileID: 4636835896936932009}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.658, y: 0.332, z: -0.765}
+  m_LocalPosition: {x: 0.658, y: 0.32199997, z: -0.765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1438,7 +1436,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 520
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -1689,7 +1687,7 @@ Transform:
   m_GameObject: {fileID: 5927770957696405763}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.658, y: 0.332, z: -0.765}
+  m_LocalPosition: {x: 0.658, y: 0.32199997, z: -0.765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1780,7 +1778,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 520
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -1879,7 +1877,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 520
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0

@@ -35,7 +35,7 @@ MonoBehaviour:
   centerOfMassOffset: {x: 0, y: 0.19, z: 0.12}
   suspensionSpring: 43000
   suspensionDamper: 5000
-  suspensionDistance: 0.28
+  suspensionDistance: 0.25
   forwardExtremumSlip: 0.35
   forwardExtremumValue: 1.5
   forwardAsymptoteSlip: 0.8

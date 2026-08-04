@@ -26,5 +26,5 @@ MonoBehaviour:
   driftKickForceMultiplier: 1.5
   driftAngularTorqueMultiplier: 1.4
   forceDisableHighSpeedStability: 1
-  forceAutoDriftEnabled: 0
+  forceAutoDriftEnabled: 1
   forceAutoDriftDisabled: 0

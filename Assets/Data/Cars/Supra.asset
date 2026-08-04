@@ -32,7 +32,7 @@ MonoBehaviour:
   fullSteerSpeedThreshold: 6
   highSpeedSteerReduction: 0.6
   highSpeedThreshold: 23
-  centerOfMassOffset: {x: 0, y: 0.2, z: 0}
+  centerOfMassOffset: {x: 0, y: 0.2, z: -0.3}
   suspensionSpring: 43000
   suspensionDamper: 5000
   suspensionDistance: 0.3

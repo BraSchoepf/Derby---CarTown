@@ -39,10 +39,9 @@ public class CenterOfMassGizmo : MonoBehaviour
             UnityEditor.Handles.Label(worldCoM + Vector3.up * (gizmoRadius + 0.2f),
                 $"CoM: {carController.stats.centerOfMassOffset}");
         }
-#endif
+
     }
 
-#if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
         if (carController == null || carController.stats == null) return;

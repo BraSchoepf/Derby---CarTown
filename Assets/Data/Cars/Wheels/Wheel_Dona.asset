@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4e125d5f9457d4b99617a6a055c22c, type: 3}
   m_Name: Wheel_Dona
   m_EditorClassIdentifier: Assembly-CSharp::WheelVisualSO
-  wheelName: Pizza
+  wheelName: Dona
   previewIcon: {fileID: 21300000, guid: baa524207323ddb49a7aa4b9029f5337, type: 3}
-  wheelMesh: {fileID: 3946074075619271834, guid: 06e7074c149b30d44ae71bdd75253ff1, type: 3}
-  wheelMaterials: []
+  wheelMesh: {fileID: 5682302100956800885, guid: 1d6f67fbd1176404e844deb247eaf127, type: 3}
+  wheelMaterials:
+  - {fileID: -6478536213147159724, guid: 1d6f67fbd1176404e844deb247eaf127, type: 3}
+  - {fileID: -3846018093981099296, guid: 1d6f67fbd1176404e844deb247eaf127, type: 3}
+  - {fileID: -6629797300637803691, guid: 1d6f67fbd1176404e844deb247eaf127, type: 3}
   nativeRadius: 0.34

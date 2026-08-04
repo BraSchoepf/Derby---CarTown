@@ -3509,6 +3509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WheelSelectionPanelUI
   availableWheels:
   - {fileID: 11400000, guid: 78355a8792f9602409f075bcc24db82e, type: 2}
+  - {fileID: 11400000, guid: 7805bbddab453f5489ea3cd0daa519c2, type: 2}
   - {fileID: 11400000, guid: 3ecb1c3645597d34c981ed1cc226bab8, type: 2}
   - {fileID: 11400000, guid: f90e289906a80f049a3f95af08dfba23, type: 2}
   - {fileID: 11400000, guid: 1ce2adebff1d6474a9fc052c06474e9c, type: 2}
@@ -7944,7 +7945,7 @@ MonoBehaviour:
   registry: {fileID: 11400000, guid: 99ddd08c3607d7b4f80e84e15ad8ed10, type: 2}
   slotPrefab: {fileID: 1709938611637658927, guid: 66dc6696e42d2144caa8eb1120a457f2, type: 3}
   gridParent: {fileID: 366992529}
-  columns: 8
+  columns: 3
   includeRandomSlot: 1
   player1Cursor: {fileID: 916161635}
   player2Cursor: {fileID: 1940942097}
@@ -8869,6 +8870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WheelSelectionPanelUI
   availableWheels:
   - {fileID: 11400000, guid: 78355a8792f9602409f075bcc24db82e, type: 2}
+  - {fileID: 11400000, guid: 7805bbddab453f5489ea3cd0daa519c2, type: 2}
   - {fileID: 11400000, guid: 3ecb1c3645597d34c981ed1cc226bab8, type: 2}
   - {fileID: 11400000, guid: f90e289906a80f049a3f95af08dfba23, type: 2}
   - {fileID: 11400000, guid: 1ce2adebff1d6474a9fc052c06474e9c, type: 2}

@@ -1,10 +1,12 @@
 using UnityEngine;
 
-// Va en cada Transform de checkpoint del mapa (el mismo array que RaceCourseSet.CourseVariant.checkpoints)
 [RequireComponent(typeof(Collider))]
 public class RaceCheckpointDetector : MonoBehaviour
 {
-    [HideInInspector] public int checkpointIndex = -1; // asignado por RaceManager al inicializar la carrera
+    [HideInInspector] public int checkpointIndex = -1;
+
+    [Header("VFX (opcional)")]
+    public CheckpointVFX vfx;
 
     void Awake()
     {
@@ -19,6 +21,14 @@ public class RaceCheckpointDetector : MonoBehaviour
         RaceCarIdentity identity = other.GetComponentInParent<RaceCarIdentity>();
         if (identity == null) return;
 
-        RaceManager.Instance?.OnCheckpointReached(identity.Progress, checkpointIndex);
+        bool wasValid = RaceManager.Instance != null
+                        && RaceManager.Instance.OnCheckpointReached(identity.Progress, checkpointIndex);
+
+        if (wasValid && vfx != null)
+        {
+            int humanSlotIndex = identity.Progress.humanSlotIndex;
+            if (humanSlotIndex >= 0) // solo jugadores humanos disparan el VFX, no bots
+                vfx.OnPassedCorrectly(humanSlotIndex);
+        }
     }
 }

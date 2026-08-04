@@ -558,7 +558,7 @@ MonoBehaviour:
   multiplierIncreasePerSecond: 0.5
   maxMultiplier: 5
   chainGraceWindow: 0.6
-  minCollisionForceToReset: 4
+  minCollisionForceToReset: 7
   redFlashDuration: 0.8
 --- !u!114 &8634272622658574770
 MonoBehaviour:

@@ -215,9 +215,6 @@ MonoBehaviour:
   flipRecoveryTorque: 15
   maxSpeedForFlipRecovery: 1.5
   maxAngularSpeedForFlipRecovery: 1
-  highSpeedYawDamping: 8
-  yawDampingSpeedThreshold: 45
-  expectedYawRateMultiplier: 1.2
   isAIControlled: 0
   isDead: 0
   playerIndex: 0
@@ -427,7 +424,7 @@ MonoBehaviour:
   multiplierIncreasePerSecond: 0.5
   maxMultiplier: 5
   chainGraceWindow: 0.6
-  minCollisionForceToReset: 4
+  minCollisionForceToReset: 7
   redFlashDuration: 0.8
 --- !u!114 &-2045996759507132265
 MonoBehaviour:
