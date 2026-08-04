@@ -7717,7 +7717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RaceResultsUI
   panelP1: {fileID: 171314991}
   panelP2: {fileID: 1530602163}
-  sharedBackToMenuButton: {fileID: 0}
+  sharedBackToMenuButton: {fileID: 825571210}
 --- !u!1 &1950407151
 GameObject:
   m_ObjectHideFlags: 0

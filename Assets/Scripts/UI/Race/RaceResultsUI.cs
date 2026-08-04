@@ -18,13 +18,15 @@ public class RaceResultsUI : MonoBehaviour
         var p1Result = finalResults.Find(r => r.humanSlotIndex == 0);
         if (p1Result != null)
         {
-            panelP1.ShowRaceResult(p1Result.finishPlacement, finalResults.Count, p1Result.finishTime, 0f);
-            sharedBackToMenuButton.Show(); // ← mostrar acá, apenas P1 tiene resultado, sin esperar a P2
+            ShowResultFor(p1Result, finalResults.Count, panelP1);
+            sharedBackToMenuButton.Show();
         }
 
         var p2Result = finalResults.Find(r => r.humanSlotIndex == 1);
         if (p2Result != null)
-            panelP2.ShowRaceResult(p2Result.finishPlacement, finalResults.Count, p2Result.finishTime, 0f);
+        {
+            ShowResultFor(p2Result, finalResults.Count, panelP2);
+        }
     }
 
     void ShowResultFor(RaceManager.RacerProgress racer, int totalRacers, ResultPanelUI panel)

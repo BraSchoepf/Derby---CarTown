@@ -16,5 +16,5 @@ MonoBehaviour:
   previewImage: {fileID: 21300000, guid: 4752be3a0b1b87a4dad4691ebb0316fd, type: 3}
   sceneName: map_puerto
   compatibleModes:
-  - {fileID: 11400000, guid: 47b82e174329e024386c0c81dbeec616, type: 2}
+  - {fileID: 11400000, guid: fb81c38614c3078418632e53eccbfd82, type: 2}
   - {fileID: 11400000, guid: a870a34c8c530f748b3321ab48e741f1, type: 2}

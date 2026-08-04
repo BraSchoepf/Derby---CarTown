@@ -32,7 +32,7 @@ MonoBehaviour:
   fullSteerSpeedThreshold: 6
   highSpeedSteerReduction: 0.8
   highSpeedThreshold: 23
-  centerOfMassOffset: {x: 0, y: 0.19, z: 0.12}
+  centerOfMassOffset: {x: 0, y: 0.15, z: 0.12}
   suspensionSpring: 43000
   suspensionDamper: 5000
   suspensionDistance: 0.25
@@ -54,20 +54,20 @@ MonoBehaviour:
   handbrakeDriftTorque: 2200
   driftSidewaysStiffness: 0.4
   driftKickForce: 1.2
-  maxDriftAngle: 60
-  driftAngularTorque: 10
-  driftAngularDamping: 4.5
+  maxDriftAngle: 65
+  driftAngularTorque: 8
+  driftAngularDamping: 6
   maxDriftAngularVelocity: 90
-  driftSustainForce: 1500
-  minDriftAngleForSustain: 8
-  directionChangeKick: 15
+  driftSustainForce: 2000
+  minDriftAngleForSustain: 12
+  directionChangeKick: 20
   brakeResetDamping: 12
   brakeResetThreshold: 0.15
   handbrakeResetWindow: 0.15
   enableAutoDrift: 0
-  autoDriftSpeedThreshold: 20
+  autoDriftSpeedThreshold: 15
   autoDriftSteerThreshold: 0.75
-  autoDriftStiffness: 0.6
+  autoDriftStiffness: 0.2
   enableHighSpeedStability: 1
   highSpeedYawDamping: 1.2
   yawDampingSpeedThreshold: 15
