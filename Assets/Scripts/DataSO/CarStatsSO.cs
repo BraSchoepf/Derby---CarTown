@@ -84,6 +84,12 @@ public class CarStatsSO : ScriptableObject
     public float autoDriftSteerThreshold = 0.6f;
     public float autoDriftStiffness = 0.5f;
 
+    [Header("Estabilidad de Yaw a alta velocidad")]
+    public bool enableHighSpeedStability = true;
+    public float highSpeedYawDamping = 1.2f;
+    public float yawDampingSpeedThreshold = 15f;
+    public float expectedYawRateMultiplier = 2.5f;
+
     [Header("Nitro")]
     public float nitroMaxCapacity = 100f;
     public float nitroChargeRate = 10f;      // unidades por segundo, carga pasiva

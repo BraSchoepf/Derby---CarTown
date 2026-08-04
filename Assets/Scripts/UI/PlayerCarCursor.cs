@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerCarCursor : MonoBehaviour
@@ -12,7 +12,7 @@ public class PlayerCarCursor : MonoBehaviour
     public CustomizationTabsUI tabs;
     public WheelSelectionPanelUI wheelPanel;
 
-    [Header("Color panel - repeticiÛn al mantener")]
+    [Header("Color panel - repetici√≥n al mantener")]
     public float holdRepeatDelay = 0.4f;   // pausa inicial antes de empezar a repetir
     public float holdRepeatInterval = 0.12f;
 
@@ -40,7 +40,7 @@ public class PlayerCarCursor : MonoBehaviour
     {
         if (tabs != null && tabs.ownerPlayerIndex != playerIndex)
         {
-            Debug.LogError($"[PlayerCarCursor P{playerIndex}] El campo 'Tabs' apunta a un CustomizationTabsUI de P{tabs.ownerPlayerIndex} ó est·n cruzados. Revis· el Inspector.", this);
+            Debug.LogError($"[PlayerCarCursor P{playerIndex}] El campo 'Tabs' apunta a un CustomizationTabsUI de P{tabs.ownerPlayerIndex} ‚Äî est√°n cruzados. Revis√° el Inspector.", this);
         }
 
         if (grid == null)
@@ -56,52 +56,54 @@ public class PlayerCarCursor : MonoBehaviour
     {
         if (Keyboard.current == null) return;
 
-        Debug.Log($"[P{playerIndex}] current={current}, tabs={tabs}, IsLocked={IsLocked}");
-
         if (current == null)
         {
             CarSlotUI first = grid.FirstSlot();
-            if (first == null)
-            {
-                if (!loggedGridWarning)
-                {
-                    Debug.LogWarning($"[PlayerCarCursor P{playerIndex}] grid.FirstSlot() sigue devolviendo null.", this);
-                    loggedGridWarning = true;
-                }
-                return;
-            }
+            if (first == null) { /* ...guard existente... */ return; }
             MoveTo(first);
             return;
         }
 
-        if (IsLocked && !tabs.IsSubPanelOpen)
+        if (tabs.IsSubPanelOpen)
         {
-            Vector2Int tabDir = ReadDirection();
-            if (tabDir.x != 0) tabs.MoveTabHover(tabDir.x); // A/D o flechas Izq/Der navegan tabs
+            if (tabs.CurrentTab == CustomizationTabsUI.Tab.Car)
+            {
+                Vector2Int moveDir = ReadDirection();
+                if (moveDir != Vector2Int.zero)
+                    MoveTo(grid.GetNextSlot(current.GridRow, current.GridCol, moveDir.y, moveDir.x));
+
+                if (GetConfirm())
+                {
+                    Lock();
+                    tabs.CloseCurrentPanel(); // ‚Üê se cierra apenas confirm√°s, mismo comportamiento que Color/Ruedas
+                }
+                return;
+            }
 
             if (GetConfirm())
             {
-                tabs.ConfirmHoveredTab();
+                tabs.CloseCurrentPanel();
                 return;
             }
 
-            if (GetCancel())
-            {
-                ForceUnlock();
-                return;
-            }
+            if (tabs.CurrentTab == CustomizationTabsUI.Tab.Color)
+                HandleColorNavigation();
+            else if (tabs.CurrentTab == CustomizationTabsUI.Tab.Wheels)
+                HandleWheelNavigation();
 
             return;
         }
 
-        if (IsLocked)
+        Vector2Int tabDir = ReadDirection();
+        if (tabDir.x != 0) tabs.MoveTabHover(tabDir.x);
+
+        if (GetConfirm())
         {
-            HandleCustomizationMode();
+            tabs.ConfirmHoveredTab();
             return;
         }
-
-        HandleCarGridNavigation();
     }
+
 
     void HandleCustomizationMode()
     {
@@ -118,11 +120,11 @@ public class PlayerCarCursor : MonoBehaviour
             else if (tabs.CurrentTab == CustomizationTabsUI.Tab.Wheels)
                 HandleWheelNavigation();
 
-            // Tab.Car no tiene navegaciÛn propia por ahora ó solo mostrar info, cerrar con confirm
+            // Tab.Car no tiene navegaci√≥n propia por ahora ‚Äî solo mostrar info, cerrar con confirm
         }
         else
         {
-            // Estamos en la pantalla de botones de tabs ó navegamos entre ellos
+            // Estamos en la pantalla de botones de tabs ‚Äî navegamos entre ellos
             Vector2Int moveDir = ReadDirection();
             if (moveDir.x != 0)
                 tabs.MoveTabHover(moveDir.x);
@@ -138,7 +140,7 @@ public class PlayerCarCursor : MonoBehaviour
         if (moveDir != Vector2Int.zero)
             MoveTo(grid.GetNextSlot(current.GridRow, current.GridCol, moveDir.y, moveDir.x));
 
-        if (GetConfirm()) Lock(); // Space (P1) / Enter (P2) ó confirma auto
+        if (GetConfirm()) Lock();
     }
 
     Vector2Int ReadDirection()
@@ -220,7 +222,7 @@ public class PlayerCarCursor : MonoBehaviour
     {
         if (colorPanel == null) return;
 
-        Vector2Int dir = ReadDirectionRaw(); // devuelve la direcciÛn sostenida, no solo el frame en que se apretÛ
+        Vector2Int dir = ReadDirectionRaw(); // devuelve la direcci√≥n sostenida, no solo el frame en que se apret√≥
 
         if (dir == Vector2Int.zero)
         {
@@ -231,7 +233,7 @@ public class PlayerCarCursor : MonoBehaviour
 
         if (dir != heldDirection)
         {
-            // CambiÛ de direcciÛn o reciÈn empieza a mantener: un paso inmediato, resetea el timer
+            // Cambi√≥ de direcci√≥n o reci√©n empieza a mantener: un paso inmediato, resetea el timer
             heldDirection = dir;
             holdTimer = holdRepeatDelay;
             isFirstRepeat = true;
@@ -239,7 +241,7 @@ public class PlayerCarCursor : MonoBehaviour
             return;
         }
 
-        // Misma direcciÛn sostenida: cuenta regresiva para repetir
+        // Misma direcci√≥n sostenida: cuenta regresiva para repetir
         holdTimer -= Time.deltaTime;
         if (holdTimer <= 0f)
         {
@@ -294,7 +296,7 @@ public class PlayerCarCursor : MonoBehaviour
         if (preview != null) preview.ShowCar(carToShow);
         if (statsPanel != null) statsPanel.ShowStats(carToShow);
 
-        if (tabs != null) tabs.gameObject.SetActive(true); // asegura que el panel de tabs estÈ visible
+        if (tabs != null) tabs.gameObject.SetActive(true); // asegura que el panel de tabs est√© visible
     }
 
     void Unlock()

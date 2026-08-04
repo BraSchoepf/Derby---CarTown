@@ -30,8 +30,8 @@ MonoBehaviour:
   driftSteerBoost: 0.2
   lowSpeedSteerMultiplier: 0.85
   fullSteerSpeedThreshold: 6
-  highSpeedSteerReduction: 0.8
-  highSpeedThreshold: 38
+  highSpeedSteerReduction: 0.6
+  highSpeedThreshold: 24
   centerOfMassOffset: {x: 0, y: 0.3, z: 0.04}
   suspensionSpring: 43000
   suspensionDamper: 5000
@@ -45,8 +45,8 @@ MonoBehaviour:
   sidewaysExtremumValue: 1
   sidewaysAsymptoteSlip: 0.7
   sidewaysAsymptoteValue: 1
-  sidewaysStiffnessFront: 1.7
-  sidewaysStiffnessRear: 1.9
+  sidewaysStiffnessFront: 1.8
+  sidewaysStiffnessRear: 2
   driftableGroundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -68,6 +68,10 @@ MonoBehaviour:
   autoDriftSpeedThreshold: 20
   autoDriftSteerThreshold: 0.75
   autoDriftStiffness: 0.6
+  enableHighSpeedStability: 1
+  highSpeedYawDamping: 1.2
+  yawDampingSpeedThreshold: 15
+  expectedYawRateMultiplier: 2.5
   nitroMaxCapacity: 100
   nitroChargeRate: 5
   nitroDrainRate: 22

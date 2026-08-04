@@ -27,6 +27,13 @@ public class DrivingProfileSO : ScriptableObject
     public float driftKickForceMultiplier = 1f;
     public float driftAngularTorqueMultiplier = 1f;
 
+    [Header("Estabilidad")]
+    public bool forceDisableHighSpeedStability = false;
+
+    [Header("Auto-Drift")]
+    public bool forceAutoDriftEnabled = false;  // true en DriftProfile.asset
+    public bool forceAutoDriftDisabled = false;
+
     public void ApplyTo(CarStatsSO stats)
     {
         stats.maxSpeed *= maxSpeedMultiplier;
@@ -45,5 +52,17 @@ public class DrivingProfileSO : ScriptableObject
         stats.driftSustainForce *= driftSustainForceMultiplier;
         stats.driftKickForce *= driftKickForceMultiplier;
         stats.driftAngularTorque *= driftAngularTorqueMultiplier;
+
+        if (forceDisableHighSpeedStability)
+            stats.enableHighSpeedStability = false;
+
+        if (forceDriftEnabled) stats.enableDrift = true;
+        if (forceDriftDisabled) stats.enableDrift = false;
+
+        if (forceAutoDriftEnabled) stats.enableAutoDrift = true;
+        if (forceAutoDriftDisabled) stats.enableAutoDrift = false;
+
+        if (forceDisableHighSpeedStability)
+            stats.enableHighSpeedStability = false;
     }
 }

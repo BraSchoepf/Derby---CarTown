@@ -45,14 +45,29 @@ public class CarSelectionGridUI : MonoBehaviour
     // Avanza en una dirección saltando celdas null hasta encontrar un slot válido o el borde
     public CarSlotUI GetNextSlot(int fromRow, int fromCol, int deltaRow, int deltaCol)
     {
-        int r = fromRow, c = fromCol;
-        int maxSteps = Mathf.Max(rows, columns);
-        for (int i = 0; i < maxSteps; i++)
+        int totalRows = grid.GetLength(0);
+        int totalCols = grid.GetLength(1);
+
+        if (deltaCol != 0) // movimiento horizontal — wrap dentro de la MISMA fila
         {
-            r += deltaRow; c += deltaCol;
-            if (r < 0 || r >= rows || c < 0 || c >= columns) return null; // borde: no te movés
-            if (grid[r, c] != null) return grid[r, c];
+            int col = fromCol;
+            for (int i = 0; i < totalCols; i++)
+            {
+                col = ((col + deltaCol) % totalCols + totalCols) % totalCols; // wrap circular
+                if (grid[fromRow, col] != null) return grid[fromRow, col];
+            }
         }
+
+        if (deltaRow != 0) // movimiento vertical — wrap dentro de la MISMA columna
+        {
+            int row = fromRow;
+            for (int i = 0; i < totalRows; i++)
+            {
+                row = ((row + deltaRow) % totalRows + totalRows) % totalRows;
+                if (grid[row, fromCol] != null) return grid[row, fromCol];
+            }
+        }
+
         return null;
     }
 

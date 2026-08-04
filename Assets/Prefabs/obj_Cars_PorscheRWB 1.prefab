@@ -235,6 +235,9 @@ MonoBehaviour:
   flipRecoveryTorque: 15
   maxSpeedForFlipRecovery: 1.5
   maxAngularSpeedForFlipRecovery: 1
+  highSpeedYawDamping: 2
+  yawDampingSpeedThreshold: 25
+  expectedYawRateMultiplier: 1
   isAIControlled: 0
   isDead: 0
   playerIndex: 0
@@ -740,7 +743,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.7
     m_AsymptoteValue: 1
-    m_Stiffness: 1.7
+    m_Stiffness: 1.8
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -811,7 +814,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.7
     m_AsymptoteValue: 1
-    m_Stiffness: 1.7
+    m_Stiffness: 1.8
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1288,7 +1291,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.7
     m_AsymptoteValue: 1
-    m_Stiffness: 1.9
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1721,7 +1724,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.7
     m_AsymptoteValue: 1
-    m_Stiffness: 1.9
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

@@ -232,6 +232,7 @@ public class CarController : MonoBehaviour
         bool isDrifting = wantsHandbrakeDrift || autoDrifting;
 
         HandleDriftKickAndEntry(wantsHandbrakeDrift, forwardSpeed);
+        ApplyHighSpeedStability(isDrifting);
 
         float speedMultiplier = CalculateSpeedSensitiveSteerMultiplier(rb.linearVelocity.magnitude);
         float effectiveSteerAngle = steerInput * stats.maxSteerAngle * speedMultiplier;
@@ -352,6 +353,24 @@ public class CarController : MonoBehaviour
             w.collider.brakeTorque = (w.brake || w.motor) ? ComputeCoastBrake(currentSpeed) : 0f;
         else
             w.collider.brakeTorque = 0f;
+    }
+
+    void ApplyHighSpeedStability(bool isDrifting)
+    {
+        if (!stats.enableHighSpeedStability) return; // apagado por completo para este auto/modo
+        if (isDrifting) return;
+
+        float speed = rb.linearVelocity.magnitude;
+        if (speed < stats.yawDampingSpeedThreshold) return;
+
+        float speedFactor = Mathf.InverseLerp(stats.yawDampingSpeedThreshold, stats.yawDampingSpeedThreshold + 15f, speed);
+
+        float expectedYawRate = steerInput * stats.expectedYawRateMultiplier;
+        float actualYawRate = rb.angularVelocity.y * Mathf.Rad2Deg;
+        float excessYaw = actualYawRate - expectedYawRate;
+
+        float correctionTorque = -excessYaw * Mathf.Deg2Rad * stats.highSpeedYawDamping * speedFactor;
+        rb.AddTorque(Vector3.up * correctionTorque, ForceMode.Acceleration);
     }
 
     float ComputeCoastBrake(float currentSpeed)

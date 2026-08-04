@@ -17,4 +17,4 @@ MonoBehaviour:
   wheelMesh: {fileID: 3946074075619271834, guid: eace3f6d7ef3d984fa5a2d843b1f455a, type: 3}
   wheelMaterials:
   - {fileID: 2100000, guid: bae079d41fa6f654ca5d6514a6f8b4f4, type: 2}
-  nativeRadius: 0.32
+  nativeRadius: 0.34
