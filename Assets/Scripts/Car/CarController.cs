@@ -73,6 +73,7 @@ public class CarController : MonoBehaviour
     public float NitroMaxCapacity => stats.nitroMaxCapacity;
     public float NitroPercent => stats.nitroMaxCapacity > 0f ? nitroCurrent / stats.nitroMaxCapacity : 0f;
     public bool IsNitroActive => isNitroActive;
+    public float EffectiveMaxSpeed => stats.maxSpeed + (isNitroActive ? stats.nitroSpeedBoost : 0f);
 
     Vector3 spawnPosition;
     Quaternion spawnRotation;

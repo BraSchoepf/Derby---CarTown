@@ -3516,6 +3516,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a2fa2f5e699dfca40b808b60743263e1, type: 2}
   - {fileID: 11400000, guid: 8afc9900c3779a74596d034dcb996023, type: 2}
   - {fileID: 11400000, guid: 38009ca04f70a4d499682f648ab2a440, type: 2}
+  - {fileID: 11400000, guid: 4614cc7d32eaab544ad07b5bbcf81956, type: 2}
+  - {fileID: 11400000, guid: 4fc8756b7c9dccb43bf4d52ee084e211, type: 2}
+  - {fileID: 11400000, guid: 2b86b77bc2c8fc841bcc17c90a803f21, type: 2}
   swatchPrefab: {fileID: 4345387489607723968, guid: 05488d231f2efba4fb522bd516e9b313, type: 3}
   swatchContainer: {fileID: 1434786831}
   columns: 4
@@ -6204,7 +6207,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 144.9}
+  m_SizeDelta: {x: 500, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &891981045
 MonoBehaviour:
@@ -8877,6 +8880,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a2fa2f5e699dfca40b808b60743263e1, type: 2}
   - {fileID: 11400000, guid: 8afc9900c3779a74596d034dcb996023, type: 2}
   - {fileID: 11400000, guid: 38009ca04f70a4d499682f648ab2a440, type: 2}
+  - {fileID: 11400000, guid: 4614cc7d32eaab544ad07b5bbcf81956, type: 2}
+  - {fileID: 11400000, guid: 4fc8756b7c9dccb43bf4d52ee084e211, type: 2}
+  - {fileID: 11400000, guid: 2b86b77bc2c8fc841bcc17c90a803f21, type: 2}
   swatchPrefab: {fileID: 4345387489607723968, guid: 05488d231f2efba4fb522bd516e9b313, type: 3}
   swatchContainer: {fileID: 1728440233}
   columns: 4
@@ -15055,7 +15061,7 @@ MonoBehaviour:
   registry: {fileID: 11400000, guid: 99ddd08c3607d7b4f80e84e15ad8ed10, type: 2}
   slotPrefab: {fileID: 1709938611637658927, guid: 66dc6696e42d2144caa8eb1120a457f2, type: 3}
   gridParent: {fileID: 433322284}
-  columns: 8
+  columns: 3
   includeRandomSlot: 1
   player1Cursor: {fileID: 916161635}
   player2Cursor: {fileID: 1940942097}

@@ -70,8 +70,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CheckpointVFX
   player1Smoke: {fileID: 2766267192767742268}
   player2Smoke: {fileID: 3933700427807099100}
+  inactiveColor: {r: 0.6075471, g: 0.6075471, b: 0.6075471, a: 1}
   player1Color: {r: 0, g: 1, b: 1, a: 1}
   player2Color: {r: 1, g: 0, b: 1, a: 1}
+  highlightDuration: 6
 --- !u!1001 &5671555914597392976
 PrefabInstance:
   m_ObjectHideFlags: 0

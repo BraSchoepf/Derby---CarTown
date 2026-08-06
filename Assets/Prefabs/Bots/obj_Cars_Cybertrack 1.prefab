@@ -572,6 +572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RaceCheckpointDetector
   checkpointIndex: -1
+  vfx: {fileID: 0}
 --- !u!1 &2729807838791809342
 GameObject:
   m_ObjectHideFlags: 0

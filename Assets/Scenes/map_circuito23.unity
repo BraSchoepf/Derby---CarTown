@@ -6,10 +6,10 @@ OcclusionCullingSettings:
   serializedVersion: 2
   m_OcclusionBakeSettings:
     smallestOccluder: 5
-    smallestHole: 0.25
+    smallestHole: 0.2
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 955237f89370b2c419c037133a68aa1c
+  m_OcclusionCullingData: {fileID: 36300000, guid: 7eb85ff50176de9429d835d7c88ba742, type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -339,6 +339,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1248717867}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &151542723 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2766267192767742268, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+  m_PrefabInstance: {fileID: 339373647}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &157858462
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,11 +426,11 @@ PrefabInstance:
     - target: {fileID: 1139593462502254048, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: player1Smoke
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2002533755}
     - target: {fileID: 1139593462502254048, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: player2Smoke
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1837404679}
     - target: {fileID: 2147745310306358692, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_Name
       value: checkpoint (3)
@@ -530,6 +535,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -7029948723529949830, guid: 57ad32eb990285d4f932fc33682eba70, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5568371526223589888, guid: 57ad32eb990285d4f932fc33682eba70, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: -5502699832053069676, guid: 57ad32eb990285d4f932fc33682eba70, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -537,6 +550,10 @@ PrefabInstance:
     - target: {fileID: -2504598674852103041, guid: 57ad32eb990285d4f932fc33682eba70, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -2504598674852103041, guid: 57ad32eb990285d4f932fc33682eba70, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 882129737928793925, guid: 57ad32eb990285d4f932fc33682eba70, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -549,6 +566,10 @@ PrefabInstance:
     - target: {fileID: 5148817236446094103, guid: 57ad32eb990285d4f932fc33682eba70, type: 3}
       propertyPath: m_Layer
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5148817236446094103, guid: 57ad32eb990285d4f932fc33682eba70, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7202271454713460447, guid: 57ad32eb990285d4f932fc33682eba70, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -739,11 +760,11 @@ PrefabInstance:
     - target: {fileID: 1139593462502254048, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: player1Smoke
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 151542723}
     - target: {fileID: 1139593462502254048, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: player2Smoke
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1002489633}
     - target: {fileID: 2147745310306358692, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_Name
       value: checkpoint (5)
@@ -808,11 +829,11 @@ PrefabInstance:
     - target: {fileID: 1139593462502254048, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: player1Smoke
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2104945930}
     - target: {fileID: 1139593462502254048, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: player2Smoke
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 379744719}
     - target: {fileID: 2147745310306358692, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_Name
       value: checkpoint (7)
@@ -862,6 +883,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1248717867}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &379744719 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3933700427807099100, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+  m_PrefabInstance: {fileID: 365356450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &454370690
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,6 +919,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1248717867}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &474339320 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2766267192767742268, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+  m_PrefabInstance: {fileID: 1845160853}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &502894844
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,11 +1271,11 @@ PrefabInstance:
     - target: {fileID: 1139593462502254048, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: player1Smoke
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1994228736}
     - target: {fileID: 1139593462502254048, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: player2Smoke
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1036249919}
     - target: {fileID: 2147745310306358692, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_Name
       value: checkpoint (4)
@@ -1516,11 +1547,11 @@ PrefabInstance:
     - target: {fileID: 1139593462502254048, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: player1Smoke
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2128009058}
     - target: {fileID: 1139593462502254048, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: player2Smoke
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1761081978}
     - target: {fileID: 2147745310306358692, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_Name
       value: checkpoint (2)
@@ -1753,6 +1784,11 @@ Transform:
   - {fileID: 1024076859}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &1002489633 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3933700427807099100, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+  m_PrefabInstance: {fileID: 339373647}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1024076858
 GameObject:
   m_ObjectHideFlags: 0
@@ -1784,6 +1820,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1000363679}
   m_LocalEulerAnglesHint: {x: 0, y: 80, z: 0}
+--- !u!198 &1036249919 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3933700427807099100, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+  m_PrefabInstance: {fileID: 691811727}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1044160109
 GameObject:
   m_ObjectHideFlags: 0
@@ -2128,6 +2169,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1000363679}
   m_LocalEulerAnglesHint: {x: 0, y: 80, z: 0}
+--- !u!198 &1443960747 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3933700427807099100, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+  m_PrefabInstance: {fileID: 1845160853}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1452061606
 GameObject:
   m_ObjectHideFlags: 0
@@ -2390,6 +2436,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1248717867}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &1761081978 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3933700427807099100, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+  m_PrefabInstance: {fileID: 829020743}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1837404679 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3933700427807099100, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+  m_PrefabInstance: {fileID: 192229119}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1845160853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2441,11 +2497,11 @@ PrefabInstance:
     - target: {fileID: 1139593462502254048, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: player1Smoke
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 474339320}
     - target: {fileID: 1139593462502254048, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: player2Smoke
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1443960747}
     - target: {fileID: 2147745310306358692, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_Name
       value: checkpoint (6)
@@ -2588,6 +2644,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1248717867}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &1994228736 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2766267192767742268, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+  m_PrefabInstance: {fileID: 691811727}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1994818099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2645,6 +2706,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+--- !u!198 &2002533755 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2766267192767742268, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+  m_PrefabInstance: {fileID: 192229119}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2077889562
 GameObject:
   m_ObjectHideFlags: 0
@@ -2715,6 +2781,16 @@ Transform:
   - {fileID: 1544205240}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &2104945930 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2766267192767742268, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+  m_PrefabInstance: {fileID: 365356450}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2128009058 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2766267192767742268, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+  m_PrefabInstance: {fileID: 829020743}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4077458729273338508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2783,6 +2859,10 @@ PrefabInstance:
     - target: {fileID: 831881216811064499, guid: 5a279a02d13db0e4ebde1ecdc59a8e35, type: 3}
       propertyPath: m_Name
       value: obj_meta
+      objectReference: {fileID: 0}
+    - target: {fileID: 831881216811064499, guid: 5a279a02d13db0e4ebde1ecdc59a8e35, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 1786084415969542822, guid: 5a279a02d13db0e4ebde1ecdc59a8e35, type: 3}
       propertyPath: m_LocalPosition.x
