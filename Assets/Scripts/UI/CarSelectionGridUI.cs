@@ -27,16 +27,24 @@ public class CarSelectionGridUI : MonoBehaviour
             for (int c = 0; c < columns; c++)
             {
                 int flat = r * columns + c;
-                if (flat >= totalSlots) continue; // celda vacía, queda null en el array
+                if (flat >= totalSlots) continue;
 
                 CarSlotUI slot = Instantiate(slotPrefab, gridParent);
                 slot.SetGridPosition(r, c);
-
                 slot.OnClicked += HandleSlotClicked;
 
-                bool isRandom = includeRandomSlot && flat == 0; // dice en la primera celda, como en la referencia
-                if (isRandom) slot.SetCarData(CarSlotType.Random, null);
-                else slot.SetCarData(CarSlotType.Car, registry.cars[carIndex++].stats);
+                bool isRandom = includeRandomSlot && flat == 0;
+                if (isRandom)
+                {
+                    slot.SetCarData(CarSlotType.Random, null);
+                }
+                else
+                {
+                    CarStatsSO car = registry.cars[carIndex++].stats; // se declara ACÁ, antes de usarla
+                    slot.SetCarData(CarSlotType.Car, car);
+                    // SetCarData ya calcula IsLockedByMission internamente (según el fix de CarSlotUI),
+                    // no hace falta calcularlo de nuevo acá
+                }
 
                 grid[r, c] = slot;
             }

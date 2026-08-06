@@ -29,8 +29,12 @@ public class DerbyGameManager : MonoBehaviour
 
     bool matchEnded = false;
     bool teamsEnabled = false;
-
-    void Awake() => Instance = this;
+    void Awake()
+    {
+        Instance = this;
+        OnPlayerWon += ReportSurvivalMissionIfHuman;
+        // ... tu inicialización existente ...
+    }
 
     public void SetTeamsEnabled(bool enabled) => teamsEnabled = enabled;
 
@@ -117,6 +121,23 @@ public class DerbyGameManager : MonoBehaviour
             string winnerName = winningTeam.HasValue ? $"Equipo {winningTeam.Value}" : "Empate";
             Debug.Log($"Partida terminada. Ganador: {winnerName}");
             OnMatchWon?.Invoke(winnerName);
+        }
+    }
+    void ReportSurvivalMissionIfHuman(PlayerEntry winner)
+    {
+        if (winner.humanSlotIndex < 0) return; // ganador es un bot, no reporta misión
+
+        float survivalTime = Time.time - winner.survivalStartTime;
+
+        GameSession session = GameSession.Instance;
+        if (session != null && session.chosenGameMode != null && session.chosenMap != null)
+        {
+            MissionManager.Instance?.ReportResult(
+                session.chosenGameMode,
+                session.chosenMap,
+                MissionObjectiveType.SurvivalTime,
+                survivalTime
+            );
         }
     }
 }

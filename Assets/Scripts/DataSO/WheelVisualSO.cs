@@ -10,4 +10,7 @@ public class WheelVisualSO : ScriptableObject
 
     [Tooltip("Radio REAL del mesh tal como fue modelado, en unidades de Unity. Medilo en el modelo 3D, no lo inventes a ojo.")]
     public float nativeRadius = 0.35f;
+
+    [Header("Desbloqueo")]
+    public string unlockRewardId = "";
 }

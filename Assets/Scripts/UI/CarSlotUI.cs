@@ -7,23 +7,29 @@ public enum CarSlotType { Car, Random }
 public class CarSlotUI : MonoBehaviour, IPointerClickHandler
 {
     public CarSlotType slotType;
-    public CarStatsSO carStats; // null si es el slot Random
+    public CarStatsSO carStats;
 
     [Header("Visual")]
     public Image background;
-    public Image icon; // ← este faltaba
+    public Image icon;
     public Color idleColor, p1Color, p2Color, bothColor, lockedColor;
 
     [Header("Badges de jugador")]
     public GameObject p1Badge;
     public GameObject p2Badge;
 
+    [Header("Bloqueo por misión (candado)")]
+    public GameObject missionLockedOverlay; // ícono de candado / overlay oscuro, mismo patrón que GameModeSlotUI
+
     public int GridRow { get; private set; }
     public int GridCol { get; private set; }
+
     public event System.Action<CarSlotUI> OnClicked;
 
     bool p1Hover, p2Hover;
     int lockedBy;
+
+    public bool IsLockedByMission { get; private set; }
 
     public void SetGridPosition(int r, int c) { GridRow = r; GridCol = c; }
 
@@ -36,16 +42,24 @@ public class CarSlotUI : MonoBehaviour, IPointerClickHandler
         {
             icon.sprite = null;
             icon.enabled = false;
+            IsLockedByMission = false;
         }
         else
         {
             icon.sprite = stats.previewImage;
             icon.enabled = stats.previewImage != null;
+
+            IsLockedByMission = !string.IsNullOrEmpty(stats.unlockRewardId)
+                                 && !UnlockRegistry.IsUnlocked(stats.unlockRewardId);
         }
+
+        if (missionLockedOverlay != null)
+            missionLockedOverlay.SetActive(IsLockedByMission);
     }
 
     public void SetHover(int player, bool hover)
     {
+        if (IsLockedByMission) return; // no permitir hover/selección visual en slots bloqueados
         if (player == 1) p1Hover = hover; else p2Hover = hover;
         Refresh();
     }
@@ -58,11 +72,16 @@ public class CarSlotUI : MonoBehaviour, IPointerClickHandler
         if (p2Badge != null) p2Badge.SetActive(p2Hover || lockedBy == 2);
 
         if (lockedBy != 0) { background.color = lockedColor; return; }
+
         background.color = (p1Hover && p2Hover) ? bothColor
                           : p1Hover ? p1Color
                           : p2Hover ? p2Color
                           : idleColor;
     }
 
-    public void OnPointerClick(PointerEventData e) => OnClicked?.Invoke(this);
+    public void OnPointerClick(PointerEventData e)
+    {
+        if (IsLockedByMission) return; // click bloqueado también
+        OnClicked?.Invoke(this);
+    }
 }

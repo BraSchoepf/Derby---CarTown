@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36f548fee99d5d4ea557e64fc22c30c, type: 3}
+  m_Name: Kills_FFC
+  m_EditorClassIdentifier: Assembly-CSharp::MissionSO
+  missionId: 
+  missionName: 
+  description: 
+  gameMode: {fileID: 0}
+  map: {fileID: 0}
+  objectiveType: 0
+  targetValue: 0
+  rewards: []

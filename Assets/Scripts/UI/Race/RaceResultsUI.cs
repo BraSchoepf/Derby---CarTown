@@ -39,9 +39,17 @@ public class RaceResultsUI : MonoBehaviour
         {
             DriftScoreTracker tracker = FindTrackerForSlot(racer.humanSlotIndex);
             if (tracker != null) driftScore = tracker.TotalScore;
+
+            if (session.chosenGameMode.isDriftScoringMode && driftScore >= 0)
+                MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.DriftScoreThreshold, driftScore);
+            else
+                MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.RaceTimeUnder, raceTime);
+
+            MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.FinishPlacement, racer.finishPlacement);
         }
 
         panel.ShowRaceResult(racer.finishPlacement, totalRacers, raceTime, driftScore);
+
     }
 
     DriftScoreTracker FindTrackerForSlot(int humanSlotIndex)

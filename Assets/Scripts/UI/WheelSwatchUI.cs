@@ -10,6 +10,8 @@ public class WheelSwatchUI : MonoBehaviour, IPointerClickHandler
     WheelVisualSO assignedWheel;
     public event System.Action<WheelSwatchUI> OnClicked;
 
+    public GameObject missionLockedOverlay;
+    public bool IsLockedByMission { get; private set; }
     void Awake()
     {
         if (icon == null) icon = GetComponent<Image>();
@@ -20,6 +22,9 @@ public class WheelSwatchUI : MonoBehaviour, IPointerClickHandler
         assignedWheel = wheel;
         if (icon != null && wheel.previewIcon != null)
             icon.sprite = wheel.previewIcon;
+
+        IsLockedByMission = !string.IsNullOrEmpty(wheel.unlockRewardId) && !UnlockRegistry.IsUnlocked(wheel.unlockRewardId);
+        if (missionLockedOverlay != null) missionLockedOverlay.SetActive(IsLockedByMission);
     }
 
     public WheelVisualSO GetWheel() => assignedWheel;

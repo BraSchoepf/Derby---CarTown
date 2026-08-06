@@ -8,6 +8,7 @@ public class WheelSelectionPanelUI : MonoBehaviour
     public int columns = 4;
 
     public event System.Action<WheelVisualSO> OnWheelSelected;
+    public bool CurrentWheelIsLocked => currentIndex >= 0 && spawnedSwatches[currentIndex].IsLockedByMission;
 
     WheelSwatchUI[] spawnedSwatches;
     int currentIndex = -1; // -1 = sin elegir, se conservan las ruedas default del auto
@@ -38,7 +39,6 @@ public class WheelSelectionPanelUI : MonoBehaviour
 
     public WheelVisualSO Move(int deltaCol, int deltaRow)
     {
-        // Si todavía no eligió nada, el primer movimiento arranca desde el índice 0
         if (currentIndex < 0)
         {
             SelectIndex(0);
@@ -49,11 +49,14 @@ public class WheelSelectionPanelUI : MonoBehaviour
         int col = currentIndex % columns;
         int totalRows = Mathf.CeilToInt((float)availableWheels.Length / columns);
 
-        int newCol = Mathf.Clamp(col + deltaCol, 0, columns - 1);
-        int newRow = Mathf.Clamp(row + deltaRow, 0, totalRows - 1);
+        int newCol = ((col + deltaCol) % columns + columns) % columns;
+        int newRow = ((row + deltaRow) % totalRows + totalRows) % totalRows;
+
         int newIndex = newRow * columns + newCol;
         newIndex = Mathf.Clamp(newIndex, 0, availableWheels.Length - 1);
 
+        // Permite NAVEGAR sobre ruedas bloqueadas (para verlas), pero no queda "elegida" de forma inválida
+        // — esto es una decisión de diseño: ¿preferís que directamente las salte al navegar?
         SelectIndex(newIndex);
         return CurrentWheel;
     }

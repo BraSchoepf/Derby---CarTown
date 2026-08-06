@@ -10,6 +10,7 @@ public class GameSession : MonoBehaviour
     public CarStatsSO player1Car;
     public CarStatsSO player2Car; // null si es single player
     public string selectedMapSceneName;
+    public MapDataSO chosenMap;
 
     public GameModeSO chosenGameMode;
     public TeamId player1Team;
@@ -21,6 +22,8 @@ public class GameSession : MonoBehaviour
 
     public WheelVisualSO player1WheelVisual;
     public WheelVisualSO player2WheelVisual;
+
+
 
     void Awake()
     {

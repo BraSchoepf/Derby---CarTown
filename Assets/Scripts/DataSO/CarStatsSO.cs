@@ -112,4 +112,7 @@ public class CarStatsSO : ScriptableObject
 
     [Header("VFX")]
     public CarVFXDataSO vfxData;
+
+    [Header("Desbloqueo")]
+    public string unlockRewardId = "";
 }

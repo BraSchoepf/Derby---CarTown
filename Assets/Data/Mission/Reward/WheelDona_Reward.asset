@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1467ebd61e4a0854e839030f23db2c3e, type: 3}
+  m_Name: WheelDona_Reward
+  m_EditorClassIdentifier: Assembly-CSharp::RewardSO
+  rewardId: 1
+  type: 1
+  icon: {fileID: 21300000, guid: baa524207323ddb49a7aa4b9029f5337, type: 3}
+  displayName: Dona
+  carReward: {fileID: 0}
+  wheelReward: {fileID: 11400000, guid: 7805bbddab453f5489ea3cd0daa519c2, type: 2}
+  colorReward: {r: 1, g: 1, b: 1, a: 0}

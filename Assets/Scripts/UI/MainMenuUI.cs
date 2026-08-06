@@ -39,6 +39,9 @@ public class MainMenuUI : MonoBehaviour
     public string gameplayCoreSceneName = "GameplayCore";
     public string raceCoreSceneName = "RaceCore";
 
+    [Header("Mission Preview")]
+    public MissionPreviewUI missionPreview;
+
     GameMode chosenMode;
     bool multiplayer;
     GameModeSO chosenGameMode;
@@ -136,8 +139,12 @@ public class MainMenuUI : MonoBehaviour
                 moved = true;
             }
 
-            if (moved && mapNameText != null)
-                mapNameText.text = mapCarousel.CurrentMap.mapName;
+
+            if (moved)
+            {
+                if (mapNameText != null) mapNameText.text = mapCarousel.CurrentMap.mapName;
+                if (missionPreview != null) missionPreview.ShowMissionFor(chosenGameMode, mapCarousel.CurrentMap); // NUEVO
+            }
         }
     }
 
@@ -154,6 +161,7 @@ public class MainMenuUI : MonoBehaviour
 
         if (mapNameText != null)
             mapNameText.text = mapCarousel.CurrentMap.mapName;
+        if (missionPreview != null) missionPreview.ShowMissionFor(chosenGameMode, mapCarousel.CurrentMap);
     }
 
     // Llamado por el botón "Volver a elegir modo" dentro de selección de auto
@@ -213,6 +221,7 @@ public class MainMenuUI : MonoBehaviour
         session.player1Color = player1Cursor.SelectedColor;
         session.player2Color = multiplayer ? player2Cursor.SelectedColor : Color.white;
         session.selectedMapSceneName = mapCarousel.CurrentMap.sceneName;
+        session.chosenMap = mapCarousel.CurrentMap;
         session.player1WheelVisual = player1Cursor.SelectedWheelVisual;
         session.player2WheelVisual = multiplayer ? player2Cursor.SelectedWheelVisual : null;
 

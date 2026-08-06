@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36f548fee99d5d4ea557e64fc22c30c, type: 3}
+  m_Name: Score_Drift
+  m_EditorClassIdentifier: Assembly-CSharp::MissionSO
+  missionId: 1
+  missionName: La Cumbre Serpenteante
+  description: Consigue 110.000 puntos de derrape en la cumbre
+  gameMode: {fileID: 11400000, guid: a870a34c8c530f748b3321ab48e741f1, type: 2}
+  map: {fileID: 11400000, guid: bc88f6a0b150f3846a1bbdbc616e0d8e, type: 2}
+  objectiveType: 0
+  targetValue: 110000
+  rewards:
+  - {fileID: 11400000, guid: 2f30514a8c5180b4d9c941b5f307ee30, type: 2}

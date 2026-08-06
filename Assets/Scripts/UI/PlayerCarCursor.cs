@@ -24,8 +24,6 @@ public class PlayerCarCursor : MonoBehaviour
     float wheelHoldTimer;
     public ColorSelectionPanelUI colorPanel;
 
-    bool loggedGridWarning = false;
-
     CarSlotUI current, locked;
     CarStatsSO lastRandomPick;
 
@@ -140,7 +138,11 @@ public class PlayerCarCursor : MonoBehaviour
         if (moveDir != Vector2Int.zero)
             MoveTo(grid.GetNextSlot(current.GridRow, current.GridCol, moveDir.y, moveDir.x));
 
-        if (GetConfirm()) Lock();
+        if (GetConfirm())
+        {
+            if (current.IsLockedByMission) return; // ya está bien tipado ahora
+            Lock();
+        }
     }
 
     Vector2Int ReadDirection()
@@ -186,6 +188,7 @@ public class PlayerCarCursor : MonoBehaviour
     void ApplyWheelMove(Vector2Int dir)
     {
         WheelVisualSO wheel = wheelPanel.Move(dir.x, dir.y);
+        if (wheelPanel.CurrentWheelIsLocked) return; // no aplicar visualmente una rueda bloqueada
         preview.SetWheel(wheel);
     }
     void HandleWheelNavigation()
