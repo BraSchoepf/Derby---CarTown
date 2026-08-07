@@ -665,7 +665,7 @@ CapsuleCollider:
   m_Radius: 0.62
   m_Height: 1.73
   m_Direction: 0
-  m_Center: {x: 0, y: 0.71, z: 0.02}
+  m_Center: {x: 0, y: 0.76, z: 0.02}
 --- !u!136 &5323169737920357068
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -688,7 +688,7 @@ CapsuleCollider:
   m_Radius: 0.43
   m_Height: 1.66
   m_Direction: 0
-  m_Center: {x: 0, y: 0.53, z: 1.07}
+  m_Center: {x: 0, y: 0.6, z: 1.07}
 --- !u!1 &5561611017644307912
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,6 +936,7 @@ GameObject:
   - component: {fileID: 376089670323513929}
   - component: {fileID: 8453155435232684146}
   - component: {fileID: 6771098172412852459}
+  - component: {fileID: 7656171263423611238}
   m_Layer: 6
   m_Name: obj_Cars_ToyotaSupra
   m_TagString: Untagged
@@ -1341,6 +1342,20 @@ MonoBehaviour:
     isFrontAxle: 0
     isLeftSide: 1
   stats: {fileID: 11400000, guid: 8d728ca49fda41e438b212f154529ad0, type: 2}
+--- !u!114 &7656171263423611238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6770943345239207863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd76e1a0b1a4ad4c8e852a97fdeae70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LineRecorder
+  sampleDistance: 2
+  targetCar: {fileID: 5223576541392487414}
 --- !u!1 &7923725331281594584
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,6 +1423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RaceCheckpointDetector
   checkpointIndex: -1
+  vfx: {fileID: 0}
 --- !u!1 &8171827825382592531
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class MapCarouselUI : MonoBehaviour
     public Transform carouselContainer;
 
     [Header("Layout")]
-    public float spacingX = 220f;
+    public float spacingY = 220f;
     public float sideScale = 0.7f;
     public float sideAlpha = 0.4f;
     [Tooltip("Cuántos vecinos a cada lado se ven antes de desaparecer del todo")]
@@ -61,7 +61,7 @@ public class MapCarouselUI : MonoBehaviour
             int absOffset = Mathf.Abs(offset);
 
             RectTransform rt = spawnedSlots[i].rectTransform;
-            rt.anchoredPosition = new Vector2(offset * spacingX, 0f);
+            rt.anchoredPosition = new Vector2(0f, -offset * spacingY);
 
             float scaleT = Mathf.Clamp01((float)absOffset / maxVisibleNeighbors);
             float scale = Mathf.Lerp(1f, sideScale, scaleT);

@@ -1,41 +1,56 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public static class UnlockRegistry
 {
-    static HashSet<string> unlockedRewardIds = new HashSet<string>();
-    const string SaveKey = "UnlockedRewards";
+    static Dictionary<int, HashSet<string>> unlockedByPlayer = new Dictionary<int, HashSet<string>>();
+
+    static string SaveKeyFor(int playerIndex) => $"UnlockedRewards_P{playerIndex}";
 
     public static void Load()
     {
-        unlockedRewardIds.Clear();
-        string saved = PlayerPrefs.GetString(SaveKey, "");
-        if (string.IsNullOrEmpty(saved)) return;
-
-        foreach (var id in saved.Split(','))
-            if (!string.IsNullOrEmpty(id)) unlockedRewardIds.Add(id);
+        unlockedByPlayer.Clear();
+        LoadForPlayer(1);
+        LoadForPlayer(2);
     }
 
-    public static void Unlock(string rewardId)
+    static void LoadForPlayer(int playerIndex)
     {
-        unlockedRewardIds.Add(rewardId);
-        Save();
+        var set = new HashSet<string>();
+        string saved = PlayerPrefs.GetString(SaveKeyFor(playerIndex), "");
+        if (!string.IsNullOrEmpty(saved))
+        {
+            foreach (var id in saved.Split(','))
+                if (!string.IsNullOrEmpty(id)) set.Add(id);
+        }
+        unlockedByPlayer[playerIndex] = set;
     }
 
-    public static bool IsUnlocked(string rewardId) => unlockedRewardIds.Contains(rewardId);
-
-    static void Save()
+    public static void Unlock(string rewardId, int playerIndex)
     {
-        PlayerPrefs.SetString(SaveKey, string.Join(",", unlockedRewardIds));
+        if (!unlockedByPlayer.ContainsKey(playerIndex))
+            unlockedByPlayer[playerIndex] = new HashSet<string>();
+        unlockedByPlayer[playerIndex].Add(rewardId);
+        Save(playerIndex);
+    }
+
+    public static bool IsUnlocked(string rewardId, int playerIndex)
+    {
+        return unlockedByPlayer.TryGetValue(playerIndex, out var set) && set.Contains(rewardId);
+    }
+
+    static void Save(int playerIndex)
+    {
+        var set = unlockedByPlayer[playerIndex];
+        PlayerPrefs.SetString(SaveKeyFor(playerIndex), string.Join(",", set));
         PlayerPrefs.Save();
     }
 
-    // Nuevo: reset completo
     public static void ResetAll()
     {
-        unlockedRewardIds.Clear();
-        PlayerPrefs.DeleteKey(SaveKey);
+        unlockedByPlayer.Clear();
+        PlayerPrefs.DeleteKey(SaveKeyFor(1));
+        PlayerPrefs.DeleteKey(SaveKeyFor(2));
         PlayerPrefs.Save();
     }
 }

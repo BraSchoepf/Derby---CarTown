@@ -41,11 +41,11 @@ public class RaceResultsUI : MonoBehaviour
             if (tracker != null) driftScore = tracker.TotalScore;
 
             if (session.chosenGameMode.isDriftScoringMode && driftScore >= 0)
-                MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.DriftScoreThreshold, driftScore);
+                MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.DriftScoreThreshold, driftScore, racer.humanSlotIndex);
             else
-                MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.RaceTimeUnder, raceTime);
+                MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.RaceTimeUnder, raceTime, racer.humanSlotIndex);
 
-            MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.FinishPlacement, racer.finishPlacement);
+            MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.FinishPlacement, racer.finishPlacement, racer.humanSlotIndex);
         }
 
         panel.ShowRaceResult(racer.finishPlacement, totalRacers, raceTime, driftScore);

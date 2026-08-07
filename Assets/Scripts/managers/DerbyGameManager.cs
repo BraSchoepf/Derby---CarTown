@@ -132,12 +132,7 @@ public class DerbyGameManager : MonoBehaviour
         GameSession session = GameSession.Instance;
         if (session != null && session.chosenGameMode != null && session.chosenMap != null)
         {
-            MissionManager.Instance?.ReportResult(
-                session.chosenGameMode,
-                session.chosenMap,
-                MissionObjectiveType.SurvivalTime,
-                survivalTime
-            );
+            MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.SurvivalTime, survivalTime, winner.humanSlotIndex);
         }
     }
 }

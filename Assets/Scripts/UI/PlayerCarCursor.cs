@@ -72,8 +72,11 @@ public class PlayerCarCursor : MonoBehaviour
 
                 if (GetConfirm())
                 {
+                    if (current.IsLockedByMission)
+                        return;
+
                     Lock();
-                    tabs.CloseCurrentPanel(); // ← se cierra apenas confirmás, mismo comportamiento que Color/Ruedas
+                    tabs.CloseCurrentPanel();
                 }
                 return;
             }
@@ -102,6 +105,12 @@ public class PlayerCarCursor : MonoBehaviour
         }
     }
 
+    bool IsSlotLockedForMe(CarSlotUI slot)
+    {
+        if (slot.slotType == CarSlotType.Random) return false;
+        if (string.IsNullOrEmpty(slot.carStats.unlockRewardId)) return false;
+        return !UnlockRegistry.IsUnlocked(slot.carStats.unlockRewardId, playerIndex - 1); // playerIndex es 1/2, slot es 0/1
+    }
 
     void HandleCustomizationMode()
     {
@@ -140,7 +149,7 @@ public class PlayerCarCursor : MonoBehaviour
 
         if (GetConfirm())
         {
-            if (current.IsLockedByMission) return; // ya está bien tipado ahora
+            if (IsSlotLockedForMe(current)) return;
             Lock();
         }
     }
@@ -289,6 +298,9 @@ public class PlayerCarCursor : MonoBehaviour
 
     void Lock()
     {
+        if (current == null || current.IsLockedByMission)
+            return;
+
         locked = current;
         lastRandomPick = locked.slotType == CarSlotType.Random
             ? grid.registry.cars[Random.Range(0, grid.registry.cars.Length)].stats

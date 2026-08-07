@@ -21,3 +21,4 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 05cf2b15a7ee627418662034b8847dec, type: 2}
   - {fileID: 2100000, guid: abc8fa5928f7ee24a88644eef2e6e6d7, type: 2}
   nativeRadius: 0.32
+  unlockRewardId: 2

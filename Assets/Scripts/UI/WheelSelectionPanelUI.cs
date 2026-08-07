@@ -7,6 +7,10 @@ public class WheelSelectionPanelUI : MonoBehaviour
     public Transform swatchContainer;
     public int columns = 4;
 
+    [Header("Dueño de este panel (0 = P1, 1 = P2)")]
+    public int ownerPlayerSlotIndex = 1;
+
+
     public event System.Action<WheelVisualSO> OnWheelSelected;
     public bool CurrentWheelIsLocked => currentIndex >= 0 && spawnedSwatches[currentIndex].IsLockedByMission;
 
@@ -27,6 +31,7 @@ public class WheelSelectionPanelUI : MonoBehaviour
         for (int i = 0; i < availableWheels.Length; i++)
         {
             WheelSwatchUI swatch = Instantiate(swatchPrefab, swatchContainer);
+            swatch.ownerPlayerSlotIndex = ownerPlayerSlotIndex;
             swatch.SetWheel(availableWheels[i]);
             int index = i;
             swatch.OnClicked += (s) => SelectIndex(index);

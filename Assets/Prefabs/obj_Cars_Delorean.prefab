@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RaceCheckpointDetector
   checkpointIndex: -1
+  vfx: {fileID: 0}
 --- !u!1 &1860447138805024706
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,6 +825,7 @@ MonoBehaviour:
   stuckCheckSpeedThreshold: 0.5
   stuckTimeBeforeRespawn: 4
   autoRespawnWhenStuck: 0
+  nitroRampSpeed: 4
 --- !u!114 &3061619388327265375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -921,6 +923,9 @@ MonoBehaviour:
   maxVertexDisplacement: 0.35
   minImpactForce: 3
   recalculateBoundsEvery: 3
+  damageLayer:
+    serializedVersion: 2
+    m_Bits: 16456
 --- !u!114 &823476088256454969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012,6 +1017,9 @@ MonoBehaviour:
   chainGraceWindow: 0.6
   minCollisionForceToReset: 4
   redFlashDuration: 0.8
+  collisionCountsLayer:
+    serializedVersion: 2
+    m_Bits: 16392
 --- !u!114 &-5869439515177283206
 MonoBehaviour:
   m_ObjectHideFlags: 0

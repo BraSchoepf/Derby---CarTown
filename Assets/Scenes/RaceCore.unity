@@ -239,6 +239,9 @@ MonoBehaviour:
   racePositionP2: {fileID: 1034980821}
   wrongWayUIP1: {fileID: 914954625}
   wrongWayUIP2: {fileID: 1747587815}
+  availableRecordedLines:
+  - {fileID: 11400000, guid: 4ed3d92a83fc12348aa739441e0d3127, type: 2}
+  chanceToUseRecordedLine: 1
   registry: {fileID: 11400000, guid: 99ddd08c3607d7b4f80e84e15ad8ed10, type: 2}
   playerSlotConfigs:
   - splitScreenCamera: {fileID: 330585545}
@@ -265,7 +268,7 @@ MonoBehaviour:
     placement: 0
     survivalStartTime: 0
     killedByName: 
-    humanSlotIndex: 0
+    humanSlotIndex: 1
     team: 0
   - playerName: ......
     health: {fileID: 0}
@@ -274,7 +277,7 @@ MonoBehaviour:
     placement: 0
     survivalStartTime: 0
     killedByName: 
-    humanSlotIndex: 0
+    humanSlotIndex: 2
     team: 0
 --- !u!114 &27386397
 MonoBehaviour:

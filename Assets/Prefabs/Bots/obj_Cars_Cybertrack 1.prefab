@@ -216,7 +216,7 @@ MonoBehaviour:
   maxAngularSpeedForFlipRecovery: 1
   isAIControlled: 1
   isDead: 0
-  playerIndex: 0
+  playerIndex: -1
   stuckCheckSpeedThreshold: 0.5
   stuckTimeBeforeRespawn: 4
   autoRespawnWhenStuck: 0

@@ -35,6 +35,10 @@ public class RaceSetup : MonoBehaviour
     public WrongWayUI wrongWayUIP1;
     public WrongWayUI wrongWayUIP2;
 
+    [Header("IA con línea grabada (opcional)")]
+    public RecordedRacingLine[] availableRecordedLines; // asignar las líneas grabadas para este mapa/modo
+    [Range(0f, 1f)] public float chanceToUseRecordedLine = 0.7f;
+
     [System.Serializable]
     public class PlayerSlotConfig
     {
@@ -240,14 +244,15 @@ public class RaceSetup : MonoBehaviour
 
     void SpawnGridBots()
     {
-        if (!session.chosenGameMode.allowBots)
-        {
-            Debug.Log("[RaceSetup] El modo actual no permite bots — no se spawnean rivales de IA.");
-            return;
-        }
+        if (!session.chosenGameMode.allowBots) return;
 
         Transform[] aiSpawnPoints = MapLoader.Instance.GetAISpawnPoints(GameModeCategory.Racing);
         int count = Mathf.Min(botsToFillGrid, aiSpawnPoints.Length);
+
+        // Filtrar solo las líneas grabadas que correspondan al mapa/modo actual
+        var validLines = availableRecordedLines != null
+            ? availableRecordedLines.Where(l => l.map == session.chosenMap && l.gameMode == session.chosenGameMode).ToArray()
+            : new RecordedRacingLine[0];
 
         for (int i = 0; i < count; i++)
         {
@@ -281,26 +286,19 @@ public class RaceSetup : MonoBehaviour
             if (identity == null) identity = instance.AddComponent<RaceCarIdentity>();
             identity.Initialize(progress);
 
-            // Nuevo: le damos el "cerebro" de carrera en vez de dejarlo sin control
-            if (session.chosenGameMode.isDriftScoringMode)
-            {
-                DriftAIController driftAI = instance.GetComponent<DriftAIController>();
-                if (driftAI == null) driftAI = instance.AddComponent<DriftAIController>();
-                driftAI.progress = progress;
-                driftAI.raceManager = raceManager;
-                driftAI.waypointPath = raceManager.activeCourse.aiPath;
+            // --- Decisión: línea grabada vs IA genérica ---
+            bool useRecordedLine = validLines.Length > 0 && Random.value < chanceToUseRecordedLine;
 
-                DriftScoreTracker scoreTracker = instance.GetComponent<DriftScoreTracker>();
-                if (scoreTracker == null) scoreTracker = instance.AddComponent<DriftScoreTracker>();
-            }
-            else
-            {
-                RaceAIController raceAI = instance.GetComponent<RaceAIController>();
-                if (raceAI == null) raceAI = instance.AddComponent<RaceAIController>();
-                raceAI.progress = progress;
-                raceAI.raceManager = raceManager;
-                raceAI.waypointPath = raceManager.activeCourse.aiPath;
-            }
+            var aiController = instance.GetComponent<RaceAIController>();
+            if (aiController == null) aiController = instance.AddComponent<RaceAIController>();
+
+            aiController.progress = progress;
+            aiController.raceManager = raceManager;
+            aiController.waypointPath = raceManager.activeCourse.aiPath; // siempre asignado, como fallback
+
+            if (useRecordedLine)
+                aiController.recordedLine = validLines[Random.Range(0, validLines.Length)];
+
 
             CarColorApplier colorApplier = instance.GetComponentInChildren<CarColorApplier>();
             if (colorApplier != null)

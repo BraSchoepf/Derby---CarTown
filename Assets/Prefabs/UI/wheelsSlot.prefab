@@ -110,7 +110,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 122, y: 112}
+  m_SizeDelta: {x: 102, y: 92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &744401979229225171
 CanvasRenderer:
@@ -185,7 +185,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 55}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &375732818620274944
 CanvasRenderer:
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 566e5898d59caf54597d7f2dc26c6da1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dc6a73c761d8b7f4088cd4e837e90236, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -335,7 +335,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 120, y: 110}
+  m_SizeDelta: {x: 90, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4686366286653475668
 CanvasRenderer:
@@ -417,7 +417,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 120, y: 110}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &30124253401238344
 CanvasRenderer:
@@ -471,6 +471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WheelSwatchUI
   icon: {fileID: 1594997182829917456}
   selectionHighlight: {fileID: 3580935884812432108}
+  ownerPlayerSlotIndex: 1
   missionLockedOverlay: {fileID: 3689341914592900304}
 --- !u!1 &9170540937132653763
 GameObject:
@@ -507,7 +508,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &96131511916543444
 CanvasRenderer:

@@ -11,6 +11,9 @@ public class CarSelectionGridUI : MonoBehaviour
     public PlayerCarCursor player1Cursor;
     public PlayerCarCursor player2Cursor;
 
+    [Header("Dueño de este grid (1 = P1, 2 = P2)")]
+    public int ownerPlayerSlotIndex = 1;
+
     CarSlotUI[,] grid;
     int rows;
 
@@ -31,6 +34,7 @@ public class CarSelectionGridUI : MonoBehaviour
 
                 CarSlotUI slot = Instantiate(slotPrefab, gridParent);
                 slot.SetGridPosition(r, c);
+                slot.ownerPlayerSlotIndex = ownerPlayerSlotIndex;
                 slot.OnClicked += HandleSlotClicked;
 
                 bool isRandom = includeRandomSlot && flat == 0;

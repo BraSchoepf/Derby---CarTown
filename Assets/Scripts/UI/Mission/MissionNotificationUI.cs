@@ -18,7 +18,7 @@ public class MissionNotificationUI : MonoBehaviour
             MissionManager.Instance.OnMissionCompleted += ShowNotification;
     }
 
-    void ShowNotification(MissionSO mission)
+    void ShowNotification(MissionSO mission, int playerSlotIndex) // agregado el segundo parámetro
     {
         StartCoroutine(ShowRoutine(mission));
     }

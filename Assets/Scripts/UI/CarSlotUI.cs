@@ -21,6 +21,9 @@ public class CarSlotUI : MonoBehaviour, IPointerClickHandler
     [Header("Bloqueo por misión (candado)")]
     public GameObject missionLockedOverlay; // ícono de candado / overlay oscuro, mismo patrón que GameModeSlotUI
 
+    [Header("Dueño de este grid (0 = P1, 1 = P2)")]
+    public int ownerPlayerSlotIndex = 1; // se configura en el Inspector de cada instancia del grid
+
     public int GridRow { get; private set; }
     public int GridCol { get; private set; }
 
@@ -35,6 +38,8 @@ public class CarSlotUI : MonoBehaviour, IPointerClickHandler
 
     public void SetCarData(CarSlotType type, CarStatsSO stats)
     {
+        Debug.Log($"[CarSlotUI] Consultando IsUnlocked con ownerPlayerSlotIndex={ownerPlayerSlotIndex} para {stats?.carName}"); // TEMPORAL
+
         slotType = type;
         carStats = stats;
 
@@ -50,7 +55,7 @@ public class CarSlotUI : MonoBehaviour, IPointerClickHandler
             icon.enabled = stats.previewImage != null;
 
             IsLockedByMission = !string.IsNullOrEmpty(stats.unlockRewardId)
-                                 && !UnlockRegistry.IsUnlocked(stats.unlockRewardId);
+                                && !UnlockRegistry.IsUnlocked(stats.unlockRewardId, ownerPlayerSlotIndex);
         }
 
         if (missionLockedOverlay != null)

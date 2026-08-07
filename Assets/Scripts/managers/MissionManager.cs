@@ -25,7 +25,7 @@ public class MissionManager : MonoBehaviour
     Dictionary<string, bool> completedMissions = new();
     const string SaveKey = "MissionProgress";
 
-    public event Action<MissionSO> OnMissionCompleted;
+    public event Action<MissionSO, int> OnMissionCompleted;
 
     void Awake()
     {
@@ -43,22 +43,35 @@ public class MissionManager : MonoBehaviour
 
     public bool IsCompleted(string missionId) => completedMissions.TryGetValue(missionId, out bool done) && done;
 
-    public void ReportResult(GameModeSO mode, MapDataSO map, MissionObjectiveType type, float achievedValue)
+    public void ReportResult(GameModeSO mode, MapDataSO map, MissionObjectiveType type, float achievedValue, int playerSlotIndex)
     {
+        Debug.Log($"[MissionManager] ReportResult llamado con playerSlotIndex={playerSlotIndex}");
+
         var mission = allMissions.FirstOrDefault(m =>
-            m.gameMode == mode && m.map == map && m.objectiveType == type && !IsCompleted(m.missionId));
+            m.gameMode == mode && m.map == map && m.objectiveType == type && !IsCompleted(m.missionId, playerSlotIndex));
 
         if (mission == null) return;
         if (!EvaluateObjective(mission, achievedValue)) return;
 
-        completedMissions[mission.missionId] = true;
+        SetCompleted(mission.missionId, playerSlotIndex);
 
         foreach (var reward in mission.rewards)
             if (!string.IsNullOrEmpty(reward.rewardId))
-                UnlockRegistry.Unlock(reward.rewardId);
+                UnlockRegistry.Unlock(reward.rewardId, playerSlotIndex);
 
         SaveProgress();
-        OnMissionCompleted?.Invoke(mission);
+        OnMissionCompleted?.Invoke(mission, playerSlotIndex); // el evento también necesita saber a quién notificar
+    }
+    public bool IsCompleted(string missionId, int playerSlotIndex)
+    {
+        string key = $"{missionId}_P{playerSlotIndex}";
+        return completedMissions.TryGetValue(key, out bool done) && done;
+    }
+
+    void SetCompleted(string missionId, int playerSlotIndex)
+    {
+        string key = $"{missionId}_P{playerSlotIndex}";
+        completedMissions[key] = true;
     }
 
     bool EvaluateObjective(MissionSO mission, float value)

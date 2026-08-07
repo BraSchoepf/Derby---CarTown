@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -32,7 +32,7 @@ public class RaceManager : MonoBehaviour
     List<RacerProgress> racers = new();
     int totalLaps;
     bool raceEndTriggered = false;
-    bool gracePeriodStarted = false; // evita lanzar la corrutina m·s de una vez
+    bool gracePeriodStarted = false; // evita lanzar la corrutina m√°s de una vez
     float gracePeriodAfterFirstFinish = 15f;
     bool rankingActive = true;
 
@@ -67,7 +67,7 @@ public class RaceManager : MonoBehaviour
             {
                 detector.vfx = checkpointGO.GetComponent<CheckpointVFX>();
                 if (detector.vfx == null)
-                    Debug.LogWarning($"[RaceManager] Checkpoint {i} no tiene CheckpointVFX asignado ó sin feedback visual.");
+                    Debug.LogWarning($"[RaceManager] Checkpoint {i} no tiene CheckpointVFX asignado ‚Äî sin feedback visual.");
             }
         }
     }
@@ -89,7 +89,7 @@ public class RaceManager : MonoBehaviour
                 HandleRacerFinished(racer);
         }
 
-        return true; // el paso fue v·lido
+        return true; // el paso fue v√°lido
     }
 
     void HandleRacerFinished(RacerProgress racer)
@@ -97,7 +97,7 @@ public class RaceManager : MonoBehaviour
         if (raceEndTriggered) return;
 
         racer.finished = true;
-        racer.finishTime = Time.time;
+        racer.finishTime = Time.time - raceStartTime;
         racer.finishPlacement = racers.Count(r => r.finished);
 
         OnRacerFinishedIndividual?.Invoke(racer);
@@ -106,16 +106,16 @@ public class RaceManager : MonoBehaviour
 
         if (!anyHumanStillRacing)
         {
-            EndRace(); // todos los humanos ya terminaron (o no habÌa m·s humanos activos)
+            EndRace(); // todos los humanos ya terminaron (o no hab√≠a m√°s humanos activos)
         }
         else if (!IsHuman(racer))
         {
-            // Un bot cruzÛ la meta: no corta la carrera, los humanos siguen
+            // Un bot cruz√≥ la meta: no corta la carrera, los humanos siguen
         }
         else if (!gracePeriodStarted)
         {
-            // Un humano cruzÛ y otro humano sigue activo: arranca la cuenta regresiva UNA sola vez,
-            // sin importar cu·ntos humanos terminen despuÈs durante esa ventana
+            // Un humano cruz√≥ y otro humano sigue activo: arranca la cuenta regresiva UNA sola vez,
+            // sin importar cu√°ntos humanos terminen despu√©s durante esa ventana
             gracePeriodStarted = true;
             StartCoroutine(GracePeriodThenEnd());
         }
@@ -154,8 +154,6 @@ public class RaceManager : MonoBehaviour
         if (raceEndTriggered) return;
         raceEndTriggered = true;
 
-        // A los que no cruzaron meta, se les asigna placement seg˙n cu·nto avanzaron:
-        // m·s vueltas primero, y a igualdad de vuelta, m·s checkpoints primero
         var unfinished = racers.Where(r => !r.finished)
             .OrderByDescending(r => r.currentLap)
             .ThenByDescending(r => r.currentCheckpointIndex)
@@ -168,12 +166,34 @@ public class RaceManager : MonoBehaviour
             nextPlacement++;
         }
 
+        ReportMissionResults(); // ‚Üê nuevo, ac√° todos los placements ya est√°n definitivos
+
         OnRaceEnded?.Invoke(racers.OrderBy(r => r.finishPlacement).ToList());
     }
+
+    void ReportMissionResults()
+    {
+        if (MissionManager.Instance == null) return;
+        if (GameSession.Instance == null || GameSession.Instance.chosenGameMode == null) return;
+
+        GameModeSO mode = GameSession.Instance.chosenGameMode;
+        MapDataSO map = GameSession.Instance.chosenMap;
+
+        foreach (var racer in racers)
+        {
+            if (!IsHuman(racer)) continue;
+
+            int playerIndex = racer.humanSlotIndex + 1; // 0-based ‚Üí 1-based (0‚Üí1, 1‚Üí2)
+
+            MissionManager.Instance.ReportResult(mode, map, MissionObjectiveType.FinishPlacement, racer.finishPlacement, playerIndex);
+            MissionManager.Instance.ReportResult(mode, map, MissionObjectiveType.RaceTimeUnder, racer.finishTime, playerIndex);
+        }
+    }
+
     public int GetLivePosition(RacerProgress racer)
     {
         if (!rankingActive)
-            return racers.IndexOf(racer) + 1; // orden de registro como fallback moment·neo, sin c·lculo geomÈtrico
+            return racers.IndexOf(racer) + 1; // orden de registro como fallback moment√°neo, sin c√°lculo geom√©trico
 
         var ranked = racers.OrderByDescending(r => GetRankingScore(r)).ToList();
         return ranked.IndexOf(racer) + 1;
@@ -207,7 +227,7 @@ public class RaceManager : MonoBehaviour
     }
     IEnumerator EnableRankingNextFrame()
     {
-        yield return null; // esperamos 1 frame a que todos los autos ya estÈn posicionados en su spawn real
+        yield return null; // esperamos 1 frame a que todos los autos ya est√©n posicionados en su spawn real
         rankingActive = true;
     }
 }

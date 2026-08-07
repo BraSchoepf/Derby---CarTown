@@ -10,6 +10,9 @@ public class WheelSwatchUI : MonoBehaviour, IPointerClickHandler
     WheelVisualSO assignedWheel;
     public event System.Action<WheelSwatchUI> OnClicked;
 
+    [Header("Dueño de este panel (0 = P1, 1 = P2)")]
+    public int ownerPlayerSlotIndex = 0;
+
     public GameObject missionLockedOverlay;
     public bool IsLockedByMission { get; private set; }
     void Awake()
@@ -23,7 +26,8 @@ public class WheelSwatchUI : MonoBehaviour, IPointerClickHandler
         if (icon != null && wheel.previewIcon != null)
             icon.sprite = wheel.previewIcon;
 
-        IsLockedByMission = !string.IsNullOrEmpty(wheel.unlockRewardId) && !UnlockRegistry.IsUnlocked(wheel.unlockRewardId);
+        IsLockedByMission = !string.IsNullOrEmpty(wheel.unlockRewardId)
+                              && !UnlockRegistry.IsUnlocked(wheel.unlockRewardId, ownerPlayerSlotIndex);
         if (missionLockedOverlay != null) missionLockedOverlay.SetActive(IsLockedByMission);
     }
 
