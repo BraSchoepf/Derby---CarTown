@@ -39,6 +39,12 @@ public class RaceSetup : MonoBehaviour
     public RecordedRacingLine[] availableRecordedLines; // asignar las líneas grabadas para este mapa/modo
     [Range(0f, 1f)] public float chanceToUseRecordedLine = 0.7f;
 
+    [Header("Shaders para bots (opcional)")]
+    public CarShaderVariantSO[] defaultBotShaders;
+
+    [Header("Ruedas para bots (opcional)")]
+    public WheelVisualSO[] availableWheelsForBots;
+
     [System.Serializable]
     public class PlayerSlotConfig
     {
@@ -221,6 +227,13 @@ public class RaceSetup : MonoBehaviour
                 wheelCustomizer.ApplyWheel(chosenWheel);
         }
 
+        CarShaderApplier shaderApplier = carInstance.GetComponentInChildren<CarShaderApplier>();
+        if (shaderApplier != null)
+        {
+            CarShaderVariantSO chosenVariant = slotIndex == 0 ? session.player1ShaderVariant : session.player2ShaderVariant;
+            if (chosenVariant != null) shaderApplier.ApplyShaderVariant(chosenVariant);
+        }
+
         CarColorApplier colorApplier = carInstance.GetComponentInChildren<CarColorApplier>();
         if (colorApplier != null) colorApplier.SetColor(color);
 
@@ -299,6 +312,20 @@ public class RaceSetup : MonoBehaviour
             if (useRecordedLine)
                 aiController.recordedLine = validLines[Random.Range(0, validLines.Length)];
 
+
+            WheelCustomizer wheelCustomizer = instance.GetComponentInChildren<WheelCustomizer>();
+            if (wheelCustomizer != null && availableWheelsForBots != null && availableWheelsForBots.Length > 0)
+            {
+                WheelVisualSO randomWheel = availableWheelsForBots[Random.Range(0, availableWheelsForBots.Length)];
+                wheelCustomizer.ApplyWheel(randomWheel);
+            }
+
+            CarShaderApplier shaderApplier = instance.GetComponentInChildren<CarShaderApplier>();
+            if (shaderApplier != null && defaultBotShaders != null && defaultBotShaders.Length > 0)
+            {
+                CarShaderVariantSO randomShader = defaultBotShaders[Random.Range(0, defaultBotShaders.Length)];
+                shaderApplier.ApplyShaderVariant(randomShader); // ← el método se llama ApplyShaderVariant, no shaderApply
+            }
 
             CarColorApplier colorApplier = instance.GetComponentInChildren<CarColorApplier>();
             if (colorApplier != null)

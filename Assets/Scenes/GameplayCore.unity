@@ -174,12 +174,13 @@ MonoBehaviour:
   nitroSliderP1: {fileID: 233057980}
   nitroSliderP2: {fileID: 833065685}
   teamFillBotPrefabs:
-  - {fileID: 1078272866267778280, guid: f251a6cfbb513c64abb222588dcdf14b, type: 3}
-  - {fileID: 2683970242854663803, guid: c7e9a9ca139160e458ff613669894082, type: 3}
-  - {fileID: 1827370793001695660, guid: e09b15f8896f5d1438b7ba898df884cd, type: 3}
-  - {fileID: 711543342545725848, guid: ad0080f5f04a21e479ba578ef9bfa9a0, type: 3}
-  teamAColor: {r: 0, g: 0, b: 1, a: 1}
-  teamBColor: {r: 1, g: 0, b: 0, a: 1}
+  - {fileID: 1078272866267778280, guid: f5a30e959373ec641bfb7102e833ecbb, type: 3}
+  - {fileID: 2683970242854663803, guid: 1753015b411db56408687ad69e6b49e2, type: 3}
+  - {fileID: 1827370793001695660, guid: d445ca3dbcc70704486e8723577d673f, type: 3}
+  - {fileID: 711543342545725848, guid: e0fa16ef240b075438ab35299f5f173c, type: 3}
+  - {fileID: 6770943345239207863, guid: e1406808f0ff6c64baacb3bb575250ca, type: 3}
+  teamAColor: {r: 0.20799568, g: 0.41275865, b: 0.4943396, a: 1}
+  teamBColor: {r: 0.5415094, g: 0.9035825, b: 1, a: 1}
   bombIndicatorP1: {fileID: 0}
   bombIndicatorP2: {fileID: 0}
   bombTimerUI: {fileID: 644502111}
@@ -190,6 +191,25 @@ MonoBehaviour:
   requiresCheckpoints: 0
   lapsDefault: 1
   usesBombMechanic: 0
+  defaultBotShaders:
+  - {fileID: 11400000, guid: 4b0d5222fcd0e8949be0e8a0aa19bb42, type: 2}
+  - {fileID: 11400000, guid: 7b39a97ad15f00a40a27eccd5b9a57f0, type: 2}
+  - {fileID: 11400000, guid: 0cc4b12b9d1f2d444995a363dab4342f, type: 2}
+  - {fileID: 11400000, guid: b86b4ca9d06ea6f448d71a0cbd87b2e7, type: 2}
+  availableWheelsForBots:
+  - {fileID: 11400000, guid: 068b902e1ad56444dab8a19d32cf2873, type: 2}
+  - {fileID: 11400000, guid: 2e842110af5930f4f992ed20505b6b91, type: 2}
+  - {fileID: 11400000, guid: 4fc8756b7c9dccb43bf4d52ee084e211, type: 2}
+  - {fileID: 11400000, guid: 8afc9900c3779a74596d034dcb996023, type: 2}
+  - {fileID: 11400000, guid: a2fa2f5e699dfca40b808b60743263e1, type: 2}
+  - {fileID: 11400000, guid: 3ecb1c3645597d34c981ed1cc226bab8, type: 2}
+  - {fileID: 11400000, guid: 2b86b77bc2c8fc841bcc17c90a803f21, type: 2}
+  - {fileID: 11400000, guid: 1ce2adebff1d6474a9fc052c06474e9c, type: 2}
+  - {fileID: 11400000, guid: 9104ad077d6f9834bb3418cee518112c, type: 2}
+  - {fileID: 11400000, guid: 78355a8792f9602409f075bcc24db82e, type: 2}
+  - {fileID: 11400000, guid: 38009ca04f70a4d499682f648ab2a440, type: 2}
+  - {fileID: 11400000, guid: 4614cc7d32eaab544ad07b5bbcf81956, type: 2}
+  - {fileID: 11400000, guid: f90e289906a80f049a3f95af08dfba23, type: 2}
   registry: {fileID: 11400000, guid: 99ddd08c3607d7b4f80e84e15ad8ed10, type: 2}
   playerSlotConfigs:
   - splitScreenCamera: {fileID: 330585545}
@@ -5175,11 +5195,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AISpawner
   aiCarPrefabs:
-  - {fileID: 1078272866267778280, guid: 7fc3fa8e2d8f3834db01524ef95abdc2, type: 3}
-  - {fileID: 2683970242854663803, guid: dd44348ed0cbfc84bbc14a439f48d010, type: 3}
-  - {fileID: 1827370793001695660, guid: 47a4d84ded96e6443b0af058898c6f17, type: 3}
-  - {fileID: 711543342545725848, guid: 2aae25390aab2954f8a1d734edfe651f, type: 3}
-  - {fileID: 6770943345239207863, guid: ef91ce2bd18fc2142b5ccdb52e19d68f, type: 3}
+  - {fileID: 1078272866267778280, guid: f5a30e959373ec641bfb7102e833ecbb, type: 3}
+  - {fileID: 2683970242854663803, guid: 1753015b411db56408687ad69e6b49e2, type: 3}
+  - {fileID: 1827370793001695660, guid: d445ca3dbcc70704486e8723577d673f, type: 3}
+  - {fileID: 711543342545725848, guid: e0fa16ef240b075438ab35299f5f173c, type: 3}
+  - {fileID: 6770943345239207863, guid: e1406808f0ff6c64baacb3bb575250ca, type: 3}
   category: 1
   allowRepeatedCars: 1
   derbyManager: {fileID: 27386396}

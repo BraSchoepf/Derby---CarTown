@@ -11,7 +11,7 @@ public class WheelSwatchUI : MonoBehaviour, IPointerClickHandler
     public event System.Action<WheelSwatchUI> OnClicked;
 
     [Header("Dueño de este panel (0 = P1, 1 = P2)")]
-    public int ownerPlayerSlotIndex = 0;
+    public int ownerPlayerSlotIndex = 1;
 
     public GameObject missionLockedOverlay;
     public bool IsLockedByMission { get; private set; }

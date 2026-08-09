@@ -224,6 +224,8 @@ public class MainMenuUI : MonoBehaviour
         session.chosenMap = mapCarousel.CurrentMap;
         session.player1WheelVisual = player1Cursor.SelectedWheelVisual;
         session.player2WheelVisual = multiplayer ? player2Cursor.SelectedWheelVisual : null;
+        session.player1ShaderVariant = player1Cursor.SelectedShader;
+        session.player2ShaderVariant = multiplayer ? player2Cursor.SelectedShader : null;
 
         if (chosenGameMode.supportsTeams)
         {

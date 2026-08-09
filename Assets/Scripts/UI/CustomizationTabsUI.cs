@@ -3,16 +3,18 @@ using UnityEngine.UI;
 
 public class CustomizationTabsUI : MonoBehaviour
 {
-    public enum Tab { None, Car, Color, Wheels }
+    public enum Tab { None, Car,Shader, Color, Wheels }
 
     [Header("Botones de tabs")]
     public GameObject tabButtonsContainer;
     public Button carTabButton;
+    public Button shaderTabButton;
     public Button colorTabButton;
     public Button wheelsTabButton;
 
     [Header("Sub-paneles")]
     public GameObject carSubPanel;
+    public GameObject shaderSubPanel;
     public GameObject colorSubPanel;
     public GameObject wheelsSubPanel;
 
@@ -22,7 +24,7 @@ public class CustomizationTabsUI : MonoBehaviour
     public int ownerPlayerIndex = 1;
 
     // Orden de navegación por teclado entre los botones de tabs
-    static readonly Tab[] TabOrder = { Tab.Car, Tab.Color, Tab.Wheels };
+    static readonly Tab[] TabOrder = { Tab.Car, Tab.Shader, Tab.Color, Tab.Wheels };
     int hoveredTabIndex = 0;
 
     public Tab CurrentTab { get; private set; } = Tab.None;
@@ -31,6 +33,7 @@ public class CustomizationTabsUI : MonoBehaviour
     void Awake()
     {
         carTabButton.onClick.AddListener(() => OpenTab(Tab.Car));
+        shaderTabButton.onClick.AddListener(() => OpenTab(Tab.Shader));
         colorTabButton.onClick.AddListener(() => OpenTab(Tab.Color));
         wheelsTabButton.onClick.AddListener(() => OpenTab(Tab.Wheels));
 
@@ -47,6 +50,7 @@ public class CustomizationTabsUI : MonoBehaviour
         if (closeButton != null) closeButton.gameObject.SetActive(true);
 
         carSubPanel.SetActive(tab == Tab.Car);
+        shaderSubPanel.SetActive(tab == Tab.Shader);
         colorSubPanel.SetActive(tab == Tab.Color);
         wheelsSubPanel.SetActive(tab == Tab.Wheels);
     }
@@ -63,6 +67,7 @@ public class CustomizationTabsUI : MonoBehaviour
         if (closeButton != null) closeButton.gameObject.SetActive(false);
 
         carSubPanel.SetActive(false);
+        shaderSubPanel.SetActive(false);
         colorSubPanel.SetActive(false);
         wheelsSubPanel.SetActive(false);
 
@@ -88,7 +93,7 @@ public class CustomizationTabsUI : MonoBehaviour
     {
         // Placeholder simple: podés reemplazar esto por un resaltado visual real
         // (por ejemplo, un outline o escala en el botón correspondiente)
-        Button[] buttons = { carTabButton, colorTabButton, wheelsTabButton };
+        Button[] buttons = { carTabButton,shaderTabButton, colorTabButton, wheelsTabButton };
         for (int i = 0; i < buttons.Length; i++)
         {
             var colors = buttons[i].colors;

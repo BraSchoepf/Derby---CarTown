@@ -32,24 +32,25 @@ public class RaceResultsUI : MonoBehaviour
     void ShowResultFor(RaceManager.RacerProgress racer, int totalRacers, ResultPanelUI panel)
     {
         float raceTime = RaceManager.Instance.GetRaceTime(racer);
-
         float driftScore = -1f;
+
         GameSession session = GameSession.Instance;
+        int playerSlotIndex = racer.humanSlotIndex + 1; // 0-based → 1-based (0→1, 1→2)
+
         if (session != null && session.chosenGameMode != null && session.chosenGameMode.isDriftScoringMode)
         {
             DriftScoreTracker tracker = FindTrackerForSlot(racer.humanSlotIndex);
             if (tracker != null) driftScore = tracker.TotalScore;
 
             if (session.chosenGameMode.isDriftScoringMode && driftScore >= 0)
-                MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.DriftScoreThreshold, driftScore, racer.humanSlotIndex);
+                MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.DriftScoreThreshold, driftScore, playerSlotIndex);
             else
-                MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.RaceTimeUnder, raceTime, racer.humanSlotIndex);
+                MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.RaceTimeUnder, raceTime, playerSlotIndex);
 
-            MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.FinishPlacement, racer.finishPlacement, racer.humanSlotIndex);
+            MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.FinishPlacement, racer.finishPlacement, playerSlotIndex);
         }
 
         panel.ShowRaceResult(racer.finishPlacement, totalRacers, raceTime, driftScore);
-
     }
 
     DriftScoreTracker FindTrackerForSlot(int humanSlotIndex)

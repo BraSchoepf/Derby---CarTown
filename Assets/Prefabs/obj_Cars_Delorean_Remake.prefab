@@ -254,7 +254,7 @@ Transform:
   m_GameObject: {fileID: 1173044647325622760}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.776, y: 0.3096027, z: -0.7357689}
+  m_LocalPosition: {x: -0.776, y: 0.284, z: -0.7357689}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -435,7 +435,7 @@ Transform:
   m_GameObject: {fileID: 2411669793220704884}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.776, y: 0.3096027, z: -0.73576903}
+  m_LocalPosition: {x: -0.776, y: 0.284, z: -0.73576903}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -504,6 +504,7 @@ GameObject:
   - component: {fileID: 4656495538300156765}
   - component: {fileID: 2848069749626268691}
   - component: {fileID: 6025703674052340033}
+  - component: {fileID: 6540337611837657787}
   m_Layer: 6
   m_Name: obj_Cars_Delorean_Remake
   m_TagString: Untagged
@@ -630,6 +631,7 @@ MonoBehaviour:
   stuckCheckSpeedThreshold: 0.5
   stuckTimeBeforeRespawn: 4
   autoRespawnWhenStuck: 0
+  nitroRampSpeed: 4
 --- !u!114 &4088202890742203089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -911,6 +913,23 @@ MonoBehaviour:
     isFrontAxle: 0
     isLeftSide: 1
   stats: {fileID: 11400000, guid: 50876908db3c12341b54bc14695f6ef3, type: 2}
+--- !u!114 &6540337611837657787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683970242854663803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66dfd343777a9c64cb46383be63004dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarShaderApplier
+  paintableRenderers:
+  - renderer: {fileID: 5865936651966819546}
+    materialIndex: 0
+  - renderer: {fileID: 5865936651966819546}
+    materialIndex: 4
 --- !u!1 &3422750239316047253
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,7 +1164,7 @@ Transform:
   m_GameObject: {fileID: 3750168984583079522}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.776, y: 0.30960268, z: -0.7357689}
+  m_LocalPosition: {x: 0.776, y: 0.284, z: -0.7357689}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1303,7 +1322,7 @@ Transform:
   m_GameObject: {fileID: 4409271775124109330}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.776, y: 0.3096027, z: -0.73576903}
+  m_LocalPosition: {x: 0.776, y: 0.284, z: -0.73576903}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

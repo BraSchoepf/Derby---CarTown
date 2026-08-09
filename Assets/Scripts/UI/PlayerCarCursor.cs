@@ -23,12 +23,17 @@ public class PlayerCarCursor : MonoBehaviour
     Vector2Int heldWheelDirection;
     float wheelHoldTimer;
     public ColorSelectionPanelUI colorPanel;
+    public ShaderSelectionPanelUI shaderPanel;
+
+    Vector2Int heldShaderDirection;
+    float shaderHoldTimer;
 
     CarSlotUI current, locked;
     CarStatsSO lastRandomPick;
 
     public WheelVisualSO SelectedWheelVisual => wheelPanel != null ? wheelPanel.CurrentWheel : null;
     public Color SelectedColor => colorPanel != null ? colorPanel.CurrentColor : Color.white;
+    public CarShaderVariantSO SelectedShader => shaderPanel != null ? shaderPanel.CurrentShader : null;
     public bool IsLocked => locked != null;
     public CarStatsSO SelectedCar =>
         locked == null ? null :
@@ -91,6 +96,8 @@ public class PlayerCarCursor : MonoBehaviour
                 HandleColorNavigation();
             else if (tabs.CurrentTab == CustomizationTabsUI.Tab.Wheels)
                 HandleWheelNavigation();
+            else if (tabs.CurrentTab == CustomizationTabsUI.Tab.Shader)
+                HandleShaderNavigation(); ;
 
             return;
         }
@@ -110,6 +117,48 @@ public class PlayerCarCursor : MonoBehaviour
         if (slot.slotType == CarSlotType.Random) return false;
         if (string.IsNullOrEmpty(slot.carStats.unlockRewardId)) return false;
         return !UnlockRegistry.IsUnlocked(slot.carStats.unlockRewardId, playerIndex - 1); // playerIndex es 1/2, slot es 0/1
+    }
+
+    void HandleShaderNavigation()
+    {
+        if (shaderPanel == null) return;
+
+        Vector2Int dir = ReadDirectionRaw();
+
+        if (dir == Vector2Int.zero)
+        {
+            heldShaderDirection = Vector2Int.zero;
+            shaderHoldTimer = 0f;
+            return;
+        }
+
+        // Nueva dirección: movimiento inmediato
+        if (dir != heldShaderDirection)
+        {
+            heldShaderDirection = dir;
+            shaderHoldTimer = holdRepeatDelay;
+
+            ApplyShaderMove(dir);
+            return;
+        }
+
+        // Mantener presionado
+        shaderHoldTimer -= Time.deltaTime;
+
+        if (shaderHoldTimer <= 0f)
+        {
+            ApplyShaderMove(dir);
+            shaderHoldTimer = holdRepeatInterval;
+        }
+    }
+
+    void ApplyShaderMove(Vector2Int dir)
+    {
+        CarShaderVariantSO shader = shaderPanel.Move(dir.x, dir.y);
+
+        // Si la textura actual está bloqueada, no la aplicamos.
+        // Move() ya evita avanzar a una bloqueada.
+        preview.SetShaderVariant(shader);
     }
 
     void HandleCustomizationMode()

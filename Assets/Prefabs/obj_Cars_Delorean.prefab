@@ -702,6 +702,7 @@ GameObject:
   - component: {fileID: 6603595463287256776}
   - component: {fileID: 7354540661419626986}
   - component: {fileID: -5869439515177283206}
+  - component: {fileID: -2635155927494125370}
   m_Layer: 6
   m_Name: obj_Cars_Delorean
   m_TagString: Untagged
@@ -923,9 +924,6 @@ MonoBehaviour:
   maxVertexDisplacement: 0.35
   minImpactForce: 3
   recalculateBoundsEvery: 3
-  damageLayer:
-    serializedVersion: 2
-    m_Bits: 16456
 --- !u!114 &823476088256454969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1017,9 +1015,6 @@ MonoBehaviour:
   chainGraceWindow: 0.6
   minCollisionForceToReset: 4
   redFlashDuration: 0.8
-  collisionCountsLayer:
-    serializedVersion: 2
-    m_Bits: 16392
 --- !u!114 &-5869439515177283206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,6 +1028,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRaceRespawn
   waypointPath: {fileID: 0}
+--- !u!114 &-2635155927494125370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3316808279603120959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66dfd343777a9c64cb46383be63004dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarShaderApplier
+  paintableRenderers:
+  - renderer: {fileID: 0}
+    materialIndex: 0
 --- !u!1 &4656262414772341800
 GameObject:
   m_ObjectHideFlags: 0

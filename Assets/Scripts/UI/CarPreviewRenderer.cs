@@ -61,4 +61,10 @@ public class CarPreviewRenderer : MonoBehaviour
         var customizer = instance.GetComponentInChildren<WheelCustomizer>();
         if (customizer != null) customizer.ApplyWheel(wheel);
     }
+    public void SetShaderVariant(CarShaderVariantSO carShader)
+    {
+        if (instance == null || carShader == null) return;
+        var applier = instance.GetComponentInChildren<CarShaderApplier>();
+        if (applier != null) applier.ApplyShaderVariant(carShader);
+    }
 }

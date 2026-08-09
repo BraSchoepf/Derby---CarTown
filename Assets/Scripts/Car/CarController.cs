@@ -66,6 +66,11 @@ public class CarController : MonoBehaviour
     public float stuckTimeBeforeRespawn = 4f;
     public bool autoRespawnWhenStuck = true;
 
+    [Header("Nitro - rampeado")]
+    public float nitroRampSpeed = 4f; // qué tan rápido sube/baja el boost — más bajo = más gradual
+
+    float currentNitroBoostFactor = 0f;
+
     public float CurrentDriftAngle => currentDriftAngle;
     public float CurrentSpeed => rb != null ? rb.linearVelocity.magnitude : 0f;
     public bool IsGrounded { get; private set; }
@@ -73,7 +78,7 @@ public class CarController : MonoBehaviour
     public float NitroMaxCapacity => stats.nitroMaxCapacity;
     public float NitroPercent => stats.nitroMaxCapacity > 0f ? nitroCurrent / stats.nitroMaxCapacity : 0f;
     public bool IsNitroActive => isNitroActive;
-    public float EffectiveMaxSpeed => stats.maxSpeed + (isNitroActive ? stats.nitroSpeedBoost : 0f);
+    public float EffectiveMaxSpeed => stats.maxSpeed + stats.nitroSpeedBoost * currentNitroBoostFactor;
 
     Vector3 spawnPosition;
     Quaternion spawnRotation;
@@ -326,8 +331,8 @@ public class CarController : MonoBehaviour
     {
         float currentSpeed = rb.linearVelocity.magnitude;
 
-        float effectiveMaxSpeed = stats.maxSpeed + (isNitroActive ? stats.nitroSpeedBoost : 0f);
-        float effectiveMaxTorque = stats.maxMotorTorque + (isNitroActive ? stats.nitroTorqueBoost : 0f);
+        float effectiveMaxSpeed = stats.maxSpeed + stats.nitroSpeedBoost * currentNitroBoostFactor;
+        float effectiveMaxTorque = stats.maxMotorTorque + stats.nitroTorqueBoost * currentNitroBoostFactor;
 
         if (w.motor && !handbrakeActive)
         {
@@ -442,13 +447,13 @@ public class CarController : MonoBehaviour
         isNitroActive = nitroInput && nitroCurrent > 0f;
 
         if (isNitroActive)
-        {
             nitroCurrent = Mathf.Max(0f, nitroCurrent - stats.nitroDrainRate * Time.fixedDeltaTime);
-        }
         else
-        {
             nitroCurrent = Mathf.Min(stats.nitroMaxCapacity, nitroCurrent + stats.nitroChargeRate * Time.fixedDeltaTime);
-        }
+
+        // Rampeo suave del boost, en vez de salto instantáneo — esto es lo nuevo
+        float targetBoostFactor = isNitroActive ? 1f : 0f;
+        currentNitroBoostFactor = Mathf.MoveTowards(currentNitroBoostFactor, targetBoostFactor, nitroRampSpeed * Time.fixedDeltaTime);
     }
 
     void ReadNitroInput()

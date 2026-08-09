@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.Linq;
@@ -33,7 +33,7 @@ public class DerbyGameManager : MonoBehaviour
     {
         Instance = this;
         OnPlayerWon += ReportSurvivalMissionIfHuman;
-        // ... tu inicialización existente ...
+        // ... tu inicializaciÃ³n existente ...
     }
 
     public void SetTeamsEnabled(bool enabled) => teamsEnabled = enabled;
@@ -65,7 +65,7 @@ public class DerbyGameManager : MonoBehaviour
         if (attackerEntry != null && attackerEntry != entry)
             attackerEntry.killCount++;
 
-        Debug.Log($"{entry.playerName} fue eliminado — puesto {entry.placement}, por {entry.killedByName}");
+        Debug.Log($"{entry.playerName} fue eliminado â€” puesto {entry.placement}, por {entry.killedByName}");
         OnPlayerEliminated?.Invoke(entry);
         CheckForWinner();
     }
@@ -125,14 +125,15 @@ public class DerbyGameManager : MonoBehaviour
     }
     void ReportSurvivalMissionIfHuman(PlayerEntry winner)
     {
-        if (winner.humanSlotIndex < 0) return; // ganador es un bot, no reporta misión
+        if (winner.humanSlotIndex < 0) return;
+        int playerSlotIndex = winner.humanSlotIndex + 1;
 
         float survivalTime = Time.time - winner.survivalStartTime;
 
         GameSession session = GameSession.Instance;
         if (session != null && session.chosenGameMode != null && session.chosenMap != null)
         {
-            MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.SurvivalTime, survivalTime, winner.humanSlotIndex);
+            MissionManager.Instance?.ReportResult(session.chosenGameMode, session.chosenMap, MissionObjectiveType.SurvivalTime, survivalTime, playerSlotIndex); // â† corregido
         }
     }
 }

@@ -17,6 +17,9 @@ public class GameSession : MonoBehaviour
     public TeamId player2Team;
     public int teamSize = 1;
 
+    public CarShaderVariantSO player1ShaderVariant;
+    public CarShaderVariantSO player2ShaderVariant;
+
     public Color player1Color = Color.white;
     public Color player2Color = Color.white;
 

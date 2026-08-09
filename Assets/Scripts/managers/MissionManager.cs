@@ -114,12 +114,11 @@ public class MissionManager : MonoBehaviour
         foreach (var entry in data.entries)
             completedMissions[entry.missionId] = entry.completed;
     }
-    public void ResetProgress()
+    public void ResetAllProgress()
     {
         completedMissions.Clear();
-        PlayerPrefs.DeleteKey(SaveKey);
+        PlayerPrefs.DeleteKey("MissionProgress"); // confirmá que "MissionProgress" es el SaveKey real que usás ahí
         PlayerPrefs.Save();
-
         UnlockRegistry.ResetAll();
     }
 }

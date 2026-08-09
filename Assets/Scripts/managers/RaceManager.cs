@@ -181,7 +181,7 @@ public class RaceManager : MonoBehaviour
 
         foreach (var racer in racers)
         {
-            if (!IsHuman(racer)) continue;
+            if (racer.humanSlotIndex < 0) continue;
 
             int playerIndex = racer.humanSlotIndex + 1; // 0-based → 1-based (0→1, 1→2)
 
