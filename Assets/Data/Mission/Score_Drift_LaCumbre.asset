@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionSO
   missionId: 1
   missionName: La Cumbre Serpenteante
-  description: Consigue 110.000 puntos de derrape en la cumbre
+  description: Consigue 130.000 puntos de derrape en la cumbre
   gameMode: {fileID: 11400000, guid: a870a34c8c530f748b3321ab48e741f1, type: 2}
   map: {fileID: 11400000, guid: bc88f6a0b150f3846a1bbdbc616e0d8e, type: 2}
   objectiveType: 0
-  targetValue: 110000
+  targetValue: 1300000
   rewards:
   - {fileID: 11400000, guid: 2f30514a8c5180b4d9c941b5f307ee30, type: 2}

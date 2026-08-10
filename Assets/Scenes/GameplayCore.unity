@@ -5203,6 +5203,25 @@ MonoBehaviour:
   category: 1
   allowRepeatedCars: 1
   derbyManager: {fileID: 27386396}
+  defaultBotShaders:
+  - {fileID: 11400000, guid: 4b0d5222fcd0e8949be0e8a0aa19bb42, type: 2}
+  - {fileID: 11400000, guid: 7b39a97ad15f00a40a27eccd5b9a57f0, type: 2}
+  - {fileID: 11400000, guid: 0cc4b12b9d1f2d444995a363dab4342f, type: 2}
+  - {fileID: 11400000, guid: b86b4ca9d06ea6f448d71a0cbd87b2e7, type: 2}
+  availableWheelsForBots:
+  - {fileID: 11400000, guid: 068b902e1ad56444dab8a19d32cf2873, type: 2}
+  - {fileID: 11400000, guid: 2e842110af5930f4f992ed20505b6b91, type: 2}
+  - {fileID: 11400000, guid: 4fc8756b7c9dccb43bf4d52ee084e211, type: 2}
+  - {fileID: 11400000, guid: 8afc9900c3779a74596d034dcb996023, type: 2}
+  - {fileID: 11400000, guid: a2fa2f5e699dfca40b808b60743263e1, type: 2}
+  - {fileID: 11400000, guid: 3ecb1c3645597d34c981ed1cc226bab8, type: 2}
+  - {fileID: 11400000, guid: 2b86b77bc2c8fc841bcc17c90a803f21, type: 2}
+  - {fileID: 11400000, guid: 1ce2adebff1d6474a9fc052c06474e9c, type: 2}
+  - {fileID: 11400000, guid: 9104ad077d6f9834bb3418cee518112c, type: 2}
+  - {fileID: 11400000, guid: 78355a8792f9602409f075bcc24db82e, type: 2}
+  - {fileID: 11400000, guid: 38009ca04f70a4d499682f648ab2a440, type: 2}
+  - {fileID: 11400000, guid: 4614cc7d32eaab544ad07b5bbcf81956, type: 2}
+  - {fileID: 11400000, guid: f90e289906a80f049a3f95af08dfba23, type: 2}
 --- !u!4 &1065992790
 Transform:
   m_ObjectHideFlags: 0

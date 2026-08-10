@@ -45,17 +45,18 @@ public class LineRecorder : MonoBehaviour
     {
         if (!isRecording || targetCar == null) return;
 
-        float distSinceLastSample = Vector3.Distance(targetCar.transform.position, lastSamplePos);
-        Debug.Log($"[LineRecorder] FixedUpdate corriendo, dist acumulada={distSinceLastSample:F2}"); // TEMPORAL
+        Vector3 currentPos = targetCar.transform.position;
+        float distSinceLastSample = Vector3.Distance(currentPos, lastSamplePos);
 
         if (distSinceLastSample >= sampleDistance)
         {
             recordedPoints.Add(new RecordedPoint
             {
-                position = targetCar.transform.position,
-                speed = targetCar.CurrentSpeed
+                position = currentPos,
+                speed = targetCar.CurrentSpeed,
+                wasHandbraking = targetCar.IsHandbrakeActive // NUEVO — necesita exponerse en CarController
             });
-            lastSamplePos = targetCar.transform.position;
+            lastSamplePos = currentPos;
         }
     }
 

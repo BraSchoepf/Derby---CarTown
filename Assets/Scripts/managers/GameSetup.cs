@@ -266,7 +266,6 @@ public class GameSetup : MonoBehaviour
             CarController carController = instance.GetComponent<CarController>();
             if (carController != null)
             {
-                Debug.LogError($"[GameSetup] {instance.name} no tiene CarController!", instance);
                 CarStatsSO baseCarStats = carController.stats;
                 DrivingProfileSO profile = session.chosenGameMode != null ? session.chosenGameMode.drivingProfile : null;
                 CarStatsSO effectiveStats = CarStatsFactory.BuildEffectiveStats(baseCarStats, profile);

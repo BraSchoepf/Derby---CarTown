@@ -488,6 +488,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -7.1
       objectReference: {fileID: 0}
+    - target: {fileID: 3891128538437061851, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3933700427821256092, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.4
@@ -755,6 +759,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: checkpoint (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3891128538437061851, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3933700427821256092, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.1
@@ -948,6 +956,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -10
       objectReference: {fileID: 0}
+    - target: {fileID: 3891128538437061851, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3933700427821256092, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_LocalPosition.z
       value: 7
@@ -1140,6 +1152,10 @@ PrefabInstance:
     - target: {fileID: 2766267192781898876, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_LocalPosition.z
       value: -12.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891128538437061851, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3933700427821256092, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1461,6 +1477,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -11.3
       objectReference: {fileID: 0}
+    - target: {fileID: 3891128538437061851, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3933700427821256092, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.5
@@ -1525,6 +1545,10 @@ PrefabInstance:
     - target: {fileID: 2147745310306358692, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_Name
       value: checkpoint (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891128538437061851, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3933700427821256092, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1761,6 +1785,10 @@ PrefabInstance:
     - target: {fileID: 2766267192781898876, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
       propertyPath: m_LocalPosition.z
       value: -19.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891128538437061851, guid: eccc7cffc9eaa3448a5dad941a37aadc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

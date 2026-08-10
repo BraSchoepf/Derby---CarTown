@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FirstPlacement_Circuito
   m_EditorClassIdentifier: Assembly-CSharp::MissionSO
   missionId: 3
-  missionName: Primer Lugar
+  missionName: Primer Puesto
   description: 'En el Puerto llega en primer lugar - modo circuito '
   gameMode: {fileID: 11400000, guid: fb81c38614c3078418632e53eccbfd82, type: 2}
   map: {fileID: 11400000, guid: 43de5ab7c43c1db49bb275a261129d01, type: 2}

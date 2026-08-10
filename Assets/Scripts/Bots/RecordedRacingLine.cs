@@ -5,6 +5,7 @@ public struct RecordedPoint
 {
     public Vector3 position;
     public float speed; // velocidad real del jugador en ese punto (m/s)
+    public bool wasHandbraking;
 }
 
 [CreateAssetMenu(fileName = "NewRecordedLine", menuName = "AI/Recorded Racing Line")]

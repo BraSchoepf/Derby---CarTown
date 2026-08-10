@@ -241,7 +241,7 @@ MonoBehaviour:
   wrongWayUIP2: {fileID: 1747587815}
   availableRecordedLines:
   - {fileID: 11400000, guid: 6cd58dc0d0716af4cb7132a6246f68f1, type: 2}
-  - {fileID: 11400000, guid: 3ae5e36dda2a58c428d1678b9fea0918, type: 2}
+  - {fileID: 11400000, guid: d59a3bb8c19040c42a1e2162c5672e36, type: 2}
   - {fileID: 11400000, guid: 66d5f133846520d40a4a4e7fd7d5cd2d, type: 2}
   chanceToUseRecordedLine: 1
   defaultBotShaders:
@@ -1010,7 +1010,7 @@ MonoBehaviour:
   defeatHeader: {fileID: 1886659183}
   placementText: {fileID: 1296772338}
   killsText: {fileID: 0}
-  survivalTimeText: {fileID: 0}
+  survivalTimeText: {fileID: 642766189}
   killedByText: {fileID: 0}
   raceResultHeader: {fileID: 1535129960}
   racePlacementText: {fileID: 1296772338}

@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using System.Collections.Generic;
 
 public class AISpawner : MonoBehaviour
@@ -6,12 +6,18 @@ public class AISpawner : MonoBehaviour
     [Header("Autos de IA disponibles")]
     public GameObject[] aiCarPrefabs;
 
-    [Header("CategorÌa que maneja este spawner")]
+    [Header("Categor√≠a que maneja este spawner")]
     public GameModeCategory category = GameModeCategory.Demolition;
 
     [Header("Spawn")]
     public bool allowRepeatedCars = true;
     public DerbyGameManager derbyManager;
+
+    [Header("Shaders para bots (opcional)")]
+    public CarShaderVariantSO[] defaultBotShaders;
+
+    [Header("Ruedas para bots (opcional)")]
+    public WheelVisualSO[] availableWheelsForBots;
 
     GameSession session;
 
@@ -19,17 +25,17 @@ public class AISpawner : MonoBehaviour
     {
         GameSession session = GameSession.Instance;
 
-        // Salir si el modo elegido no corresponde a la categorÌa de este spawner
+        // Salir si el modo elegido no corresponde a la categor√≠a de este spawner
         if (session != null && session.chosenGameMode != null
             && session.chosenGameMode.category != category)
         {
-            Debug.Log($"[AISpawner] Modo actual es {session.chosenGameMode.category}, este spawner maneja {category} ó no act˙a.");
+            Debug.Log($"[AISpawner] Modo actual es {session.chosenGameMode.category}, este spawner maneja {category} ‚Äî no act√∫a.");
             return;
         }
 
         if (session != null && session.chosenGameMode != null && !session.chosenGameMode.allowBots)
         {
-            Debug.Log("[AISpawner] El modo actual no permite bots ó no act˙a.");
+            Debug.Log("[AISpawner] El modo actual no permite bots ‚Äî no act√∫a.");
             return;
         }
 
@@ -38,7 +44,7 @@ public class AISpawner : MonoBehaviour
 
         if (teamsActive)
         {
-            Debug.Log("[AISpawner] Modo con equipos activo ó los spawn points los completa GameSetup.SpawnTeamFillBots(), este spawner no act˙a.");
+            Debug.Log("[AISpawner] Modo con equipos activo ‚Äî los spawn points los completa GameSetup.SpawnTeamFillBots(), este spawner no act√∫a.");
             return;
         }
 
@@ -58,7 +64,7 @@ public class AISpawner : MonoBehaviour
             return;
         }
 
-        // Ya no hardcodeado: usa la categorÌa propia de este spawner
+        // Ya no hardcodeado: usa la categor√≠a propia de este spawner
         Transform[] aiSpawnPoints = MapLoader.Instance.GetAISpawnPoints(category);
         if (aiSpawnPoints.Length == 0)
         {
@@ -125,6 +131,20 @@ public class AISpawner : MonoBehaviour
             MinimapIcon minimapIcon = instance.GetComponent<MinimapIcon>();
             if (minimapIcon != null)
                 minimapIcon.SetOwner(MinimapOwnerType.Bot);
+
+            WheelCustomizer wheelCustomizer = instance.GetComponentInChildren<WheelCustomizer>();
+            if (wheelCustomizer != null && availableWheelsForBots != null && availableWheelsForBots.Length > 0)
+            {
+                WheelVisualSO randomWheel = availableWheelsForBots[Random.Range(0, availableWheelsForBots.Length)];
+                wheelCustomizer.ApplyWheel(randomWheel);
+            }
+
+            CarShaderApplier shaderApplier = instance.GetComponentInChildren<CarShaderApplier>();
+            if (shaderApplier != null && defaultBotShaders != null && defaultBotShaders.Length > 0)
+            {
+                CarShaderVariantSO randomShader = defaultBotShaders[Random.Range(0, defaultBotShaders.Length)];
+                shaderApplier.ApplyShaderVariant(randomShader); // ‚Üê el m√©todo se llama ApplyShaderVariant, no shaderApply
+            }
 
             CarColorApplier colorApplier = instance.GetComponentInChildren<CarColorApplier>();
             if (colorApplier != null)

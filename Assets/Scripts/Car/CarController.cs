@@ -79,7 +79,7 @@ public class CarController : MonoBehaviour
     public float NitroPercent => stats.nitroMaxCapacity > 0f ? nitroCurrent / stats.nitroMaxCapacity : 0f;
     public bool IsNitroActive => isNitroActive;
     public float EffectiveMaxSpeed => stats.maxSpeed + stats.nitroSpeedBoost * currentNitroBoostFactor;
-
+    public bool IsHandbrakeActive => handbrakeInput;
     Vector3 spawnPosition;
     Quaternion spawnRotation;
     float stuckRespawnTimer;

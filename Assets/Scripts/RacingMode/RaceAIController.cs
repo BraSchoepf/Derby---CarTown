@@ -130,11 +130,33 @@ public class RaceAIController : MonoBehaviour
     {
         AdvanceRecordedIndexIfClose();
 
+        float currentSpeed = carController.CurrentSpeed;
+        int dynamicLookahead = Mathf.Clamp(Mathf.RoundToInt(currentSpeed * 0.5f), 2, 8);
+
         RecordedPoint current = recordedLine.GetPoint(currentIndex);
-        RecordedPoint lookAhead = recordedLine.GetPoint(currentIndex + recordedLookAheadPoints);
+        RecordedPoint lookAhead = recordedLine.GetPoint(currentIndex + dynamicLookahead);
         float distToCurrent = Vector3.Distance(transform.position, current.position);
 
-        DriveToward(lookAhead.position, current.speed, distToCurrent, cornerAngle: 0f, forceTargetSpeed: true);
+        RecordedPoint nearFuture = recordedLine.GetPoint(currentIndex + 2);
+        float targetSpeed = Mathf.Min(current.speed, nearFuture.speed);
+
+        // El dato real: ¿el jugador estaba usando handbrake en este punto o en el próximo tramo cercano?
+        bool shouldHandbrake = current.wasHandbraking || nearFuture.wasHandbraking;
+
+        DriveToward(lookAhead.position, targetSpeed, distToCurrent, shouldHandbrake);
+    }
+
+    float GetRecordedCornerAngle()
+    {
+        RecordedPoint a = recordedLine.GetPoint(currentIndex);
+        RecordedPoint b = recordedLine.GetPoint(currentIndex + 2);
+        RecordedPoint c = recordedLine.GetPoint(currentIndex + 4);
+
+        Vector3 dirA = b.position - a.position; dirA.y = 0f;
+        Vector3 dirB = c.position - b.position; dirB.y = 0f;
+        if (dirA.sqrMagnitude < 0.01f || dirB.sqrMagnitude < 0.01f) return 0f;
+
+        return Vector3.Angle(dirA.normalized, dirB.normalized);
     }
 
     void AdvanceRecordedIndexIfClose()
@@ -190,10 +212,17 @@ public class RaceAIController : MonoBehaviour
 
         float distToNode = Vector3.Distance(transform.position, currentNode.position);
         float cornerAngle = GetNextCornerAngle();
+        float currentSpeed = carController.CurrentSpeed;
 
-        DriveToward(currentNode.position, corneringSpeedLimit, distToNode, cornerAngle, forceTargetSpeed: false);
+        // Calculamos acá lo que antes se le pedía calcular a DriveToward con forceTargetSpeed —
+        // el modo genérico infiere targetSpeed/handbrake por ángulo de curva,
+        // el modo grabado ya trae esos datos directo del recorrido real.
+        float targetSpeed = GetTargetSpeedForCorner(cornerAngle, carController.stats.maxSpeed);
+
+        bool useHandbrake = cornerAngle > driftCornerAngleThreshold && currentSpeed > driftMinSpeed;
+
+        DriveToward(currentNode.position, targetSpeed, distToNode, useHandbrake);
     }
-
     void AdvanceGenericIndexIfClose()
     {
         Transform currentNode = waypointPath.GetNode(currentIndex);
@@ -227,7 +256,7 @@ public class RaceAIController : MonoBehaviour
 
     // ---------------- Conducción compartida por ambos modos ----------------
 
-    void DriveToward(Vector3 targetPoint, float targetSpeedOrLimit, float distToNode, float cornerAngle, bool forceTargetSpeed)
+    void DriveToward(Vector3 targetPoint, float targetSpeed, float distToNode, bool useHandbrake)
     {
         Vector3 toTarget = targetPoint - transform.position;
         toTarget.y = 0f;
@@ -237,38 +266,15 @@ public class RaceAIController : MonoBehaviour
         smoothedSteer = Mathf.Lerp(smoothedSteer, rawSteer, Time.deltaTime * steerSmoothSpeed);
 
         float currentSpeed = carController.CurrentSpeed;
-        float maxSpeed = carController.EffectiveMaxSpeed;
-
-        // forceTargetSpeed=true (línea grabada): la velocidad grabada YA es el objetivo real
-        // forceTargetSpeed=false (path genérico): hay que calcularla según la curvatura detectada
-        float targetSpeed = forceTargetSpeed
-            ? targetSpeedOrLimit
-            : GetTargetSpeedForCorner(cornerAngle, maxSpeed);
-
-        bool withinBrakingRange = forceTargetSpeed || distToNode < brakingLookAhead;
-        float throttle;
-        bool handbrake = false;
-
         float speedExcess = currentSpeed - targetSpeed;
-        if (withinBrakingRange && speedExcess > speedToleranceMargin)
-        {
+
+        float throttle;
+        if (speedExcess > speedToleranceMargin)
             throttle = Mathf.Clamp(-speedExcess * brakeResponseFactor, maxBrakeThrottle, 0f);
-        }
         else
-        {
-            float absAngle = Mathf.Abs(angleToTarget);
-            throttle = absAngle > 150f ? 0.3f : 1f;
-        }
+            throttle = 1f;
 
-        if (!forceTargetSpeed
-            && cornerAngle > driftCornerAngleThreshold
-            && currentSpeed > driftMinSpeed
-            && distToNode < brakingLookAhead * 0.6f)
-        {
-            handbrake = true;
-        }
-
-        carController.SetAIInput(throttle, smoothedSteer, handbrake);
+        carController.SetAIInput(throttle, smoothedSteer, useHandbrake);
     }
 
     // ---------------- Anti-atasco (sin cambios respecto al sólido) ----------------
@@ -286,6 +292,9 @@ public class RaceAIController : MonoBehaviour
         }
         else
         {
+            // currentIndex acá es el ÚLTIMO nodo confirmado por avance secuencial —
+            // NUNCA recalcular por cercanía geométrica, eso es lo que salta a tramos
+            // paralelos de la pista cuando hay curvas cercanas entre sí
             Transform node = waypointPath.GetNode(currentIndex);
             Transform nextNode = waypointPath.GetNode(currentIndex + 1);
             if (node == null) return;
