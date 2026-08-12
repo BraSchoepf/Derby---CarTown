@@ -3919,6 +3919,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9104ad077d6f9834bb3418cee518112c, type: 2}
   - {fileID: 11400000, guid: 2e842110af5930f4f992ed20505b6b91, type: 2}
   - {fileID: 11400000, guid: 068b902e1ad56444dab8a19d32cf2873, type: 2}
+  - {fileID: 11400000, guid: bcd97b53ea2032a4b9d2ba656d61109e, type: 2}
+  - {fileID: 11400000, guid: a48f18df96193eb41aa70aff6af7d950, type: 2}
   swatchPrefab: {fileID: 4345387489607723968, guid: 07131c0557da6a54f8e5a04af8037939, type: 3}
   swatchContainer: {fileID: 1434786831}
   columns: 5
@@ -9620,6 +9622,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9104ad077d6f9834bb3418cee518112c, type: 2}
   - {fileID: 11400000, guid: 2e842110af5930f4f992ed20505b6b91, type: 2}
   - {fileID: 11400000, guid: 068b902e1ad56444dab8a19d32cf2873, type: 2}
+  - {fileID: 11400000, guid: bcd97b53ea2032a4b9d2ba656d61109e, type: 2}
+  - {fileID: 11400000, guid: a48f18df96193eb41aa70aff6af7d950, type: 2}
   swatchPrefab: {fileID: 4345387489607723968, guid: 05488d231f2efba4fb522bd516e9b313, type: 3}
   swatchContainer: {fileID: 1728440233}
   columns: 5
