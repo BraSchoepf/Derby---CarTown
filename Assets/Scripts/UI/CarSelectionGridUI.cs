@@ -16,14 +16,25 @@ public class CarSelectionGridUI : MonoBehaviour
 
     CarSlotUI[,] grid;
     int rows;
+    bool built; 
 
-    void Awake() => BuildGrid();
+    void Awake()
+    {
+        if (!built)
+        {
+            BuildGrid();
+            built = true;
+        }
+    }
 
     void BuildGrid()
     {
         int totalSlots = registry.cars.Length + (includeRandomSlot ? 1 : 0);
         rows = Mathf.CeilToInt((float)totalSlots / columns);
         grid = new CarSlotUI[rows, columns];
+
+        bool wasActive = gridParent.gameObject.activeSelf;
+        gridParent.gameObject.SetActive(false);
 
         int carIndex = 0;
         for (int r = 0; r < rows; r++)
@@ -44,14 +55,14 @@ public class CarSelectionGridUI : MonoBehaviour
                 }
                 else
                 {
-                    CarStatsSO car = registry.cars[carIndex++].stats; // se declara ACÁ, antes de usarla
+                    CarStatsSO car = registry.cars[carIndex++].stats;
                     slot.SetCarData(CarSlotType.Car, car);
-                    // SetCarData ya calcula IsLockedByMission internamente (según el fix de CarSlotUI),
-                    // no hace falta calcularlo de nuevo acá
                 }
 
                 grid[r, c] = slot;
             }
+
+        gridParent.gameObject.SetActive(wasActive);
     }
 
     // Avanza en una dirección saltando celdas null hasta encontrar un slot válido o el borde
@@ -60,17 +71,17 @@ public class CarSelectionGridUI : MonoBehaviour
         int totalRows = grid.GetLength(0);
         int totalCols = grid.GetLength(1);
 
-        if (deltaCol != 0) // movimiento horizontal — wrap dentro de la MISMA fila
+        if (deltaCol != 0)
         {
             int col = fromCol;
             for (int i = 0; i < totalCols; i++)
             {
-                col = ((col + deltaCol) % totalCols + totalCols) % totalCols; // wrap circular
+                col = ((col + deltaCol) % totalCols + totalCols) % totalCols;
                 if (grid[fromRow, col] != null) return grid[fromRow, col];
             }
         }
 
-        if (deltaRow != 0) // movimiento vertical — wrap dentro de la MISMA columna
+        if (deltaRow != 0)
         {
             int row = fromRow;
             for (int i = 0; i < totalRows; i++)
@@ -93,5 +104,16 @@ public class CarSelectionGridUI : MonoBehaviour
     {
         if (grid == null || grid.Length == 0) return null;
         return grid[0, 0];
+    }
+
+
+    public void RefreshLockStates()
+    {
+        if (grid == null) return;
+        foreach (var slot in grid)
+        {
+            if (slot != null && slot.slotType == CarSlotType.Car)
+                slot.SetCarData(slot.slotType, slot.carStats);
+        }
     }
 }

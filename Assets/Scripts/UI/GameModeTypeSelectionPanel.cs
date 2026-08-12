@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class GameModeTypeSelectionPanel : MonoBehaviour
 {
@@ -17,30 +18,43 @@ public class GameModeTypeSelectionPanel : MonoBehaviour
     System.Action<GameModeSO> onModeFullyConfirmed;
     GameModeSO pendingMode;
 
+    readonly List<GameModeSlotUI> pooledSlots = new List<GameModeSlotUI>();
+
     void Awake()
     {
-        teamConfigUI.OnConfirmed += ConfirmTeamConfig; // ← se suscribe una sola vez
+        teamConfigUI.OnConfirmed += ConfirmTeamConfig;
         teamConfigUI.OnCancelled += CancelTeamConfig;
     }
 
     public void PopulateModes(GameModeSO[] modes, System.Action<GameModeSO> onConfirmed)
     {
         onModeFullyConfirmed = onConfirmed;
-
         ShowModeList();
 
-        foreach (Transform child in slotContainer)
-            Destroy(child.gameObject);
+        bool wasActive = slotContainer.gameObject.activeSelf;
+        slotContainer.gameObject.SetActive(false);
 
-        foreach (var mode in modes)
+        for (int i = 0; i < modes.Length; i++)
         {
-            GameModeSlotUI slot = Instantiate(slotPrefab, slotContainer);
-            slot.Setup(mode, OnModeSelected);
+            GameModeSlotUI slot = GetOrCreateSlot(i);
+            slot.Setup(modes[i], OnModeSelected);
+            slot.gameObject.SetActive(true);
         }
 
-        ShowModeList();
+        for (int i = modes.Length; i < pooledSlots.Count; i++)
+            pooledSlots[i].gameObject.SetActive(false);
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(slotContainer.GetComponent<RectTransform>());
+        slotContainer.gameObject.SetActive(wasActive);
+    }
+
+    GameModeSlotUI GetOrCreateSlot(int index)
+    {
+        if (index < pooledSlots.Count)
+            return pooledSlots[index];
+
+        GameModeSlotUI slot = Instantiate(slotPrefab, slotContainer);
+        pooledSlots.Add(slot);
+        return slot;
     }
 
     void OnModeSelected(GameModeSO mode)
@@ -50,7 +64,6 @@ public class GameModeTypeSelectionPanel : MonoBehaviour
             onModeFullyConfirmed?.Invoke(mode);
             return;
         }
-
         pendingMode = mode;
         teamConfigUI.currentMode = mode;
         ShowTeamConfig();
@@ -64,8 +77,9 @@ public class GameModeTypeSelectionPanel : MonoBehaviour
     void CancelTeamConfig()
     {
         pendingMode = null;
-        ShowModeList(); // vuelve a la lista de modos, sin confirmar nada
+        ShowModeList();
     }
+
     void ShowModeList()
     {
         modeListSection.SetActive(true);
@@ -88,7 +102,7 @@ public class GameModeTypeSelectionPanel : MonoBehaviour
         if (teamConfigUI != null)
         {
             teamConfigUI.OnConfirmed -= ConfirmTeamConfig;
-            teamConfigUI.OnCancelled -= CancelTeamConfig; // ← agregar
+            teamConfigUI.OnCancelled -= CancelTeamConfig;
         }
     }
 }

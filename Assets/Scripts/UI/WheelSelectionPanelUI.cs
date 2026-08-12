@@ -10,14 +10,21 @@ public class WheelSelectionPanelUI : MonoBehaviour
     [Header("Dueño de este panel (0 = P1, 1 = P2)")]
     public int ownerPlayerSlotIndex = 1;
 
-
     public event System.Action<WheelVisualSO> OnWheelSelected;
     public bool CurrentWheelIsLocked => currentIndex >= 0 && spawnedSwatches[currentIndex].IsLockedByMission;
 
     WheelSwatchUI[] spawnedSwatches;
-    int currentIndex = -1; // -1 = sin elegir, se conservan las ruedas default del auto
+    int currentIndex = -1;
+    bool built; 
 
-    void Awake() => BuildSwatches();
+    void Awake()
+    {
+        if (!built)
+        {
+            BuildSwatches();
+            built = true;
+        }
+    }
 
     void BuildSwatches()
     {
@@ -26,6 +33,9 @@ public class WheelSelectionPanelUI : MonoBehaviour
             Debug.LogError("[WheelSelectionPanelUI] 'Available Wheels' está vacío.", this);
             return;
         }
+
+        bool wasActive = swatchContainer.gameObject.activeSelf;
+        swatchContainer.gameObject.SetActive(false);
 
         spawnedSwatches = new WheelSwatchUI[availableWheels.Length];
         for (int i = 0; i < availableWheels.Length; i++)
@@ -38,7 +48,8 @@ public class WheelSelectionPanelUI : MonoBehaviour
             spawnedSwatches[i] = swatch;
         }
 
-        // Ya NO forzamos SelectIndex(0) acá — arranca en -1, sin resaltar ningún swatch
+        swatchContainer.gameObject.SetActive(wasActive);
+
         RefreshHighlight();
     }
 
@@ -60,8 +71,6 @@ public class WheelSelectionPanelUI : MonoBehaviour
         int newIndex = newRow * columns + newCol;
         newIndex = Mathf.Clamp(newIndex, 0, availableWheels.Length - 1);
 
-        // Permite NAVEGAR sobre ruedas bloqueadas (para verlas), pero no queda "elegida" de forma inválida
-        // — esto es una decisión de diseño: ¿preferís que directamente las salte al navegar?
         SelectIndex(newIndex);
         return CurrentWheel;
     }
@@ -79,6 +88,12 @@ public class WheelSelectionPanelUI : MonoBehaviour
             spawnedSwatches[i].SetSelected(i == currentIndex);
     }
 
-    // Devuelve null si el jugador nunca entró a elegir — WheelCustomizer.ApplyWheel ya maneja null correctamente
+    public void RefreshLockStates()
+    {
+        if (spawnedSwatches == null) return;
+        for (int i = 0; i < spawnedSwatches.Length; i++)
+            spawnedSwatches[i].SetWheel(availableWheels[i]);
+    }
+
     public WheelVisualSO CurrentWheel => currentIndex >= 0 ? availableWheels[currentIndex] : null;
 }

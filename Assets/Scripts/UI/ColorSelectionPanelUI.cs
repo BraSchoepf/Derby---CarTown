@@ -13,11 +13,22 @@ public class ColorSelectionPanelUI : MonoBehaviour
 
     Button[] spawnedSwatches;
     int currentIndex = 0;
+    bool built; 
 
-    void Awake() => BuildSwatches();
+    void Awake()
+    {
+        if (!built)
+        {
+            BuildSwatches();
+            built = true;
+        }
+    }
 
     void BuildSwatches()
     {
+        bool wasActive = swatchContainer.gameObject.activeSelf;
+        swatchContainer.gameObject.SetActive(false); // NUEVO
+
         spawnedSwatches = new Button[availableColors.Length];
         for (int i = 0; i < availableColors.Length; i++)
         {
@@ -27,6 +38,9 @@ public class ColorSelectionPanelUI : MonoBehaviour
             b.onClick.AddListener(() => SelectIndex(index));
             spawnedSwatches[i] = b;
         }
+
+        swatchContainer.gameObject.SetActive(wasActive);
+
         SelectIndex(0, notify: false);
     }
 
@@ -40,7 +54,6 @@ public class ColorSelectionPanelUI : MonoBehaviour
         int newRow = Mathf.Clamp(row + deltaRow, 0, totalRows - 1);
         int newIndex = newRow * columns + newCol;
 
-        // Si la última fila está incompleta, no dejamos caer en un índice inexistente
         newIndex = Mathf.Clamp(newIndex, 0, availableColors.Length - 1);
 
         SelectIndex(newIndex);
