@@ -29,3 +29,7 @@ MonoBehaviour:
   hasBadge: 0
   badgeSprite: {fileID: 0}
   badgeText: 
+  isLocked: 0
+  enableKnockbackFeedback: 1
+  knockbackMultiplierOverride: 5
+  maxKnockbackForceOverride: 17

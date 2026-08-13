@@ -9,7 +9,6 @@ public class GameModeSO : ScriptableObject
     public string modeName;
     public Sprite icon;
     public GameModeCategory category;
-
     public DrivingProfileSO drivingProfile;
 
     [Header("Reglas generales")]
@@ -26,7 +25,6 @@ public class GameModeSO : ScriptableObject
     public bool allowBots = true;
     [Tooltip("Si allowBots es true, cuántos bots como máximo puede spawnear este modo (0 = ilimitado, usa todos los spawn points disponibles)")]
     public int maxBots = 0;
-
     public bool enableEdgeDetection = false;
     public bool isDriftScoringMode = false;
 
@@ -35,4 +33,10 @@ public class GameModeSO : ScriptableObject
     public Sprite badgeSprite;
     public string badgeText;
     public bool isLocked = false;
+
+    [Header("Knockback entre autos (VehicleImpactFeedback)")]
+    [Tooltip("Si está tildado, este modo activa el knockback fuerte al chocar autos. Si NO está tildado, VehicleImpactFeedback queda desactivado por completo en este modo.")]
+    public bool enableKnockbackFeedback = false;
+    public float knockbackMultiplierOverride = 4f;
+    public float maxKnockbackForceOverride = 15f;
 }

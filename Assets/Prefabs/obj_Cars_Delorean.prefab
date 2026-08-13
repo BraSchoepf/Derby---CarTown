@@ -703,6 +703,7 @@ GameObject:
   - component: {fileID: 7354540661419626986}
   - component: {fileID: -5869439515177283206}
   - component: {fileID: -2635155927494125370}
+  - component: {fileID: 5696772269543703960}
   m_Layer: 6
   m_Name: obj_Cars_Delorean
   m_TagString: Untagged
@@ -1043,6 +1044,30 @@ MonoBehaviour:
   paintableRenderers:
   - renderer: {fileID: 0}
     materialIndex: 0
+--- !u!114 &5696772269543703960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3316808279603120959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a78c1edb7b9b5544998957703a022ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleImpactFeedback
+  carLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  minForceForFeedback: 3
+  heavyImpactThreshold: 10
+  impulseSource: {fileID: 0}
+  shakeForceMultiplier: 0.15
+  enableHitStop: 1
+  hitStopDuration: 0.04
+  extraTorqueMultiplier: 0.3
+  knockbackMultiplier: 0
+  maxKnockbackForce: 0
 --- !u!1 &4656262414772341800
 GameObject:
   m_ObjectHideFlags: 0

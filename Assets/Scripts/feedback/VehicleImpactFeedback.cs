@@ -4,7 +4,7 @@ using Unity.Cinemachine;
 public class VehicleImpactFeedback : MonoBehaviour
 {
     [Header("Filtro de colisión")]
-    public LayerMask carLayer; // asignar SOLO la layer "Car" acá
+    public LayerMask carLayer; 
 
     [Header("Config general")]
     public float minForceForFeedback = 3f;
@@ -21,7 +21,7 @@ public class VehicleImpactFeedback : MonoBehaviour
     [Header("Física extra")]
     public float extraTorqueMultiplier = 0.3f;
 
-    [Header("Knockback")]
+    [Header("Knockback (valores por defecto, se sobrescriben según el modo)")]
     public float knockbackMultiplier = 4f;
     public float maxKnockbackForce = 15f;
 
@@ -29,9 +29,27 @@ public class VehicleImpactFeedback : MonoBehaviour
 
     void Awake() => rb = GetComponent<Rigidbody>();
 
+    void Start()
+    {
+        ApplyModeSettings();
+    }
+
+    void ApplyModeSettings()
+    {
+        GameModeSO mode = GameSession.Instance != null ? GameSession.Instance.chosenGameMode : null;
+
+        if (mode == null || !mode.enableKnockbackFeedback)
+        {
+            enabled = false;
+            return;
+        }
+
+        knockbackMultiplier = mode.knockbackMultiplierOverride;
+        maxKnockbackForce = mode.maxKnockbackForceOverride;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
-        // Filtro: solo procesar si el objeto con el que chocamos es otro auto
         if (((1 << collision.gameObject.layer) & carLayer) == 0)
             return;
 
@@ -41,19 +59,15 @@ public class VehicleImpactFeedback : MonoBehaviour
         ContactPoint contact = collision.contacts[0];
         bool isHeavy = force > heavyImpactThreshold;
 
-        // Screen shake
         if (impulseSource != null)
             impulseSource.GenerateImpulse(contact.normal * force * shakeForceMultiplier);
 
-        // Hit stop (solo en choques fuertes)
         if (enableHitStop && isHeavy && HitStopManager.Instance != null)
             HitStopManager.Instance.DoHitStop(hitStopDuration);
 
-        // Física extra: sacudida
         Vector3 randomTorque = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         rb.AddTorque(randomTorque * force * extraTorqueMultiplier, ForceMode.Impulse);
 
-        // Knockback
         ApplyKnockback(contact, force);
     }
 
