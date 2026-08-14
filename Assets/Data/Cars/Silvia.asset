@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30da1255a491cff478e82fe3fe9ee952, type: 3}
+  m_Name: Silvia
+  m_EditorClassIdentifier: Assembly-CSharp::CarStatsSO
+  category: 0
+  carName: Silvia
+  previewImage: {fileID: 21300000, guid: 1f5141bc12df9cd44b189e68c2546db3, type: 3}
+  previewPrefab: {fileID: 2506425688680036259, guid: f443832af27898548904d1a9c4978dbc, type: 3}
+  displaySpeedStat: 0.62
+  displayWeightStat: 0.7
+  displayResistanceStat: 0.7
+  displayTurboStat: 0.5
+  maxMotorTorque: 1900
+  maxSpeed: 40
+  accelerationRate: 8
+  decelerationRate: 9
+  brakeForce: 6000
+  brakeDecelStrength: 2
+  maxSteerAngle: 38
+  driftSteerBoost: 0.2
+  lowSpeedSteerMultiplier: 0.85
+  fullSteerSpeedThreshold: 6
+  highSpeedSteerReduction: 0.8
+  highSpeedThreshold: 23
+  centerOfMassOffset: {x: 0, y: 0.23, z: 0.05}
+  suspensionSpring: 43000
+  suspensionDamper: 5000
+  suspensionDistance: 0.25
+  forwardExtremumSlip: 0.35
+  forwardExtremumValue: 1.5
+  forwardAsymptoteSlip: 0.8
+  forwardAsymptoteValue: 1
+  forwardStiffness: 1.6
+  sidewaysExtremumSlip: 0.3
+  sidewaysExtremumValue: 1
+  sidewaysAsymptoteSlip: 0.7
+  sidewaysAsymptoteValue: 1
+  sidewaysStiffnessFront: 1.7
+  sidewaysStiffnessRear: 1.9
+  driftableGroundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  enableDrift: 1
+  handbrakeDriftTorque: 2200
+  driftSidewaysStiffness: 0.4
+  driftKickForce: 1.2
+  maxDriftAngle: 65
+  driftAngularTorque: 8
+  driftAngularDamping: 6
+  maxDriftAngularVelocity: 90
+  driftSustainForce: 2000
+  minDriftAngleForSustain: 12
+  directionChangeKick: 20
+  brakeResetDamping: 12
+  brakeResetThreshold: 0.15
+  handbrakeResetWindow: 0.15
+  enableAutoDrift: 0
+  autoDriftSpeedThreshold: 15
+  autoDriftSteerThreshold: 0.75
+  autoDriftStiffness: 0.2
+  enableHighSpeedStability: 1
+  highSpeedYawDamping: 1.2
+  yawDampingSpeedThreshold: 15
+  expectedYawRateMultiplier: 2.5
+  nitroMaxCapacity: 130
+  nitroChargeRate: 5
+  nitroDrainRate: 19
+  nitroSpeedBoost: 13
+  nitroTorqueBoost: 500
+  enableOffroadGrip: 0
+  offroadStiffnessMultiplier: 1.3
+  maxWheelRadiusFront: 0.32
+  maxWheelRadiusRear: 0.32
+  lateralSlipThreshold: 0.4
+  brakeSlipThreshold: 0.45
+  vfxData: {fileID: 11400000, guid: c673e052606d40d469231b410bef8861, type: 2}
+  unlockRewardId: 
