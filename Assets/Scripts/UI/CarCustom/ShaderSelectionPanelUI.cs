@@ -14,8 +14,16 @@ public class ShaderSelectionPanelUI : MonoBehaviour
 
     ShaderSwatchUI[] spawnedSwatches;
     int currentIndex = 0;
+    bool built;
 
-    void Awake() => BuildSwatches();
+    void Awake()
+    {
+        if (!built)
+        {
+            BuildSwatches();
+            built = true;
+        }
+    }
 
     void BuildSwatches()
     {
@@ -24,6 +32,9 @@ public class ShaderSelectionPanelUI : MonoBehaviour
             Debug.LogError("[ShadersSelectionPanelUI] 'Available Shaders' está vacío.", this);
             return;
         }
+
+        bool wasActive = swatchContainer.gameObject.activeSelf;
+        swatchContainer.gameObject.SetActive(false); // NUEVO
 
         spawnedSwatches = new ShaderSwatchUI[availableShaders.Length];
         for (int i = 0; i < availableShaders.Length; i++)
@@ -37,7 +48,8 @@ public class ShaderSelectionPanelUI : MonoBehaviour
             spawnedSwatches[i] = swatch;
         }
 
-        // Arranca en el primer material DESBLOQUEADO, no necesariamente el índice 0
+        swatchContainer.gameObject.SetActive(wasActive);
+
         int firstUnlocked = System.Array.FindIndex(spawnedSwatches, s => !s.IsLocked);
         SelectIndex(firstUnlocked >= 0 ? firstUnlocked : 0, notify: false);
     }
@@ -52,9 +64,8 @@ public class ShaderSelectionPanelUI : MonoBehaviour
         int newRow = Mathf.Clamp(row + deltaRow, 0, totalRows - 1);
         int newIndex = Mathf.Clamp(newRow * columns + newCol, 0, availableShaders.Length - 1);
 
-        // Saltea slots bloqueados en la dirección del movimiento, en vez de dejarte "elegir" algo bloqueado
         if (spawnedSwatches[newIndex].IsLocked)
-            return CurrentShader; // se queda donde estaba, no avanza a un slot bloqueado
+            return CurrentShader;
 
         SelectIndex(newIndex);
         return CurrentShader;
@@ -71,6 +82,13 @@ public class ShaderSelectionPanelUI : MonoBehaviour
     {
         for (int i = 0; i < spawnedSwatches.Length; i++)
             spawnedSwatches[i].SetSelected(i == currentIndex);
+    }
+
+    public void RefreshLockStates()
+    {
+        if (spawnedSwatches == null) return;
+        for (int i = 0; i < spawnedSwatches.Length; i++)
+            spawnedSwatches[i].SetVariant(availableShaders[i], ownerPlayerSlotIndex);
     }
 
     public CarShaderVariantSO CurrentShader => availableShaders[currentIndex];

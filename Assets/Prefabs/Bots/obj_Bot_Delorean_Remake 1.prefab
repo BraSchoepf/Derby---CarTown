@@ -506,6 +506,7 @@ GameObject:
   - component: {fileID: 6540337611837657787}
   - component: {fileID: -2915207503031114343}
   - component: {fileID: -7754819028246042320}
+  - component: {fileID: 370749369211112032}
   m_Layer: 6
   m_Name: obj_Bot_Delorean_Remake 1
   m_TagString: Untagged
@@ -937,6 +938,30 @@ MonoBehaviour:
   offTrackLayer:
     serializedVersion: 2
     m_Bits: 16384
+--- !u!114 &370749369211112032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683970242854663803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a78c1edb7b9b5544998957703a022ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleImpactFeedback
+  carLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  minForceForFeedback: 3
+  heavyImpactThreshold: 10
+  impulseSource: {fileID: 0}
+  shakeForceMultiplier: 0.15
+  enableHitStop: 1
+  hitStopDuration: 0.04
+  extraTorqueMultiplier: 0.3
+  knockbackMultiplier: 0
+  maxKnockbackForce: 0
 --- !u!1 &3422750239316047253
 GameObject:
   m_ObjectHideFlags: 0

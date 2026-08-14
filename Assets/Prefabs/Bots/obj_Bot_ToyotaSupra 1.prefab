@@ -940,6 +940,7 @@ GameObject:
   - component: {fileID: -3765340823115974118}
   - component: {fileID: 3692575056892389328}
   - component: {fileID: 1985891080575308900}
+  - component: {fileID: 1868949898796454940}
   m_Layer: 6
   m_Name: obj_Bot_ToyotaSupra 1
   m_TagString: Untagged
@@ -1381,6 +1382,30 @@ MonoBehaviour:
   offTrackLayer:
     serializedVersion: 2
     m_Bits: 16384
+--- !u!114 &1868949898796454940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6770943345239207863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a78c1edb7b9b5544998957703a022ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleImpactFeedback
+  carLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  minForceForFeedback: 3
+  heavyImpactThreshold: 10
+  impulseSource: {fileID: 0}
+  shakeForceMultiplier: 0.15
+  enableHitStop: 1
+  hitStopDuration: 0.04
+  extraTorqueMultiplier: 0.3
+  knockbackMultiplier: 0
+  maxKnockbackForce: 0
 --- !u!1 &7923725331281594584
 GameObject:
   m_ObjectHideFlags: 0
