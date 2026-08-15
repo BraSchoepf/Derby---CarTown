@@ -68,9 +68,8 @@ public class CarShaderApplier : MonoBehaviour
 
     void SetTextureIfExists(Material mat, string propertyName, Texture2D value)
     {
-        if (value == null) return; // no pisar la textura default del material si el variant no define una
-        if (mat.HasProperty(propertyName))
-            mat.SetTexture(propertyName, value);
+        if (!mat.HasProperty(propertyName)) return;
+        mat.SetTexture(propertyName, value); // value puede ser null — eso es correcto, limpia la textura vieja
     }
 
     void SetFloatIfExists(Material mat, string propertyName, float value)

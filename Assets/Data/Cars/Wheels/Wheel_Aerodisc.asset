@@ -12,13 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4e125d5f9457d4b99617a6a055c22c, type: 3}
   m_Name: Wheel_Aerodisc
   m_EditorClassIdentifier: Assembly-CSharp::WheelVisualSO
-  wheelName: YellowFlower
-  previewIcon: {fileID: 21300000, guid: d46983e94a3bd514a834209a55dafb03, type: 3}
-  wheelMesh: {fileID: 5167161855516417797, guid: 453ae8283ccaaf64ca93f8cb59745b5b, type: 3}
+  wheelName: Aerodisc
+  previewIcon: {fileID: 21300000, guid: 9146ae93bc025af488ee8e66f1a3a628, type: 3}
+  wheelMesh: {fileID: -6339588509251201917, guid: fdfb7e99bebb1a2408de3599b5e2f641, type: 3}
   wheelMaterials:
-  - {fileID: 2100000, guid: a90349df10db772458e308704eb0e532, type: 2}
-  - {fileID: 2100000, guid: ec691ff58163d7749a3b7aa2206d80cc, type: 2}
-  - {fileID: 2100000, guid: 05cf2b15a7ee627418662034b8847dec, type: 2}
-  - {fileID: 2100000, guid: abc8fa5928f7ee24a88644eef2e6e6d7, type: 2}
+  - {fileID: 2100000, guid: e78cab453d1870f40b0bbda76f6b67c8, type: 2}
+  - {fileID: 2100000, guid: 5c8a618ef6e871345912716b7cc2ba0b, type: 2}
   nativeRadius: 0.32
-  unlockRewardId: 2
+  unlockRewardId: 

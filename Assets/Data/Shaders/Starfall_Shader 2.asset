@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24bea7e855f5a00449ff72f1f0497037, type: 3}
-  m_Name: CartoonShader
+  m_Name: Starfall_Shader 2
   m_EditorClassIdentifier: Assembly-CSharp::CarShaderVariantSO
-  variantName: Cartoon
-  previewIcon: {fileID: -2060597595, guid: 5a0ce957d39296044a194de197a188b5, type: 3}
+  variantName: Starfall
+  previewIcon: {fileID: -133639599, guid: e356a3d2e13ae7a4293208b27c9a78bc, type: 3}
   unlockRewardId: 
-  shader: {fileID: -6465566751694194690, guid: 427848873b5b3154981f375383c96171, type: 3}
+  shader: {fileID: 4800000, guid: 6e9f8e31b41f95f42924ba6e796a8cd3, type: 3}
   texture2D: {fileID: 0}
-  smoothness: 0.3
-  metallic: 0.5
-  shades: 0.44
-  cellDensity: 1
-  minValue: 0.45
-  maxValue: 1
+  smoothness: 0
+  metallic: 1
+  shades: 0
+  cellDensity: 0
+  minValue: 0
+  maxValue: 0
   fresnelColor: {r: 1, g: 1, b: 1, a: 1}
   fresnelPower: 0
-  fresnelStrength: 0
+  fresnelStrength: 1
   fresnelStart: 0
   fresnelEnd: 0
-  direction: {x: 0, y: 0}
+  direction: {x: 0.01, y: 0.02}
   emissionIntensity: 0
