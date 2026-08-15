@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CarStatsSO
   category: 0
   carName: Silvia
-  previewImage: {fileID: 21300000, guid: 1f5141bc12df9cd44b189e68c2546db3, type: 3}
+  previewImage: {fileID: 21300000, guid: 9c947417265403c4282384027bf088ae, type: 3}
   previewPrefab: {fileID: 2506425688680036259, guid: f443832af27898548904d1a9c4978dbc, type: 3}
   displaySpeedStat: 0.62
   displayWeightStat: 0.7

@@ -12,6 +12,9 @@ public class CarShaderVariantSO : ScriptableObject
     [Tooltip("El shader a aplicar. Si querés mantener el shader actual del material y solo cambiar parámetros, dejalo vacío.")]
     public Shader shader;
 
+    [Header("Texturas")]
+    public Texture2D texture2D;
+
     [Header("Superficie (Metallic/Smoothness)")]
     [Range(0f, 1f)] public float smoothness = 0.5f;
     [Range(0f, 1f)] public float metallic = 0.5f;
@@ -30,6 +33,9 @@ public class CarShaderVariantSO : ScriptableObject
     [Range(0f, 5f)] public float fresnelStrength = 1f;
     [Range(0f, 1f)] public float fresnelStart = 0f;
     [Range(0f, 1f)] public float fresnelEnd = 1f;
+
+    [Header("Wave")]
+    public Vector2 direction;
 
     [Header("Emisión")]
     public float emissionIntensity = 1f;

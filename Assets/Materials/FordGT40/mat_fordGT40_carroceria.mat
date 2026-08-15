@@ -117,9 +117,9 @@ Material:
     - _EmissionIntensity: 0
     - _EnvironmentReflections: 1
     - _FresnelEnd: 0.95
-    - _FresnelPower: 0.5
+    - _FresnelPower: 0
     - _FresnelStart: 0.8
-    - _FresnelStrength: 8
+    - _FresnelStrength: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0

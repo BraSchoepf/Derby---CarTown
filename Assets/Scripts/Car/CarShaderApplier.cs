@@ -45,6 +45,8 @@ public class CarShaderApplier : MonoBehaviour
 
     void ApplyParameters(Material mat, CarShaderVariantSO variant)
     {
+        SetTextureIfExists(mat, "_Texture2D", variant.texture2D);
+
         SetFloatIfExists(mat, "_Smoothness", variant.smoothness);
         SetFloatIfExists(mat, "_Metallic", variant.metallic);
 
@@ -59,7 +61,16 @@ public class CarShaderApplier : MonoBehaviour
         SetFloatIfExists(mat, "_FresnelStart", variant.fresnelStart);
         SetFloatIfExists(mat, "_FresnelEnd", variant.fresnelEnd);
 
+        SetVectorIfExists(mat, "_Direction", variant.direction);
+
         SetFloatIfExists(mat, "_EmissionIntensity", variant.emissionIntensity);
+    }
+
+    void SetTextureIfExists(Material mat, string propertyName, Texture2D value)
+    {
+        if (value == null) return; // no pisar la textura default del material si el variant no define una
+        if (mat.HasProperty(propertyName))
+            mat.SetTexture(propertyName, value);
     }
 
     void SetFloatIfExists(Material mat, string propertyName, float value)
@@ -72,6 +83,12 @@ public class CarShaderApplier : MonoBehaviour
     {
         if (mat.HasProperty(propertyName))
             mat.SetColor(propertyName, value);
+    }
+
+    void SetVectorIfExists(Material mat, string propertyName, Vector2 value)
+    {
+        if (mat.HasProperty(propertyName))
+            mat.SetVector(propertyName, new Vector4(value.x, value.y, 0f, 0f));
     }
 
     // Para cuando armes la UI de Fresnel en vivo — actualiza solo esa propiedad,
