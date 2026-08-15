@@ -3,7 +3,62 @@ guid: be740547a4b0e9443a0abea69f069b78
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_carroceria
+    second: {fileID: 2100000, guid: 86441c3792d66534bbf5e96460639fd8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_carroceriaSecond
+    second: {fileID: 2100000, guid: 81506241faf4585408cc2dd0606d04d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_cristales
+    second: {fileID: 2100000, guid: 800df86d2cdf35447a216a00b100d123, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_detalles
+    second: {fileID: 2100000, guid: b7343a6f0e525524d868fa359497e82e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_escape
+    second: {fileID: 2100000, guid: 49ce1977702436c4b8191140bb5a3395, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_farol_front
+    second: {fileID: 2100000, guid: 557a79cc80cce224f9c32abd502ec87c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_farol_second
+    second: {fileID: 2100000, guid: 83841172973d7104ba51e21c7f407562, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_freno
+    second: {fileID: 2100000, guid: 787e246f51ee5aa4e87971a5f09db2f5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_llantas
+    second: {fileID: 2100000, guid: 90190fcce14baf74094e4cfc37b37cab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_lucesTraseras
+    second: {fileID: 2100000, guid: 0a4e007b133eb5a43a62f3ec9e41d466, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_parteInferior
+    second: {fileID: 2100000, guid: b801a09932ed49c45b806a913a7a12e2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
