@@ -15,7 +15,7 @@ MonoBehaviour:
   category: 0
   carName: Toyopra
   previewImage: {fileID: 21300000, guid: 006745eb961038243b631b6ae4dc815b, type: 3}
-  previewPrefab: {fileID: 6770943345239207863, guid: 2999e6f625bc73e4498ca94a1c330374, type: 3}
+  previewPrefab: {fileID: 7961322480521857034, guid: 78407b942d0c883448e48fd4c34984d7, type: 3}
   displaySpeedStat: 0.62
   displayWeightStat: 0.7
   displayResistanceStat: 0.7
@@ -32,7 +32,7 @@ MonoBehaviour:
   fullSteerSpeedThreshold: 6
   highSpeedSteerReduction: 0.6
   highSpeedThreshold: 23
-  centerOfMassOffset: {x: 0, y: 0.22, z: -0.1}
+  centerOfMassOffset: {x: 0, y: 0.22, z: -0.05}
   suspensionSpring: 43000
   suspensionDamper: 5000
   suspensionDistance: 0.3

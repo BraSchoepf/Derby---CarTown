@@ -3,7 +3,42 @@ guid: 1bf8d32f1a2319848a1f34811e58c40c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DetallesNegros
+    second: {fileID: 2100000, guid: 3d3bc4cca96d597458b13fe52608a154, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: ba04344c95843c742a59be2cb8299bc5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 03d0eed28f307cd44bcb57a2c5bd9190, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: 45fa899e04cc0d24988ee5a59b5bb81c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.004
+    second: {fileID: 2100000, guid: 682a31d8ff37dbc48894b3d6196211ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: luces secundarias001
+    second: {fileID: 2100000, guid: 758544508d11b6441ab91ec4362eed25, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_carroceria
+    second: {fileID: 2100000, guid: d897e81580b453e4b8c33247ff5ef62d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
