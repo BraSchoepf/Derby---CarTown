@@ -236,6 +236,7 @@ MonoBehaviour:
   stuckCheckSpeedThreshold: 0.5
   stuckTimeBeforeRespawn: 4
   autoRespawnWhenStuck: 0
+  respawnHoldDuration: 2
   nitroRampSpeed: 4
 --- !u!114 &7256052147252040463
 MonoBehaviour:

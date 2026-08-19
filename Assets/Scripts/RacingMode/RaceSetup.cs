@@ -27,6 +27,10 @@ public class RaceSetup : MonoBehaviour
     public NitroSliderUI nitroSliderP1;
     public NitroSliderUI nitroSliderP2;
 
+    [Header("Respawn Hold UI")]
+    public RespawnHoldUI respawnHoldP1;
+    public RespawnHoldUI respawnHoldP2;
+
     [Header("Race Position UI")]
     public RacePositionUI racePositionP1;
     public RacePositionUI racePositionP2;
@@ -82,6 +86,7 @@ public class RaceSetup : MonoBehaviour
         ConfigureHealthBars(isMultiplayer);
         ConfigureSpeedometers(isMultiplayer);
         ConfigureNitro(isMultiplayer);
+        ConfigureRespawnUI(isMultiplayer);
         ConfigureHUDVisibility(isMultiplayer);
 
         RaceCourseSet courseSet = MapLoader.Instance.GetRaceCourseSet();
@@ -195,6 +200,10 @@ public class RaceSetup : MonoBehaviour
         if (nitroUI != null && carController != null)
             nitroUI.SetTarget(carController);
 
+        RespawnHoldUI respawnUI = slotIndex == 0 ? respawnHoldP1 : respawnHoldP2;
+        if (respawnUI != null && carController != null)
+            respawnUI.SetTarget(carController);
+
         RaceCarIdentity identity = carInstance.GetComponent<RaceCarIdentity>();
         if (identity == null) identity = carInstance.AddComponent<RaceCarIdentity>();
         identity.Initialize(progress);
@@ -215,7 +224,6 @@ public class RaceSetup : MonoBehaviour
             DriftScoreTracker scoreTracker = carInstance.GetComponent<DriftScoreTracker>();
             if (scoreTracker == null) scoreTracker = carInstance.AddComponent<DriftScoreTracker>();
 
-            // Guardamos la referencia para que el HUD del jugador pueda leer el puntaje en vivo
             StorePlayerDriftTracker(slotIndex, scoreTracker);
         }
 
@@ -242,8 +250,8 @@ public class RaceSetup : MonoBehaviour
         playerRespawn.waypointPath = raceManager.activeCourse.aiPath;
 
         carController.autoRespawnWhenStuck = false;
-
     }
+
     void AssignCameraChannel(GameObject carInstance, int slotIndex)
     {
         var vcam = carInstance.GetComponentInChildren<Unity.Cinemachine.CinemachineCamera>();
@@ -384,6 +392,15 @@ public class RaceSetup : MonoBehaviour
         if (nitroSliderP2 != null)
             nitroSliderP2.gameObject.SetActive(multiplayer); // P2 solo si hay multiplayer
     }
+
+    void ConfigureRespawnUI(bool multiplayer)
+    {
+        if (respawnHoldP1 != null) respawnHoldP1.gameObject.SetActive(true); // P1 siempre visible
+
+        if (respawnHoldP2 != null)
+            respawnHoldP2.gameObject.SetActive(multiplayer); // P2 solo si hay multiplayer
+    }
+
     void ConfigureHUDVisibility(bool multiplayer)
     {
         if (racePositionP1 != null) racePositionP1.gameObject.SetActive(true);

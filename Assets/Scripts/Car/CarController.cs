@@ -66,6 +66,14 @@ public class CarController : MonoBehaviour
     public float stuckTimeBeforeRespawn = 4f;
     public bool autoRespawnWhenStuck = true;
 
+    [Header("Respawn Manual - Mantener tecla")]
+    [Tooltip("Cuánto tiempo hay que mantener apretada la tecla de respawn para que se active")]
+    public float respawnHoldDuration = 1.5f;
+
+    float respawnHoldTimer = 0f;
+
+    public float RespawnHoldProgress => respawnHoldDuration > 0f ? Mathf.Clamp01(respawnHoldTimer / respawnHoldDuration) : 0f;
+
     [Header("Nitro - rampeado")]
     public float nitroRampSpeed = 4f; // qué tan rápido sube/baja el boost — más bajo = más gradual
 
@@ -597,15 +605,29 @@ public class CarController : MonoBehaviour
 
     void HandleManualRespawnInput()
     {
-        if (isDead || Keyboard.current == null) return;
+        if (isDead || Keyboard.current == null)
+        {
+            respawnHoldTimer = 0f;
+            return;
+        }
 
-        bool respawnPressed = playerIndex == 1
-            ? Keyboard.current.rKey.wasPressedThisFrame
-            : playerIndex == 2 && Keyboard.current.jKey.wasPressedThisFrame;
+        bool respawnKeyHeld = playerIndex == 1
+            ? Keyboard.current.rKey.isPressed
+            : playerIndex == 2 && Keyboard.current.jKey.isPressed;
 
-        if (!respawnPressed) return;
+        if (!respawnKeyHeld)
+        {
+            respawnHoldTimer = 0f;
+            return;
+        }
 
-        Debug.Log($"[{gameObject.name}] Respawn manual disparado. playerIndex={playerIndex}, spawnPosition={spawnPosition}");
+        respawnHoldTimer += Time.deltaTime;
+
+        if (respawnHoldTimer < respawnHoldDuration) return;
+
+        respawnHoldTimer = 0f;
+
+        Debug.Log($"[{gameObject.name}] Respawn manual disparado (mantenido {respawnHoldDuration}s). playerIndex={playerIndex}, spawnPosition={spawnPosition}");
 
         PlayerRaceRespawn raceRespawn = GetComponent<PlayerRaceRespawn>();
         if (raceRespawn != null)
