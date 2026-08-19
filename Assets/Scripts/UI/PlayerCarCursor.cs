@@ -4,13 +4,13 @@ using UnityEngine.InputSystem;
 public class PlayerCarCursor : MonoBehaviour
 {
     public int playerIndex = 1;
-    public CarSelectionGridUI grid;
+    public CarSelectionCarouselUI grid;
     public CarPreviewRenderer preview;
     public CarStatsPanelUI statsPanel;
 
     [Header("Customization Tabs")]
     public CustomizationTabsUI tabs;
-    public WheelSelectionPanelUI wheelPanel;
+    public WheelSelectionCarouselUI wheelPanel;
 
     [Header("Color panel - repetición al mantener")]
     public float holdRepeatDelay = 0.4f;   // pausa inicial antes de empezar a repetir
@@ -52,7 +52,8 @@ public class PlayerCarCursor : MonoBehaviour
             enabled = false;
             return;
         }
-        MoveTo(grid.FirstSlot());
+        grid.OnSlotClicked += OnSlotClicked;
+        MoveTo(grid.CurrentSlot);
     }
 
     void Update()
@@ -61,7 +62,7 @@ public class PlayerCarCursor : MonoBehaviour
 
         if (current == null)
         {
-            CarSlotUI first = grid.FirstSlot();
+            CarSlotUI first = grid.CurrentSlot;
             if (first == null) { /* ...guard existente... */ return; }
             MoveTo(first);
             return;
@@ -72,8 +73,8 @@ public class PlayerCarCursor : MonoBehaviour
             if (tabs.CurrentTab == CustomizationTabsUI.Tab.Car)
             {
                 Vector2Int moveDir = ReadDirection();
-                if (moveDir != Vector2Int.zero)
-                    MoveTo(grid.GetNextSlot(current.GridRow, current.GridCol, moveDir.y, moveDir.x));
+                if (moveDir.x != 0)                    // ignoramos moveDir.y — no hay filas
+                    MoveTo(grid.Move(moveDir.x));
 
                 if (GetConfirm())
                 {
@@ -190,19 +191,6 @@ public class PlayerCarCursor : MonoBehaviour
         }
     }
 
-    void HandleCarGridNavigation()
-    {
-        Vector2Int moveDir = ReadDirection();
-        if (moveDir != Vector2Int.zero)
-            MoveTo(grid.GetNextSlot(current.GridRow, current.GridCol, moveDir.y, moveDir.x));
-
-        if (GetConfirm())
-        {
-            if (IsSlotLockedForMe(current)) return;
-            Lock();
-        }
-    }
-
     Vector2Int ReadDirection()
     {
         var kb = Keyboard.current;
@@ -243,28 +231,28 @@ public class PlayerCarCursor : MonoBehaviour
         if (statsPanel != null) statsPanel.ShowStats(carToShow);
     }
 
-    void ApplyWheelMove(Vector2Int dir)
+    void ApplyWheelMove(int dir)
     {
-        WheelVisualSO wheel = wheelPanel.Move(dir.x, dir.y);
-        if (wheelPanel.CurrentWheelIsLocked) return; // no aplicar visualmente una rueda bloqueada
+        WheelVisualSO wheel = wheelPanel.Move(dir);
+        if (wheelPanel.CurrentWheelIsLocked) return;
         preview.SetWheel(wheel);
     }
     void HandleWheelNavigation()
     {
         if (wheelPanel == null) return;
+        Vector2Int dir2 = ReadDirectionRaw();
+        int dir = dir2.x; // ignoramos vertical
 
-        Vector2Int dir = ReadDirectionRaw();
-
-        if (dir == Vector2Int.zero)
+        if (dir == 0)
         {
             heldWheelDirection = Vector2Int.zero;
             wheelHoldTimer = 0f;
             return;
         }
 
-        if (dir != heldWheelDirection)
+        if (dir != heldWheelDirection.x)
         {
-            heldWheelDirection = dir;
+            heldWheelDirection = new Vector2Int(dir, 0);
             wheelHoldTimer = holdRepeatDelay;
             ApplyWheelMove(dir);
             return;
@@ -277,8 +265,6 @@ public class PlayerCarCursor : MonoBehaviour
             wheelHoldTimer = holdRepeatInterval;
         }
     }
-
-
     void HandleColorNavigation()
     {
         if (colorPanel == null) return;
@@ -341,6 +327,7 @@ public class PlayerCarCursor : MonoBehaviour
     public void OnSlotClicked(CarSlotUI slot)
     {
         if (IsLocked) return;
+        grid.SelectSlot(slot);
         MoveTo(slot);
         Lock();
     }
