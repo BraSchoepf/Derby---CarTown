@@ -111,6 +111,7 @@ public class CarController : MonoBehaviour
     float handbrakeResetTimer = 0f;
 
     PlayerInput playerInput; // referencia cacheada
+    SpawnInvincibility spawnInvincibility;
     InputAction handbrakeAction;
     public void SetNitroInputAI(bool pressed) => nitroInput = pressed;
 
@@ -118,9 +119,7 @@ public class CarController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
-
-        // NO buscar handbrakeAction acá — playerInput.actions todavía no es la copia final
-        // ni tiene el Control Scheme asignado en este punto del ciclo de vida
+        spawnInvincibility = GetComponent<SpawnInvincibility>();
 
         if (!initialized) Initialize(stats);
     }
@@ -662,6 +661,9 @@ public class CarController : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         transform.SetPositionAndRotation(spawnPosition, spawnRotation);
         stuckRespawnTimer = 0f;
+
+        if (spawnInvincibility != null)
+            spawnInvincibility.Activate();
     }
 
     public void ForceRespawnAtLastPoint()
