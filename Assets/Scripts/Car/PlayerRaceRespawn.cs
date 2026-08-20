@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerRaceRespawn : MonoBehaviour
 {
     public AIWaypointPath waypointPath;
-
     int currentNodeIndex = 0;
     float nodeAdvanceCheckInterval = 0.3f;
     float checkTimer = 0f;
@@ -18,8 +17,6 @@ public class PlayerRaceRespawn : MonoBehaviour
     {
         if (waypointPath == null || waypointPath.NodeCount == 0) return;
 
-        // No hace falta chequear cada frame — el jugador no necesita precisión de IA,
-        // solo una referencia razonable de "por dónde va" para el respawn
         checkTimer -= Time.deltaTime;
         if (checkTimer <= 0f)
         {
@@ -44,6 +41,8 @@ public class PlayerRaceRespawn : MonoBehaviour
 
         transform.SetPositionAndRotation(node.position, facing);
 
-        CarController controller = GetComponent<CarController>();
+        SpawnInvincibility spawnInvincibility = GetComponent<SpawnInvincibility>();
+        if (spawnInvincibility != null)
+            spawnInvincibility.Activate();
     }
 }

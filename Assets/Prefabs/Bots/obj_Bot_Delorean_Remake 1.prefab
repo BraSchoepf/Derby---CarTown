@@ -507,6 +507,7 @@ GameObject:
   - component: {fileID: -2915207503031114343}
   - component: {fileID: -7754819028246042320}
   - component: {fileID: 370749369211112032}
+  - component: {fileID: -2601483697024503305}
   m_Layer: 6
   m_Name: obj_Bot_Delorean_Remake 1
   m_TagString: Untagged
@@ -963,6 +964,21 @@ MonoBehaviour:
   extraTorqueMultiplier: 0.3
   knockbackMultiplier: 0
   maxKnockbackForce: 0
+--- !u!114 &-2601483697024503305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683970242854663803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f455b8a98ba7db4da4f38c2df72e561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnInvincibility
+  duration: 2
+  normalCarLayerName: Car
+  invincibleCarLayerName: CarSpawnProtected
 --- !u!1 &3422750239316047253
 GameObject:
   m_ObjectHideFlags: 0

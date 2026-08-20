@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 8605673126085812746}
   - component: {fileID: 8037501454710817461}
   - component: {fileID: 7486777376201001046}
+  - component: {fileID: -6405161830989704438}
   m_Layer: 6
   m_Name: obj_Bot_Cybertrack 1
   m_TagString: Untagged
@@ -551,6 +552,21 @@ MonoBehaviour:
   extraTorqueMultiplier: 0.3
   knockbackMultiplier: 0
   maxKnockbackForce: 0
+--- !u!114 &-6405161830989704438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078272866267778280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f455b8a98ba7db4da4f38c2df72e561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnInvincibility
+  duration: 2
+  normalCarLayerName: Car
+  invincibleCarLayerName: CarSpawnProtected
 --- !u!1 &1368021315827810221
 GameObject:
   m_ObjectHideFlags: 0

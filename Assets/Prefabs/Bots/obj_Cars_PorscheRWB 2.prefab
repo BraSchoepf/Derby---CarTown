@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 2942035929807689043}
   - component: {fileID: -5564439709875988089}
   - component: {fileID: -2991757551696329325}
+  - component: {fileID: 8351609009127529991}
   m_Layer: 6
   m_Name: obj_Cars_PorscheRWB 2
   m_TagString: Untagged
@@ -552,6 +553,21 @@ MonoBehaviour:
   extraTorqueMultiplier: 0.3
   knockbackMultiplier: 0
   maxKnockbackForce: 0
+--- !u!114 &8351609009127529991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711543342545725848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f455b8a98ba7db4da4f38c2df72e561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnInvincibility
+  duration: 2
+  normalCarLayerName: Car
+  invincibleCarLayerName: CarSpawnProtected
 --- !u!1 &1048758862022746729
 GameObject:
   m_ObjectHideFlags: 0

@@ -260,7 +260,8 @@ GameObject:
   - component: {fileID: 2179336175538501157}
   - component: {fileID: 6045981708247877767}
   - component: {fileID: 5494032890840251954}
-  m_Layer: 0
+  - component: {fileID: -1783093932358850968}
+  m_Layer: 6
   m_Name: obj_Cars_Silvia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -706,6 +707,21 @@ MonoBehaviour:
   extraTorqueMultiplier: 0.3
   knockbackMultiplier: 0
   maxKnockbackForce: 0
+--- !u!114 &-1783093932358850968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2506425688680036259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f455b8a98ba7db4da4f38c2df72e561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnInvincibility
+  duration: 2
+  normalCarLayerName: Car
+  invincibleCarLayerName: CarSpawnProtected
 --- !u!1 &2881293033135527757
 GameObject:
   m_ObjectHideFlags: 0

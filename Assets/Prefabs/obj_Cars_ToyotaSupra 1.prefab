@@ -1259,6 +1259,7 @@ GameObject:
   - component: {fileID: 1781088658791345357}
   - component: {fileID: 3297340718940223605}
   - component: {fileID: 5358128100841648860}
+  - component: {fileID: -2640370081563633720}
   m_Layer: 6
   m_Name: obj_Cars_ToyotaSupra 1
   m_TagString: Untagged
@@ -1385,6 +1386,7 @@ MonoBehaviour:
   stuckCheckSpeedThreshold: 0.5
   stuckTimeBeforeRespawn: 4
   autoRespawnWhenStuck: 0
+  respawnHoldDuration: 1.5
   nitroRampSpeed: 4
 --- !u!114 &319465328087142142
 MonoBehaviour:
@@ -1704,6 +1706,21 @@ MonoBehaviour:
   extraTorqueMultiplier: 0.3
   knockbackMultiplier: 0
   maxKnockbackForce: 0
+--- !u!114 &-2640370081563633720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7961322480521857034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f455b8a98ba7db4da4f38c2df72e561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnInvincibility
+  duration: 2
+  normalCarLayerName: Car
+  invincibleCarLayerName: CarSpawnProtected
 --- !u!1 &8991878676907071804
 GameObject:
   m_ObjectHideFlags: 0
