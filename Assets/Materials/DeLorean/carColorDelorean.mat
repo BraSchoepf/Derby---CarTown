@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: carColorDelorean
-  m_Shader: {fileID: -6465566751694194690, guid: 72d42568393f33e4e88bc9483c846d3a, type: 3}
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -17,7 +17,8 @@ Material:
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -108,14 +109,14 @@ Material:
     - _EmissionIntensity: 0
     - _EnvironmentReflections: 1
     - _FresnelEnd: 0.95
-    - _FresnelPower: 0.8
+    - _FresnelPower: 0
     - _FresnelStart: 0.75
-    - _FresnelStrength: 5
+    - _FresnelStrength: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Max: 1
-    - _Metallic: 0.6
+    - _Metallic: 1
     - _Min: 0.3
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -124,7 +125,7 @@ Material:
     - _ReceiveShadows: 1
     - _Shades: 0.49
     - _Shadows: 0.3
-    - _Smoothness: 0.3
+    - _Smoothness: 0.693
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -137,7 +138,7 @@ Material:
     - _ZWriteControl: 1
     m_Colors:
     - _BaseColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
-    - _Color: {r: 0.7584905, g: 0.7584905, b: 0.7584905, a: 1}
+    - _Color: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _FresnelColor: {r: 0.96981126, g: 0.6649437, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
