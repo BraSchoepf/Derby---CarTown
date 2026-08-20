@@ -4,7 +4,6 @@ public class CarPreviewRenderer : MonoBehaviour
 {
     public Camera previewCamera;
     public Transform spawnPoint;
-    public float rotationSpeed = 30f;
     [SerializeField] string previewLayerName = "CarPreview";
 
     GameObject instance;
@@ -36,13 +35,6 @@ public class CarPreviewRenderer : MonoBehaviour
             rb.useGravity = false;
         }
     }
-
-    void Update()
-    {
-        if (instance != null)
-            instance.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
-    }
-
     void SetLayerRecursively(GameObject obj, int layer)
     {
         obj.layer = layer;

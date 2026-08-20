@@ -84,4 +84,4 @@ MonoBehaviour:
   lateralSlipThreshold: 0.4
   brakeSlipThreshold: 0.45
   vfxData: {fileID: 11400000, guid: c673e052606d40d469231b410bef8861, type: 2}
-  unlockRewardId: 3
+  unlockRewardId: 

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24bea7e855f5a00449ff72f1f0497037, type: 3}
+  m_Name: Cloud_Shader
+  m_EditorClassIdentifier: Assembly-CSharp::CarShaderVariantSO
+  variantName: Cloud
+  previewIcon: {fileID: 421095809, guid: e356a3d2e13ae7a4293208b27c9a78bc, type: 3}
+  unlockRewardId: 
+  shader: {fileID: 4800000, guid: 14bc73cd97d6daa41bc08716ce1505b9, type: 3}
+  texture2D: {fileID: 0}
+  smoothness: 0
+  metallic: 1
+  shades: 0
+  cellDensity: 0
+  minValue: 0
+  maxValue: 0
+  fresnelColor: {r: 1, g: 1, b: 1, a: 1}
+  fresnelPower: 0
+  fresnelStrength: 1
+  fresnelStart: 0
+  fresnelEnd: 0
+  direction: {x: 0.01, y: 0.02}
+  emissionIntensity: 0

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CarShaderVariantSO
   variantName: Cartoon
   previewIcon: {fileID: -2060597595, guid: 5a0ce957d39296044a194de197a188b5, type: 3}
-  unlockRewardId: 100
+  unlockRewardId: 
   shader: {fileID: -6465566751694194690, guid: 427848873b5b3154981f375383c96171, type: 3}
+  texture2D: {fileID: 0}
   smoothness: 0.3
   metallic: 0.5
   shades: 0.44
@@ -27,4 +28,5 @@ MonoBehaviour:
   fresnelStrength: 0
   fresnelStart: 0
   fresnelEnd: 0
+  direction: {x: 0, y: 0}
   emissionIntensity: 0

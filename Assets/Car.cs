@@ -136,6 +136,15 @@ public partial class @Car: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Orbit"",
+                    ""type"": ""Value"",
+                    ""id"": ""9b672c15-942f-4ea8-978a-cb9afa3883bf"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -325,6 +334,17 @@ public partial class @Car: IInputActionCollection2, IDisposable
                     ""action"": ""Nitro"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f21cfa0-fae3-4f15-8511-69f1ff003fb1"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardP1;KeyboardP2"",
+                    ""action"": ""Orbit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -349,6 +369,7 @@ public partial class @Car: IInputActionCollection2, IDisposable
         m_carMap_Brake = m_carMap.FindAction("Brake", throwIfNotFound: true);
         m_carMap_Handbrake = m_carMap.FindAction("Handbrake", throwIfNotFound: true);
         m_carMap_Nitro = m_carMap.FindAction("Nitro", throwIfNotFound: true);
+        m_carMap_Orbit = m_carMap.FindAction("Orbit", throwIfNotFound: true);
     }
 
     ~@Car()
@@ -434,6 +455,7 @@ public partial class @Car: IInputActionCollection2, IDisposable
     private readonly InputAction m_carMap_Brake;
     private readonly InputAction m_carMap_Handbrake;
     private readonly InputAction m_carMap_Nitro;
+    private readonly InputAction m_carMap_Orbit;
     /// <summary>
     /// Provides access to input actions defined in input action map "carMap".
     /// </summary>
@@ -465,6 +487,10 @@ public partial class @Car: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "carMap/Nitro".
         /// </summary>
         public InputAction @Nitro => m_Wrapper.m_carMap_Nitro;
+        /// <summary>
+        /// Provides access to the underlying input action "carMap/Orbit".
+        /// </summary>
+        public InputAction @Orbit => m_Wrapper.m_carMap_Orbit;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -506,6 +532,9 @@ public partial class @Car: IInputActionCollection2, IDisposable
             @Nitro.started += instance.OnNitro;
             @Nitro.performed += instance.OnNitro;
             @Nitro.canceled += instance.OnNitro;
+            @Orbit.started += instance.OnOrbit;
+            @Orbit.performed += instance.OnOrbit;
+            @Orbit.canceled += instance.OnOrbit;
         }
 
         /// <summary>
@@ -532,6 +561,9 @@ public partial class @Car: IInputActionCollection2, IDisposable
             @Nitro.started -= instance.OnNitro;
             @Nitro.performed -= instance.OnNitro;
             @Nitro.canceled -= instance.OnNitro;
+            @Orbit.started -= instance.OnOrbit;
+            @Orbit.performed -= instance.OnOrbit;
+            @Orbit.canceled -= instance.OnOrbit;
         }
 
         /// <summary>
@@ -633,5 +665,12 @@ public partial class @Car: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnNitro(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Orbit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOrbit(InputAction.CallbackContext context);
     }
 }
