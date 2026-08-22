@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebd7f68e98e5b646b186505949e6553, type: 3}
+  m_Name: BoulDerby
+  m_EditorClassIdentifier: Assembly-CSharp::MapDataSO
+  mapName: Chaperio
+  previewImage: {fileID: 21300000, guid: c5b723b6dd45d984c979b13eeaf3e04e, type: 3}
+  sceneName: map_bouldDemolition
+  compatibleModes:
+  - {fileID: 11400000, guid: 7487775e1f0e88a45aa21f5d1511cd7d, type: 2}
+  - {fileID: 11400000, guid: 939a414259d5a7044aa2516577cb7583, type: 2}
+  postProcessProfile: {fileID: 11400000, guid: 0fe8ede5f180537408b91fb73002c236, type: 2}
+  skyboxMaterial: {fileID: 2100000, guid: c494c335823f54b52b2e87e1b7a63a23, type: 2}
+  directionalLightRotation: {x: 50, y: -30, z: 0}
+  directionalLightColor: {r: 0.57254905, g: 0.6784314, b: 1, a: 1}
+  directionalLightIntensity: 1

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4e125d5f9457d4b99617a6a055c22c, type: 3}
+  m_Name: Wheel_FordoGT
+  m_EditorClassIdentifier: Assembly-CSharp::WheelVisualSO
+  wheelName: Pizza
+  previewIcon: {fileID: 21300000, guid: a53d77e56a019ec4697697dfa902331a, type: 3}
+  wheelMesh: {fileID: 4131044161810118740, guid: 4ad34f0e2d1ffed47999dac650a229e3, type: 3}
+  wheelMaterials:
+  - {fileID: 2100000, guid: 8e7034907eae8554f81dcd07812f8809, type: 2}
+  - {fileID: 2100000, guid: c2fea3c1c20e8c34facfcc691921effc, type: 2}
+  - {fileID: 2100000, guid: 0aca87e6313e56e4e81669d3c364ae2f, type: 2}
+  nativeRadius: 0.32
+  unlockRewardId: 

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24bea7e855f5a00449ff72f1f0497037, type: 3}
+  m_Name: Fresnel_CartoonShader
+  m_EditorClassIdentifier: Assembly-CSharp::CarShaderVariantSO
+  variantName: Fresnel
+  previewIcon: {fileID: 597625859, guid: 5a0ce957d39296044a194de197a188b5, type: 3}
+  unlockRewardId: 
+  shader: {fileID: -6465566751694194690, guid: 72d42568393f33e4e88bc9483c846d3a, type: 3}
+  smoothness: 0.3
+  metallic: 0.4
+  shades: 0.42
+  cellDensity: 0
+  minValue: 0.1
+  maxValue: 1
+  fresnelColor: {r: 0.53443146, g: 0, b: 1, a: 1}
+  fresnelPower: 0.8
+  fresnelStrength: 5
+  fresnelStart: 0.75
+  fresnelEnd: 0.9
+  emissionIntensity: 0

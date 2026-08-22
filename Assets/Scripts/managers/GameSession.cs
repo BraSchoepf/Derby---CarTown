@@ -1,0 +1,42 @@
+﻿using UnityEngine;
+
+public enum GameMode { SinglePlayer, MultiplayerSplitScreen }
+
+public class GameSession : MonoBehaviour
+{
+    public static GameSession Instance;
+
+    public GameMode selectedMode = GameMode.SinglePlayer;
+    public CarStatsSO player1Car;
+    public CarStatsSO player2Car; // null si es single player
+    public string selectedMapSceneName;
+    public MapDataSO chosenMap;
+
+    public GameModeSO chosenGameMode;
+    public TeamId player1Team;
+    public TeamId player2Team;
+    public int teamSize = 1;
+
+    public CarShaderVariantSO player1ShaderVariant;
+    public CarShaderVariantSO player2ShaderVariant;
+
+    public Color player1Color = Color.white;
+    public Color player2Color = Color.white;
+
+    public WheelVisualSO player1WheelVisual;
+    public WheelVisualSO player2WheelVisual;
+
+
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning("GameSession duplicado detectado, destruyendo este y conservando el existente");
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+}

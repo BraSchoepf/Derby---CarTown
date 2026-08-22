@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4e125d5f9457d4b99617a6a055c22c, type: 3}
+  m_Name: Wheel_Caramelo
+  m_EditorClassIdentifier: Assembly-CSharp::WheelVisualSO
+  wheelName: Caramelo
+  previewIcon: {fileID: 21300000, guid: 5be68bc306cb83b4e9f39a9c3873aa18, type: 3}
+  wheelMesh: {fileID: 7689442406973315640, guid: cd82c89c383229d428906c31303f7fd6, type: 3}
+  wheelMaterials:
+  - {fileID: 2100000, guid: 4665a911ece315c4c97acf9bbe7dedd1, type: 2}
+  - {fileID: 2100000, guid: fbdb6c32721f11740a2f623b7dd5b604, type: 2}
+  nativeRadius: 0.32
+  unlockRewardId: 

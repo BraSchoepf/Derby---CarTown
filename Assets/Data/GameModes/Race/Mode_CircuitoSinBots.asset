@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90af32614ba9c044b641f69db94162d, type: 3}
+  m_Name: Mode_CircuitoSinBots
+  m_EditorClassIdentifier: Assembly-CSharp::GameModeSO
+  modeName: Circuito
+  icon: {fileID: 21300000, guid: 17aeab3500679514cbee1404452fdaa9, type: 3}
+  category: 0
+  drivingProfile: {fileID: 11400000, guid: 3aee3d47997ba8541b7347ed4eab27aa, type: 2}
+  enableDamage: 0
+  requiresCheckpoints: 1
+  lapsDefault: 3
+  usesBombMechanic: 0
+  supportsTeams: 0
+  teamSizeOptions: 
+  allowBots: 1
+  maxBots: 0
+  enableEdgeDetection: 0
+  isDriftScoringMode: 0
+  hasBadge: 0
+  badgeSprite: {fileID: 0}
+  badgeText: 

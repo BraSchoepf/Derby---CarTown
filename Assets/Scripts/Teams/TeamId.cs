@@ -1,0 +1,1 @@
+public enum TeamId { TeamA, TeamB }

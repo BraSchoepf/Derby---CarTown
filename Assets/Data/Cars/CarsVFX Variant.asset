@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b38b629236bb9284f905bddd6f86a79d, type: 3}
+  m_Name: CarsVFX Variant
+  m_EditorClassIdentifier: Assembly-CSharp::CarVFXDataSO
+  lateralSlipThreshold: 0.3
+  brakeSlipThreshold: 0.35
+  nitroVFXPrefab: {fileID: 7533780292346962274, guid: 5acd5a7f77d505040a30621e8fb0b3f4, type: 3}
+  nitroVFXScale: 1

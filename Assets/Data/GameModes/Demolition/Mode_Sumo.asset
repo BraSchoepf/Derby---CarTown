@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90af32614ba9c044b641f69db94162d, type: 3}
+  m_Name: Mode_Sumo
+  m_EditorClassIdentifier: Assembly-CSharp::GameModeSO
+  modeName: Sumo
+  icon: {fileID: 21300000, guid: a5c47da9216c82249904eecb88223c92, type: 3}
+  category: 1
+  drivingProfile: {fileID: 0}
+  enableDamage: 0
+  requiresCheckpoints: 0
+  lapsDefault: 0
+  usesBombMechanic: 0
+  supportsTeams: 1
+  teamSizeOptions: 0200000003000000
+  allowBots: 1
+  maxBots: 0
+  enableEdgeDetection: 1
+  isDriftScoringMode: 0
+  hasBadge: 0
+  badgeSprite: {fileID: 0}
+  badgeText: 
+  isLocked: 0
+  enableKnockbackFeedback: 1
+  knockbackMultiplierOverride: 5
+  maxKnockbackForceOverride: 17

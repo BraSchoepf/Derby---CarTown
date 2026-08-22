@@ -1,0 +1,119 @@
+# ==========================================
+# Unity
+# ==========================================
+
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emory[Cc]aptures/
+/[Rr]ecordings/
+
+# ==========================================
+# Visual Studio / IDE
+# ==========================================
+
+.vs/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+.idea/
+.gradle/
+
+# ==========================================
+# Unity generated project files
+# ==========================================
+
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.tmp
+*.pidb.meta
+
+# ==========================================
+# Debug / crash files
+# ==========================================
+
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.log
+sysinfo.txt
+mono_crash.*
+
+# ==========================================
+# Builds
+# ==========================================
+
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# ==========================================
+# Blender
+# ==========================================
+
+*.blend1
+*.blend1.meta
+
+# ==========================================
+# OS files
+# ==========================================
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ==========================================
+# Unity generated / temporary assets
+# ==========================================
+
+ExportedObj/
+.consulo/
+
+# ==========================================
+# Addressables
+# ==========================================
+
+/ServerData/
+/[Aa]ssets/StreamingAssets/aa*
+/[Aa]ssets/AddressableAssetsData/link.xml*
+/[Aa]ssets/Addressables_Temp*
+/[Aa]ssets/AddressableAssetsData/*/*.bin*
+
+# ==========================================
+# Visual Scripting
+# ==========================================
+
+/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db
+/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db.meta
+/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers
+/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
+
+# ==========================================
+# Unity Test Runner
+# ==========================================
+
+InitTestScene*.unity*
+
+# ==========================================
+# Scene dependency cache
+# ==========================================
+
+/[Aa]ssets/[Ss]ceneDependencyCache*

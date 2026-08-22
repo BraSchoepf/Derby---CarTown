@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36f548fee99d5d4ea557e64fc22c30c, type: 3}
+  m_Name: Score_Drift_Puerto
+  m_EditorClassIdentifier: Assembly-CSharp::MissionSO
+  missionId: 4
+  missionName: Puerto drift
+  description: Consigue 60.000 puntos de derrape en el Puerto
+  gameMode: {fileID: 11400000, guid: a870a34c8c530f748b3321ab48e741f1, type: 2}
+  map: {fileID: 11400000, guid: 43de5ab7c43c1db49bb275a261129d01, type: 2}
+  objectiveType: 0
+  targetValue: 60000
+  rewards:
+  - {fileID: 11400000, guid: fc935590e5ceac24383b8d11a88e413d, type: 2}
